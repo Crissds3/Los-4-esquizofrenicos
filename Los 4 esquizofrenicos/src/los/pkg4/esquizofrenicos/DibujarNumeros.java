@@ -60,6 +60,34 @@ public class DibujarNumeros {
             gc.setStroke(Color.RED);
             gc.strokeLine(coordenadaCinco[i], coordenadaCinco[i + 1], coordenadaCinco[i + 2], coordenadaCinco[i + 3]);
         }
+        Numeros seis = new Numeros();
+        double[] coordenadaSeis = seis.seis(400, 100);
+
+        for (int i = 0; i < coordenadaSeis.length; i = i + 4) {
+            gc.setStroke(Color.RED);
+            gc.strokeLine(coordenadaSeis[i], coordenadaSeis[i + 1], coordenadaSeis[i + 2], coordenadaSeis[i + 3]);
+        }
+        Numeros siete = new Numeros();
+        double[] coordenadaSiete = siete.siete(450, 100);
+
+        for (int i = 0; i < coordenadaSiete.length; i = i + 4) {
+            gc.setStroke(Color.RED);
+            gc.strokeLine(coordenadaSiete[i], coordenadaSiete[i + 1], coordenadaSiete[i + 2], coordenadaSiete[i + 3]);
+        }
+        Numeros ocho = new Numeros();
+        double[] coordenadaOcho = ocho.ocho(500, 100);
+
+        for (int i = 0; i < coordenadaOcho.length; i = i + 4) {
+            gc.setStroke(Color.RED);
+            gc.strokeLine(coordenadaOcho[i], coordenadaOcho[i + 1], coordenadaOcho[i + 2], coordenadaOcho[i + 3]);
+        }
+        Numeros nueve = new Numeros();
+        double[] coordenadaNueve = nueve.nueve(550, 100);
+
+        for (int i = 0; i < coordenadaNueve.length; i = i + 4) {
+            gc.setStroke(Color.RED);
+            gc.strokeLine(coordenadaNueve[i], coordenadaNueve[i + 1], coordenadaNueve[i + 2], coordenadaNueve[i + 3]);
+        }
 
     }
 }
