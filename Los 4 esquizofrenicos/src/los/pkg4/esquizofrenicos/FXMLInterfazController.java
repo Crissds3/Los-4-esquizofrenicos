@@ -5,6 +5,7 @@
  */
 package los.pkg4.esquizofrenicos;
 
+import static java.lang.System.gc;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
@@ -12,6 +13,8 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -23,9 +26,19 @@ public class FXMLInterfazController implements Initializable {
 
     @FXML
     private AnchorPane myAnchorPane;
-
+    
+    @FXML
+    protected GraphicsContext gc;
+    
+    @FXML
+    protected Canvas lienzo;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        gc = lienzo.getGraphicsContext2D();
+        DibujarNumeros dibujar = new DibujarNumeros();
+        dibujar.dibujar(gc);
         Rectangulo[] r = new Rectangulo[16];
         Rectangle[] rec = new Rectangle[16];
         Label[] numeros = new Label[16]; 
@@ -33,7 +46,7 @@ public class FXMLInterfazController implements Initializable {
         //Crea los label
         for (int i = 0; i < 16; i++) {
             numeros[i] = new Label();
-            numeros[i].setTranslateY(700);
+            numeros[i].setTranslateY(715);
             numeros[i].setTranslateX(360+i*80);
             numeros[i].setLayoutX(50);
             numeros[i].setLayoutY(50);
@@ -47,7 +60,7 @@ public class FXMLInterfazController implements Initializable {
         for (int i = 0; i < 16; i++) {
            int numero = (int)(Math.random()*(99+1));
             r[i] = new Rectangulo(numero,60, 60, Color.GREEN);
-            r[i].r.setTranslateY(676);
+            r[i].r.setTranslateY(689);
             r[i].r.setTranslateX(340+i*80);
             rec[i] = new Rectangle();
             rec[i] = r[i].r;
@@ -56,12 +69,13 @@ public class FXMLInterfazController implements Initializable {
         StackPane pane = new StackPane(rec);
         Group root = new Group(pane);
         
+        
         myAnchorPane.getChildren().add(root);
         myAnchorPane.getChildren().add(root2);
-        
+
         sort(r,numeros);
     }    
- 
+   
     void sort(Rectangulo arr[], Label numeros[]){
         float vel = 1f;
         int n = arr.length;
@@ -103,7 +117,6 @@ public class FXMLInterfazController implements Initializable {
                     sequentialTransition2.getChildren().add(tt2Up);
                     sequentialTransition2.getChildren().add(tt2Left);
                     sequentialTransition2.getChildren().add(tt2Down);
-                    
                     
                     //Movimiento numeros label
                     TranslateTransition ttNUp = new TranslateTransition(Duration.seconds(vel), labelMover);
