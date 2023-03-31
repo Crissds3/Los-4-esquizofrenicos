@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" fx:id="myAnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="los.pkg4.esquizofrenicos.FXMLInterfazController">
    <children>
-      <ImageView fitHeight="1020.0" fitWidth="1980.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1020.0" fitWidth="1980.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/fondoprueba.png" />
          </image>
       </ImageView>
+      <Canvas fx:id="lienzo" height="211.0" layoutX="229.0" layoutY="213.0" width="939.0" />
    </children>
 </AnchorPane>
