@@ -43,7 +43,7 @@ public class DibujarNumeros {
                 break;
         }
         for (int i = 0; i < coordenada.length; i = i + 4) {
-            gc.setStroke(Color.RED);
+            gc.setStroke(Color.WHITE);
             gc.strokeLine(coordenada[i], coordenada[i + 1], coordenada[i + 2], coordenada[i + 3]);
         }
     }
