@@ -38,7 +38,7 @@ public class FXMLInterfazController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         gc = lienzo.getGraphicsContext2D();
         DibujarNumeros dibujar = new DibujarNumeros();
-        dibujar.dibujar(gc);
+        dibujar.dibujar(gc, 1,10,50);
         Rectangulo[] r = new Rectangulo[16];
         Rectangle[] rec = new Rectangle[16];
         Label[] numeros = new Label[16]; 
