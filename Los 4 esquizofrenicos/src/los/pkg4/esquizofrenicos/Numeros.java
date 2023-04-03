@@ -73,7 +73,7 @@ public class Numeros {
         };
         return coordenada;
     }
-    protected double[] siete(double x, double y) {
+protected double[] siete(double x, double y) {
         //Aqui van las coordenadas de cada numero
         double[] coordenada = {x - 10, y - 40, x, y - 40,
             x, y - 40, x, y - 10
@@ -99,6 +99,5 @@ public class Numeros {
         };
         return coordenada;
     }
-    
 
 }
