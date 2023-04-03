@@ -6,6 +6,7 @@
 package los.pkg4.esquizofrenicos;
 
 import static java.lang.System.gc;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.SequentialTransition;
@@ -33,12 +34,35 @@ public class FXMLInterfazController implements Initializable {
     @FXML
     protected Canvas lienzo;
     
+        @FXML
+    protected GraphicsContext dib;
     
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         gc = lienzo.getGraphicsContext2D();
+        dib= lienzo.getGraphicsContext2D();
+        
+    
+        
+        
+
+        
         DibujarNumeros dibujar = new DibujarNumeros();
+        DibujarGrua dibujar2 =  new DibujarGrua();
+        
+               
         dibujar.dibujar(gc);
+           dibujar2.dibujar2(dib);
+        
+        
+        
+       
+         
+
+        
+        
         Rectangulo[] r = new Rectangulo[16];
         Rectangle[] rec = new Rectangle[16];
         Label[] numeros = new Label[16]; 

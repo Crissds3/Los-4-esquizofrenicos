@@ -8,6 +8,7 @@ public class Numeros {
             x, y - 40, x, y - 10,
             x, y - 10, x - 10, y - 10,
             x - 10, y - 10, x - 10, y - 40
+         
         };
         return coordenada;
     }

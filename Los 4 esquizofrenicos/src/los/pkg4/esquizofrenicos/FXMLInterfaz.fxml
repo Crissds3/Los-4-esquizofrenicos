@@ -5,13 +5,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="myAnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="los.pkg4.esquizofrenicos.FXMLInterfazController">
+<AnchorPane id="AnchorPane" fx:id="myAnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="los.pkg4.esquizofrenicos.FXMLInterfazController">
    <children>
       <ImageView fitHeight="1020.0" fitWidth="1980.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/fondoprueba.png" />
          </image>
       </ImageView>
-      <Canvas fx:id="lienzo" height="211.0" layoutX="229.0" layoutY="213.0" width="939.0" />
+      <Canvas fx:id="lienzo" height="357.0" layoutX="196.0" layoutY="163.0" width="1584.0" />
    </children>
 </AnchorPane>
