@@ -9,7 +9,7 @@ public class DibujarNumeros {
         Numeros numDibujar = new Numeros();
         double[] coordenada = null;
         switch(num){
-                    case 0:
+            case 0:
                 coordenada = numDibujar.cero(x, y);
                 break;
             case 1:
@@ -44,6 +44,7 @@ public class DibujarNumeros {
         }
         for (int i = 0; i < coordenada.length; i = i + 4) {
             gc.setStroke(Color.WHITE);
+            gc.setLineWidth(4);
             gc.strokeLine(coordenada[i], coordenada[i + 1], coordenada[i + 2], coordenada[i + 3]);
         }
     }

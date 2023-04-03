@@ -41,9 +41,9 @@ public class FXMLInterfazController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         
-         dib= lienzo.getGraphicsContext2D();
-         DibujarGrua dibujar2 =  new DibujarGrua();
-         dibujar2.dibujar2(dib);
+        dib= lienzo.getGraphicsContext2D();
+        DibujarGrua dibujar2 =  new DibujarGrua();
+        dibujar2.dibujar2(dib);
         Rectangulo[] r = new Rectangulo[16];
         
         // Crea cuadrados
