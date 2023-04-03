@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,5 +12,6 @@
             <Image url="@img/fondoprueba.png" />
          </image>
       </ImageView>
+      <Canvas fx:id="lienzo" height="357.0" layoutX="196.0" layoutY="163.0" width="1584.0" />
    </children>
 </AnchorPane>
