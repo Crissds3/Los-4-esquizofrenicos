@@ -26,10 +26,24 @@ public class FXMLInterfazController implements Initializable {
 
     @FXML
     private AnchorPane myAnchorPane;
+ 
     
+    @FXML
+    protected GraphicsContext dib;
+    
+    @FXML
+    protected Canvas lienzo;
+    
+
+    
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        
+         dib= lienzo.getGraphicsContext2D();
+         DibujarGrua dibujar2 =  new DibujarGrua();
+         dibujar2.dibujar2(dib);
         Rectangulo[] r = new Rectangulo[16];
         
         // Crea cuadrados
