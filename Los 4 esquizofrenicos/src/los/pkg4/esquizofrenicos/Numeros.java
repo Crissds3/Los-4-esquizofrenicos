@@ -67,8 +67,35 @@ public class Numeros {
         //Aqui van las coordenadas de cada numero
         double[] coordenada = {x - 10, y - 40, x, y - 40,
             x - 10, y - 40, x - 10, y - 10,
-            x, y - 10, x - 10, y - 10,
-            x - 10, y - 10, x - 10, y - 40
+            x - 10, y - 10, x, y - 10,
+            x, y - 10, x, y - 25,
+            x, y - 25, x - 10, y - 25
+        };
+        return coordenada;
+    }
+protected double[] siete(double x, double y) {
+        //Aqui van las coordenadas de cada numero
+        double[] coordenada = {x - 10, y - 40, x, y - 40,
+            x, y - 40, x, y - 10
+        };
+        return coordenada;
+    }
+    protected double[] ocho(double x, double y) {
+        //Aqui van las coordenadas de cada numero
+        double[] coordenada = {x - 10, y - 40, x, y - 40,
+            x - 10, y - 40, x - 10, y - 10,
+            x - 10, y - 10, x, y - 10,
+            x, y - 10, x, y - 40,
+            x - 10, y - 25, x, y - 25
+        };
+        return coordenada;
+    }
+    protected double[] nueve(double x, double y) {
+        //Aqui van las coordenadas de cada numero
+        double[] coordenada = {x - 10, y - 40, x, y - 40,
+            x - 10, y - 40, x - 10, y - 25,
+            x - 10, y - 25, x, y - 25,
+            x, y - 40, x, y - 10,
         };
         return coordenada;
     }
