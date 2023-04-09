@@ -8,7 +8,10 @@ package los.pkg4.esquizofrenicos;
 import static java.lang.System.gc;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,15 +38,17 @@ public class FXMLInterfazController implements Initializable {
     protected Canvas lienzo;
     
 
-    
+    private Canvas canvasGrua;
+    private Canvas canvasGrua2;
  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         
         dib= lienzo.getGraphicsContext2D();
+        DibujarGrua dibujar =  new DibujarGrua();
         DibujarGrua dibujar2 =  new DibujarGrua();
-        dibujar2.dibujar2(dib);
+ 
         Rectangulo[] r = new Rectangulo[16];
         
         // Crea cuadrados
@@ -51,16 +56,46 @@ public class FXMLInterfazController implements Initializable {
         for (int i = 0; i < 16; i++) {
            int numero = (int)(Math.random()*(99+1));
             r[i] = new Rectangulo(numero,60, 60, Color.GREEN);
-            r[i].r.setTranslateY(689);
+            r[i].r.setTranslateY(595);
             r[i].r.setTranslateX(340+i*80);
             pane.getChildren().add(r[i].r);
 
         }    
+        
+        canvasGrua = new Canvas(150, 250);
+        GraphicsContext gc = canvasGrua.getGraphicsContext2D();
+        canvasGrua.setTranslateX(700);
+        canvasGrua.setTranslateY(164);
+        dibujar.dibujar(gc,25,0);
+        canvasGrua2 = new Canvas(150, 250);
+        GraphicsContext gc2 = canvasGrua2.getGraphicsContext2D();
+        canvasGrua2.setTranslateX(900);
+        canvasGrua2.setTranslateY(164);
+        dibujar2.dibujar(gc2,25,0);
+        pane.getChildren().add(canvasGrua);
+        pane.getChildren().add(canvasGrua2);
 
         Group root = new Group(pane);
         
+         dibujar.dibujarCuerda(975,215);
+         KeyValue keyValue = new KeyValue(dibujar.cuerda.endYProperty(), 400);
+         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+         Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(keyFrame);
+       
         
+        dibujar2.dibujarCuerda(775,215);
+         KeyValue keyValue2 = new KeyValue(dibujar2.cuerda.endYProperty(), 400);
+         KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), keyValue2);
+        timeline.getKeyFrames().add(keyFrame2);
+        timeline.play();
+        
+       
         myAnchorPane.getChildren().add(root);
+ 
+        myAnchorPane.getChildren().add(dibujar.cuerda);
+         myAnchorPane.getChildren().add(dibujar2.cuerda);
+
 
         insertSort(r);
     }    
