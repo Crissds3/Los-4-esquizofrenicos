@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package los.pkg4.esquizofrenicos;
 
 import static java.lang.System.gc;
@@ -10,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -42,11 +38,18 @@ public class FXMLInterfazController implements Initializable {
 
     private Canvas canvasGruaBase;
     private Canvas canvasGruaBase2;
- 
+
     private Canvas canvasGruaIman;
     private Canvas canvasGruaIman2;
+    
     SequentialTransition sequentialTransition;
     SequentialTransition sequentialTransition2;
+    
+    ParallelTransition pt;
+    ParallelTransition pt2;
+    
+    DibujarGrua dibujar;
+    DibujarGrua dibujar2;
 
     @FXML
     private Button pausa;
@@ -77,8 +80,8 @@ public class FXMLInterfazController implements Initializable {
         });
 
         dib = lienzo.getGraphicsContext2D();
-        DibujarGrua dibujar = new DibujarGrua();
-        DibujarGrua dibujar2 = new DibujarGrua();
+        dibujar = new DibujarGrua();
+        dibujar2 = new DibujarGrua();
 
         Rectangulo[] r = new Rectangulo[16];
 
@@ -97,7 +100,7 @@ public class FXMLInterfazController implements Initializable {
         canvasGruaIman = new Canvas(150, 60);
         GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();
         GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
-        
+
         canvasGruaBase.setTranslateX(700);
         canvasGruaBase.setTranslateY(158);
         canvasGruaIman.setTranslateX(700);
@@ -106,7 +109,7 @@ public class FXMLInterfazController implements Initializable {
         dibujar.dibujarIman(gcIman, 75, 0);
         //gcIman.setFill(Color.RED);
         //gcIman.fillRect(0, 0, 150, 60);
-        
+
         canvasGruaBase2 = new Canvas(150, 50);
         canvasGruaIman2 = new Canvas(150, 60);
         GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
@@ -119,35 +122,30 @@ public class FXMLInterfazController implements Initializable {
         dibujar2.dibujarIman(gcIman2, 75, 0);
         //gcIman2.setFill(Color.RED);
         //gcIman2.fillRect(0, 0, 150, 60);
-        
+
         pane.getChildren().add(canvasGruaBase);
         pane.getChildren().add(canvasGruaBase2);
         pane.getChildren().add(canvasGruaIman);
         pane.getChildren().add(canvasGruaIman2);
-        Group root = new Group(pane);
-        
-           
 
-        
-         dibujar.dibujarCuerda(775,215);
-         KeyValue keyValue = new KeyValue(dibujar.cuerda.endYProperty(), 400);
-         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
-         Timeline timeline = new Timeline();
+        Group root = new Group(pane);
+
+        dibujar.dibujarCuerda(775, 215);
+        KeyValue keyValue = new KeyValue(dibujar.cuerda.endYProperty(), 400);
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+        Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(keyFrame);
-       
-        
-        dibujar2.dibujarCuerda(975,215);
-         KeyValue keyValue2 = new KeyValue(dibujar2.cuerda.endYProperty(), 400);
-         KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), keyValue2);
+
+        dibujar2.dibujarCuerda(975, 215);
+        KeyValue keyValue2 = new KeyValue(dibujar2.cuerda.endYProperty(), 400);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), keyValue2);
         timeline.getKeyFrames().add(keyFrame2);
         timeline.play();
-        
-       
-        myAnchorPane.getChildren().add(root);
- 
-        myAnchorPane.getChildren().add(dibujar.cuerda);
-         myAnchorPane.getChildren().add(dibujar2.cuerda);
 
+        root.getChildren().add(velocidad);
+        myAnchorPane.getChildren().add(root);
+        myAnchorPane.getChildren().add(dibujar.cuerda);
+        myAnchorPane.getChildren().add(dibujar2.cuerda);
 
         insertSort(r);
         sequentialTransition.play();
@@ -160,17 +158,54 @@ public class FXMLInterfazController implements Initializable {
         Rectangulo aux = new Rectangulo();
         sequentialTransition = new SequentialTransition();
         sequentialTransition2 = new SequentialTransition();
-
+        TranslateTransition ttGruaBase = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
+        TranslateTransition ttGruaIman = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
+        TranslateTransition ttGruaBase2 = new TranslateTransition(Duration.seconds(vel), canvasGruaBase2);
+        TranslateTransition ttGruaIman2 = new TranslateTransition(Duration.seconds(vel), canvasGruaIman2);
+        TranslateTransition ttCuerda = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
+        TranslateTransition ttCuerda2 = new TranslateTransition(Duration.seconds(vel), dibujar2.cuerda);
+        
+        ttGruaBase.setToX(arr[0].r.getTranslateX());
+        ttGruaBase2.setToX(arr[1].r.getTranslateX());
+        ttGruaIman.setToX(arr[0].r.getTranslateX());
+        ttGruaIman2.setToX(arr[1].r.getTranslateX());
+        ttCuerda.setToX(arr[0].r.getTranslateX()-700);
+        ttCuerda2.setToX(arr[1].r.getTranslateX()-900);
+        
+        pt = new ParallelTransition(ttGruaBase, ttGruaIman,ttCuerda);
+        pt2 = new ParallelTransition(ttGruaBase2, ttGruaIman2,ttCuerda2);
+        
+        sequentialTransition.getChildren().add(pt);
+        sequentialTransition2.getChildren().add(pt2);
+        
+        
         //Insert Sort
         for (int i = 1; i < n; i++) {
             int key = arr[i].valor;
             int j = i - 1;
+            
 
             while (j >= 0 && arr[j].valor > key) {
                 if (arr[j].valor > key) {
                     Canvas recMover = arr[j].r;
                     Canvas recMover2 = arr[j + 1].r;
-
+                    TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
+                    TranslateTransition posicionIman = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
+                    TranslateTransition posicionBase2 = new TranslateTransition(Duration.seconds(vel), canvasGruaBase2);
+                    TranslateTransition posicionIman2 = new TranslateTransition(Duration.seconds(vel), canvasGruaIman2);
+                    TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);   
+                    TranslateTransition posicionCuerda2 = new TranslateTransition(Duration.seconds(vel), dibujar2.cuerda);   
+                    
+                    posicionBase.setToX(340+j*80);
+                    posicionIman.setToX(340+j*80);
+                    posicionCuerda.setToX(340+j*80 -700);
+                    posicionBase2.setToX(340+(j+1)*80);
+                    posicionIman2.setToX(340+(j+1)*80);
+                    posicionCuerda2.setToX(340+(j+1)*80 - 900);
+                    pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
+                    pt2 = new ParallelTransition(posicionBase2,posicionIman2,posicionCuerda2);
+                    sequentialTransition.getChildren().add(pt);
+                    sequentialTransition2.getChildren().add(pt2);
                     //Movimiento cajas
                     moverCajaIzquierda(recMover);
                     moverCajaDerecha(recMover2);
