@@ -35,8 +35,11 @@ public class FXMLInterfazController implements Initializable {
     @FXML
     protected Canvas lienzo;
 
-    private Canvas canvasGrua;
-    private Canvas canvasGrua2;
+    private Canvas canvasGruaBase;
+    private Canvas canvasGruaBase2;
+ 
+    private Canvas canvasGruaIman;
+    private Canvas canvasGruaIman2;
     SequentialTransition sequentialTransition;
     SequentialTransition sequentialTransition2;
 
@@ -79,54 +82,67 @@ public class FXMLInterfazController implements Initializable {
         for (int i = 0; i < 16; i++) {
             int numero = (int) (Math.random() * (99 + 1));
             r[i] = new Rectangulo(numero, 60, 60, Color.GREEN);
-            r[i].r.setTranslateY(595);
+            r[i].r.setTranslateY(689);
             r[i].r.setTranslateX(340 + i * 80);
             pane.getChildren().add(r[i].r);
 
         }
 
-        canvasGrua = new Canvas(150, 250);
-        GraphicsContext gc = canvasGrua.getGraphicsContext2D();
-        canvasGrua.setTranslateX(700);
-        canvasGrua.setTranslateY(164);
-        dibujar.dibujar(gc, 25, 0);
-        canvasGrua2 = new Canvas(150, 250);
-        GraphicsContext gc2 = canvasGrua2.getGraphicsContext2D();
-        canvasGrua2.setTranslateX(900);
-        canvasGrua2.setTranslateY(164);
-        dibujar2.dibujar(gc2, 25, 0);
-        pane.getChildren().add(canvasGrua);
-        pane.getChildren().add(canvasGrua2);
-
+        canvasGruaBase = new Canvas(150, 50);
+        canvasGruaIman = new Canvas(150, 60);
+        GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();
+        GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
+        
+        canvasGruaBase.setTranslateX(700);
+        canvasGruaBase.setTranslateY(158);
+        canvasGruaIman.setTranslateX(700);
+        canvasGruaIman.setTranslateY(310);
+        dibujar.dibujarBase(gcBase, 25, 0);
+        dibujar.dibujarIman(gcIman, 75, 0);
+        //gcIman.setFill(Color.RED);
+        //gcIman.fillRect(0, 0, 150, 60);
+        
+        canvasGruaBase2 = new Canvas(150, 50);
+        canvasGruaIman2 = new Canvas(150, 60);
+        GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
+        GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
+        canvasGruaBase2.setTranslateX(900);
+        canvasGruaBase2.setTranslateY(158);
+        canvasGruaIman2.setTranslateX(900);
+        canvasGruaIman2.setTranslateY(310);
+        dibujar2.dibujarBase(gcBase2, 25, 0);
+        dibujar2.dibujarIman(gcIman2, 75, 0);
+        //gcIman2.setFill(Color.RED);
+        //gcIman2.fillRect(0, 0, 150, 60);
+        
+        pane.getChildren().add(canvasGruaBase);
+        pane.getChildren().add(canvasGruaBase2);
+        pane.getChildren().add(canvasGruaIman);
+        pane.getChildren().add(canvasGruaIman2);
         Group root = new Group(pane);
+        
+           
 
-        dibujar.dibujarCuerda(975, 215);
-        KeyValue keyValue = new KeyValue(dibujar.cuerda.endYProperty(), 400);
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
-        Timeline timeline = new Timeline();
+        
+         dibujar.dibujarCuerda(775,215);
+         KeyValue keyValue = new KeyValue(dibujar.cuerda.endYProperty(), 400);
+         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(keyFrame);
-
-        dibujar2.dibujarCuerda(775, 215);
-        KeyValue keyValue2 = new KeyValue(dibujar2.cuerda.endYProperty(), 400);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), keyValue2);
+       
+        
+        dibujar2.dibujarCuerda(975,215);
+         KeyValue keyValue2 = new KeyValue(dibujar2.cuerda.endYProperty(), 400);
+         KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), keyValue2);
         timeline.getKeyFrames().add(keyFrame2);
         timeline.play();
-
+        
+       
         myAnchorPane.getChildren().add(root);
+ 
         myAnchorPane.getChildren().add(dibujar.cuerda);
-        myAnchorPane.getChildren().add(dibujar2.cuerda);
+         myAnchorPane.getChildren().add(dibujar2.cuerda);
 
-        Group botonPausa = new Group(pausa);
-        Group botonResume = new Group(res);
-        Group sliderVel = new Group(velocidad);
-        Group botonReset = new Group(resetear);
-        Group botonAnterior = new Group(anterior);
-
-        myAnchorPane.getChildren().add(botonPausa);
-        myAnchorPane.getChildren().add(botonResume);
-        myAnchorPane.getChildren().add(botonReset);
-        myAnchorPane.getChildren().add(botonAnterior);
-        myAnchorPane.getChildren().add(sliderVel);
 
         insertSort(r);
         sequentialTransition.play();
