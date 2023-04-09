@@ -1,10 +1,8 @@
-
 package los.pkg4.esquizofrenicos;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-
 
 public class DibujarGrua {
 
