@@ -2,8 +2,8 @@
 package los.pkg4.esquizofrenicos;
 
 public class Grua {
-
- 
+        
+  
    
      protected double[] base(double x, double y) {
 
@@ -23,13 +23,13 @@ public class Grua {
     }
      
       protected double[] cuerda(double x, double y) {
-
+   
         double[] coordenada = {
          x,y,x,y+100,
-                
-                
-
-        
+       
+            
+  
+ 
           
         };
         return coordenada;
