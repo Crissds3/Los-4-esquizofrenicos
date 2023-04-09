@@ -3,56 +3,67 @@ package los.pkg4.esquizofrenicos;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 
 public class DibujarGrua {
 
-    protected void dibujar2(GraphicsContext dib){
+     Line cuerda= new Line();
+    
+    public void dibujarCuerda(int x,int y){
+        
+          cuerda.setStartX(x);
+          cuerda.setStartY(y);
+          cuerda.setEndX(x);
+          cuerda.setEndY(y+95);
+          cuerda.setStrokeWidth(4);
+               
+    }
+    
+    protected void dibujar(GraphicsContext dib, int x, int y){
 
-        Grua grua = new Grua();
-        double[] coordenada = grua.base(600, 0);
 
-        for (int i = 0; i < coordenada.length; i = i + 4) {
+        //double[] coordenada = grua.base(600, 0);
+        double[] coordenadaBase = {
+            x,y ,x+100,y,
+            x,y,x,y+50,
+            x,y+50,x+100,y+50,
+            x+100,y+50,x+100,y 
+        };
+        for (int i = 0; i < coordenadaBase.length; i = i + 4) {
             dib.setStroke(Color.BLACK);
             dib.setLineWidth(4);
-            dib.strokeLine(coordenada[i], coordenada[i + 1], coordenada[i + 2], coordenada[i + 3]);  
+            dib.strokeLine(coordenadaBase[i], coordenadaBase[i + 1], coordenadaBase[i + 2], coordenadaBase[i + 3]);  
+        }
+          x=x+50;
+          y=y+150;
+        
+             double[] coordenadaIman = {
+         x-20,y,x+20,y,
+         x-20,y,x-30,y+30,
+         x-30,y+30,x-30,y+60,
+         x-30,y+60,x-20,y+60,
+         x-20,y+60,x-20,y+40,
+         x-20,y+40,x-15,y+30,
+         x-15,y+30,x+15,y+30,
+         x+15,y+30,x+20,y+40,
+         x+20,y+40,x+20,y+60,
+         x+20,y+60,x+30,y+60,
+         x+30,y+60,x+30,y+30,
+         x+30,y+30,x+22,y,
+        };
+      
+        for (int i = 0; i < coordenadaIman.length; i=i+4) {
+            dib.setStroke(Color.BLACK);
+            dib.setLineWidth(4);
+            dib.strokeLine(coordenadaIman[i], coordenadaIman[i+1], coordenadaIman[i+2], coordenadaIman[i+3]);
         }
 
-        coordenada = grua.cuerda(650, 50);
+       
 
-        for (int i = 0; i < coordenada.length; i= i + 4) {
-            dib.setStroke(Color.BLACK);
-            dib.setLineWidth(4);
-            dib.strokeLine(coordenada[i], coordenada[i+1], coordenada[i+2], coordenada[i+3]);
-        }
+  
 
-        coordenada = grua.iman(650, 150);
-        for (int i = 0; i < coordenada.length; i=i+4) {
-            dib.setStroke(Color.BLACK);
-            dib.setLineWidth(4);
-            dib.strokeLine(coordenada[i], coordenada[i+1], coordenada[i+2], coordenada[i+3]);
-        }
-
-        coordenada = grua.base(800, 0);
-        for (int i = 0; i < coordenada.length; i = i + 4) {
-            dib.setStroke(Color.BLACK);
-            dib.setLineWidth(4);
-            dib.strokeLine(coordenada[i], coordenada[i + 1], coordenada[i + 2], coordenada[i + 3]);
-        }
-
-        coordenada =grua.cuerda(850, 50);
-        for (int i = 0; i < coordenada.length; i= i + 4) {
-            dib.setStroke(Color.BLACK);
-            dib.setLineWidth(4);
-            dib.strokeLine(coordenada[i], coordenada[i+1], coordenada[i+2], coordenada[i+3]);
-        }
-
-        coordenada = grua.iman(850, 150);
-        for (int i = 0; i < coordenada.length; i=i+4) {
-            dib.setStroke(Color.BLACK);
-            dib.setLineWidth(4);
-            dib.strokeLine(coordenada[i], coordenada[i+1], coordenada[i+2], coordenada[i+3]);
-        }  
+    
         
     }
 }
