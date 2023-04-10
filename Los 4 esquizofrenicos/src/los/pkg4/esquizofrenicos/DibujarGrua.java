@@ -16,7 +16,6 @@ public class DibujarGrua {
     }
     
     
-    
     protected void dibujarBase(GraphicsContext dib, int x, int y){
 
         double[] coordenadaBase = {

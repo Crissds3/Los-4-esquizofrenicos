@@ -75,7 +75,7 @@ public class FXMLInterfazController implements Initializable {
             int numero = (int) (Math.random() * (99 + 1));
             r[i] = new Rectangulo(numero, 60, 60, Color.GREEN);
             r[i].r.setTranslateY(689);
-            r[i].r.setTranslateX(340 + i * 80);
+            r[i].r.setTranslateX(125 + i * 80);
             pane.getChildren().add(r[i].r);
         }
 
@@ -148,12 +148,12 @@ public class FXMLInterfazController implements Initializable {
                     TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);   
                     TranslateTransition posicionCuerda2 = new TranslateTransition(Duration.seconds(vel), dibujar2.cuerda);   
                     
-                    posicionBase.setToX(340+j*80);
-                    posicionIman.setToX(340+j*80);
-                    posicionCuerda.setToX(340+j*80 -700);
-                    posicionBase2.setToX(340+(j+1)*80);
-                    posicionIman2.setToX(340+(j+1)*80);
-                    posicionCuerda2.setToX(340+(j+1)*80 - 900);
+                    posicionBase.setToX(125+j*80);
+                    posicionIman.setToX(125+j*80);
+                    posicionCuerda.setToX(125+j*80 -700);
+                    posicionBase2.setToX(125+(j+1)*80);
+                    posicionIman2.setToX(125+(j+1)*80);
+                    posicionCuerda2.setToX(125+(j+1)*80 - 900);
                     pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
                     pt2 = new ParallelTransition(posicionBase2,posicionIman2,posicionCuerda2);
                     sequentialTransition.getChildren().add(pt);
