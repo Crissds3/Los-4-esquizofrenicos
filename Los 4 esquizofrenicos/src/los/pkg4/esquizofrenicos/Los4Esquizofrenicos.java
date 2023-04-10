@@ -1,4 +1,4 @@
-package los.pkg4.esquizofrenicos;
+ package los.pkg4.esquizofrenicos;
 
 import java.io.IOException;
 import javafx.application.Application;
