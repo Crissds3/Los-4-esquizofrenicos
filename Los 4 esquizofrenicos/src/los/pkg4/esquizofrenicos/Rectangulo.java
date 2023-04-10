@@ -10,8 +10,7 @@ public class Rectangulo {
     Canvas r;
 
     public Rectangulo(int valor, int altura, int ancho, Color color) {
-        DibujarNumeros dibujar = new DibujarNumeros();
-        
+        DibujarNumeros dibujar = new DibujarNumeros();   
         this.valor = valor;
         this.r = new Canvas(altura,ancho);
         GraphicsContext gc = r.getGraphicsContext2D();
