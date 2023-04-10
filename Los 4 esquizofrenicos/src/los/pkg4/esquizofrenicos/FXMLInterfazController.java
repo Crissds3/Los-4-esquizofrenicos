@@ -25,7 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class FXMLInterfazController implements Initializable {
-
+    
     @FXML
     private AnchorPane myAnchorPane;
     @FXML
@@ -50,7 +50,33 @@ public class FXMLInterfazController implements Initializable {
     ParallelTransition pt2;  
     DibujarGrua dibujar;
     DibujarGrua dibujar2;
-
+    
+    ParallelTransition colorChange;
+    ParallelTransition colorChange2;
+    @FXML
+    private Label label1;
+    @FXML
+    private Label label2;
+    @FXML
+    private Label label4;
+    @FXML
+    private Label label5;
+    @FXML
+    private Label label6;
+    @FXML
+    private Label label7;
+    @FXML
+    private Label label3;
+    @FXML
+    private Label label8;
+    @FXML
+    private Label valorN;
+    @FXML
+    private Label valorI;
+    @FXML
+    private Label valorKey;
+    @FXML
+    private Label valorJ;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         velocidad.setMin(0.01);
@@ -123,22 +149,32 @@ public class FXMLInterfazController implements Initializable {
     }
 
     void insertSort(Rectangulo arr[]) {
+        colorChange = new ParallelTransition();
+        colorChange2 = new ParallelTransition();
+         sequentialTransition = new SequentialTransition();
+        sequentialTransition2 = new SequentialTransition();
         int n = arr.length;
-
+        pintaLinea(label1);
         ParallelTransition movimientoCuerda = new ParallelTransition(dibujar.cuerda);
         ParallelTransition movimientoCuerda2 = new ParallelTransition(dibujar2.cuerda);
         
         Rectangulo aux = new Rectangulo();
-        sequentialTransition = new SequentialTransition();
-        sequentialTransition2 = new SequentialTransition();
+       
         
         //Insert Sort
         for (int i = 1; i < n; i++) {
+             pintaLinea(label2);
             int key = arr[i].valor;
+             pintaLinea(label3);
             int j = i - 1;
-  
+             pintaLinea(label4);
             while (j >= 0 && arr[j].valor > key) {
+                 pintaLinea(label5);
                 if (arr[j].valor > key) {
+                    colorChange = new ParallelTransition(label6);
+                    colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/4),new KeyValue(label6.styleProperty(), "-fx-background-color: #ff0000;"))));
+                    sequentialTransition.getChildren().add(colorChange);
+                    sequentialTransition2.getChildren().add(colorChange);
                     Canvas recMover = arr[j].r;
                     Canvas recMover2 = arr[j + 1].r;
                     TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
@@ -191,6 +227,10 @@ public class FXMLInterfazController implements Initializable {
                     pt2 = new ParallelTransition(subirIman2,subirCuerda2);
                     sequentialTransition.getChildren().add(pt);
                     sequentialTransition2.getChildren().add(pt2);
+                    colorChange2 = new ParallelTransition(label6);
+                    colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/4),new KeyValue(label6.styleProperty(), "-fx-background-color: #ffffff;"))));
+                    sequentialTransition.getChildren().add(colorChange2);
+                    sequentialTransition2.getChildren().add(colorChange2);
                 }
                 //swap cajas
                 aux.setR(arr[j + 1].getR());
@@ -198,8 +238,11 @@ public class FXMLInterfazController implements Initializable {
                 arr[j + 1].setR(arr[j].getR());
                 arr[j].setR(aux.getR());
                 j--;
+                 pintaLinea(label7);
             }
+            
             arr[j + 1].setValor(key);
+             pintaLinea(label8);
         }
 
     }
@@ -265,7 +308,16 @@ public class FXMLInterfazController implements Initializable {
         pt2 = new ParallelTransition(ttDown,ttImanDown,bajarCuerda);
         sequentialTransition2.getChildren().add(pt2);
     }
-
+        void pintaLinea(Label label){
+        colorChange = new ParallelTransition(label);
+        colorChange2 = new ParallelTransition(label);
+        colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/4),new KeyValue(label.styleProperty(), "-fx-background-color: #ff0000;"))));
+        colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/4),new KeyValue(label.styleProperty(), "-fx-background-color: #ffffff;"))));
+        sequentialTransition.getChildren().add(colorChange);
+        sequentialTransition.getChildren().add(colorChange2);
+        sequentialTransition2.getChildren().add(colorChange);
+        sequentialTransition2.getChildren().add(colorChange2);
+    }
     @FXML
     private void pausar(ActionEvent event) {
         sequentialTransition.pause();
