@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,22 +15,43 @@
             <Image url="@img/fondoprueba.png" />
          </image>
       </ImageView>
-      <Button fx:id="pausa" layoutX="222.0" layoutY="893.0" mnemonicParsing="false" onAction="#pausar" prefHeight="48.0" prefWidth="147.0" style="-fx-background-color: transparent;" text="Pausa" textFill="WHITE">
+      <Button fx:id="pausa" layoutX="183.0" layoutY="900.0" mnemonicParsing="false" onAction="#pausar" prefHeight="41.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Pausa" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="25.0" />
+            <Font name="Arial Black" size="20.0" />
          </font></Button>
-      <Button fx:id="res" layoutX="413.0" layoutY="857.0" mnemonicParsing="false" onAction="#resumir" prefHeight="48.0" prefWidth="147.0" style="-fx-background-color: transparent;" text="Resume" textFill="WHITE">
+      <Button fx:id="res" layoutX="335.0" layoutY="864.0" mnemonicParsing="false" onAction="#resumir" prefHeight="41.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Resume" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="25.0" />
+            <Font name="Arial Black" size="20.0" />
          </font></Button>
-      <Slider fx:id="velocidad" layoutX="552.0" layoutY="91.0" prefHeight="41.0" prefWidth="881.0" style="-fx-background-color: #2d86dc;" />
-      <Button fx:id="resetear" layoutX="580.0" layoutY="893.0" mnemonicParsing="false" onAction="#resetea" prefHeight="54.0" prefWidth="158.0" style="-fx-background-color: transparent;" text="Resetear" textFill="WHITE">
+      <Slider fx:id="velocidad" layoutX="445.0" layoutY="91.0" prefHeight="37.0" prefWidth="698.0" style="-fx-background-color: #2d86dc;" />
+      <Button fx:id="resetear" layoutX="475.0" layoutY="900.0" mnemonicParsing="false" onAction="#resetea" prefHeight="41.0" prefWidth="127.0" style="-fx-background-color: transparent;" text="Resetear" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="25.0" />
+            <Font name="Arial Black" size="20.0" />
          </font></Button>
-      <Button fx:id="anterior" layoutX="764.0" layoutY="857.0" mnemonicParsing="false" onAction="#pasoAnterior" prefHeight="48.0" prefWidth="147.0" style="-fx-background-color: transparent;" text="Anterior" textFill="WHITE">
+      <Button fx:id="anterior" layoutX="617.0" layoutY="860.0" mnemonicParsing="false" onAction="#pasoAnterior" prefHeight="51.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Anterior" textFill="WHITE">
          <font>
-            <Font name="Arial Black" size="25.0" />
+            <Font name="Arial Black" size="20.0" />
          </font></Button>
+      <Label fx:id="label1" layoutX="1599.0" layoutY="161.0" prefHeight="37.0" prefWidth="381.0" text="    n = length(A)" />
+      <Label fx:id="label2" layoutX="1599.0" layoutY="201.0" prefHeight="37.0" prefWidth="381.0" text="    Para i = 1 hasta n - 1" />
+      <Label fx:id="label4" layoutX="1599.0" layoutY="273.0" prefHeight="37.0" prefWidth="381.0" text="         j = i-1" />
+      <Label fx:id="label5" layoutX="1599.0" layoutY="310.0" prefHeight="37.0" prefWidth="381.0" text="        Mientras j &gt;= 0 y arreglo[j] &gt; key" />
+      <Label fx:id="label6" layoutX="1599.0" layoutY="347.0" prefHeight="37.0" prefWidth="381.0" text="            swap(arreglo[j+1], arreglo[j])" />
+      <Label fx:id="label7" layoutX="1599.0" layoutY="384.0" prefHeight="37.0" prefWidth="381.0" text="             j = j - 1" />
+      <Label fx:id="label3" layoutX="1599.0" layoutY="238.0" prefHeight="37.0" prefWidth="381.0" text="        key = arreglo[i]" />
+      <Label layoutX="1695.0" layoutY="60.0" prefHeight="62.0" prefWidth="165.0" text="Pseudocódigo">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="label8" layoutX="1599.0" layoutY="421.0" prefHeight="37.0" prefWidth="381.0" text="       arr[ j+1] = key" />
+      <Label layoutX="1622.0" layoutY="524.0" prefHeight="27.0" prefWidth="73.0" text="n" />
+      <Label layoutX="1695.0" layoutY="524.0" prefHeight="27.0" prefWidth="73.0" text="i" />
+      <Label fx:id="valorN" layoutX="1622.0" layoutY="551.0" prefHeight="27.0" prefWidth="73.0" />
+      <Label fx:id="valorI" layoutX="1695.0" layoutY="551.0" prefHeight="27.0" prefWidth="73.0" />
+      <Label layoutX="1768.0" layoutY="524.0" prefHeight="27.0" prefWidth="73.0" text="key" />
+      <Label fx:id="valorKey" layoutX="1768.0" layoutY="551.0" prefHeight="27.0" prefWidth="73.0" />
+      <Label layoutX="1841.0" layoutY="524.0" prefHeight="27.0" prefWidth="73.0" text="j" />
+      <Label fx:id="valorJ" layoutX="1841.0" layoutY="551.0" prefHeight="27.0" prefWidth="73.0" />
    </children>
 </AnchorPane>
