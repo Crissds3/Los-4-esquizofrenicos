@@ -32,7 +32,7 @@ public class DibujarGrua {
     }
       
       
-    protected void dibujarIman(GraphicsContext dib, int x, int y){
+  protected void dibujarIman(GraphicsContext dib, int x, int y){
         double[] coordenadaIman = {
             x-20,y,x+20,y,
             x-20,y,x-30,y+30,
