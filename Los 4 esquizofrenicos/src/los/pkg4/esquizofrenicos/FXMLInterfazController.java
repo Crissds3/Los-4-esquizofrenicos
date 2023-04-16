@@ -98,8 +98,8 @@ public class FXMLInterfazController implements Initializable {
         for (int i = 0; i < 16; i++) {
             int numero = (int) (Math.random() * (99 + 1));
             r[i] = new Rectangulo(numero, 60, 60, Color.GREEN);
-            r[i].r.setTranslateY(680);
-            r[i].r.setTranslateX(125 + i * 80);
+            r[i].r.setTranslateY(675);
+            r[i].r.setTranslateX(100 + i * 80);
             pane.getChildren().add(r[i].r);
         }
         canvasGruaBase = new Canvas(150, 50);
@@ -107,18 +107,18 @@ public class FXMLInterfazController implements Initializable {
         dibujar.dibujarCuerda();
         dibujar2.dibujarCuerda();
         GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();    
-        gcBase.setFill(Color.BLUE); /////
+        gcBase.setFill(Color.web("#acb2b0")); /////
         gcBase.fillRect(40, 0, 70, 50);////
 
 
         GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
-        gcIman.setFill(Color.RED);
+        gcIman.setFill(Color.web("#fb273b"));
 
-        dibujar.cuerda.setTranslateX(700);
+        dibujar.cuerda.setTranslateX(650);
         dibujar.cuerda.setTranslateY(-110);
-        canvasGruaBase.setTranslateX(700);
+        canvasGruaBase.setTranslateX(650);
         canvasGruaBase.setTranslateY(145); //158
-        canvasGruaIman.setTranslateX(700);
+        canvasGruaIman.setTranslateX(650);
         canvasGruaIman.setTranslateY(310); 
         dibujar.dibujarBase(gcBase, 40, 0);
         dibujar.dibujarIman(gcIman, 75, 0);
@@ -127,15 +127,15 @@ public class FXMLInterfazController implements Initializable {
         canvasGruaIman2 = new Canvas(150, 60);
         GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
         GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
-        gcIman2.setFill(Color.RED);
-        gcBase2.setFill(Color.BLUE); /////
+        gcIman2.setFill(Color.web("#fb273b"));
+        gcBase2.setFill(Color.web("#acb2b0")); /////#acb2b0
         gcBase2.fillRect(40, 0, 70, 50);///
         
-        dibujar2.cuerda.setTranslateX(900);
+        dibujar2.cuerda.setTranslateX(850);
         dibujar2.cuerda.setTranslateY(-110);
-        canvasGruaBase2.setTranslateX(900);
+        canvasGruaBase2.setTranslateX(850);
         canvasGruaBase2.setTranslateY(145);
-        canvasGruaIman2.setTranslateX(900);
+        canvasGruaIman2.setTranslateX(850);
         canvasGruaIman2.setTranslateY(310);
         dibujar2.dibujarBase(gcBase2, 40, 0);
         dibujar2.dibujarIman(gcIman2, 75, 0);
@@ -201,12 +201,12 @@ public class FXMLInterfazController implements Initializable {
                 TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);   
                 TranslateTransition posicionCuerda2 = new TranslateTransition(Duration.seconds(vel/2), dibujar2.cuerda);   
 
-                posicionBase.setToX(125+j*80);
-                posicionIman.setToX(125+j*80);
-                posicionCuerda.setToX(125+j*80);
-                posicionBase2.setToX(125+(j+1)*80);
-                posicionIman2.setToX(125+(j+1)*80);
-                posicionCuerda2.setToX(125+(j+1)*80);
+                posicionBase.setToX(100+j*80);
+                posicionIman.setToX(100+j*80);
+                posicionCuerda.setToX(100+j*80);
+                posicionBase2.setToX(100+(j+1)*80);
+                posicionIman2.setToX(100+(j+1)*80);
+                posicionCuerda2.setToX(100+(j+1)*80);
                 pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
                 pt2 = new ParallelTransition(posicionBase2,posicionIman2,posicionCuerda2);
                 sequentialTransition.getChildren().add(pt);
@@ -216,10 +216,10 @@ public class FXMLInterfazController implements Initializable {
                 TranslateTransition ttImanDown2 = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman2); 
                 TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
                 TranslateTransition cuerdaDown2 = new TranslateTransition(Duration.seconds(vel/2), dibujar2.cuerda);
-                cuerdaDown.setToY(200);
-                cuerdaDown2.setToY(200);
-                ttImanDown.setToY(620);
-                ttImanDown2.setToY(620);
+                cuerdaDown.setToY(195);
+                cuerdaDown2.setToY(195);
+                ttImanDown.setToY(615);
+                ttImanDown2.setToY(615);
 
                 pt = new ParallelTransition(cuerdaDown,ttImanDown);
                 pt2 = new ParallelTransition(cuerdaDown2,ttImanDown2);
