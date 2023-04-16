@@ -24,7 +24,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-
 public class FXMLInterfazController implements Initializable {
     
     @FXML
@@ -108,37 +107,20 @@ public class FXMLInterfazController implements Initializable {
 
         canvasGruaBase = new Canvas(150, 50);
         canvasGruaIman = new Canvas(150, 60);
-        GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();
-        gcBase.setFill(Color.BLUE); /////
-        gcBase.fillRect(40, 0, 70, 50);////
-        
-        
+        GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();        
         GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
-        gcIman.setFill(Color.RED);
-       
-        
-      
 
         canvasGruaBase.setTranslateX(700);
         canvasGruaBase.setTranslateY(158);
-        
-        
         canvasGruaIman.setTranslateX(700);
-        canvasGruaIman.setTranslateY(310);
-        
-        
+        canvasGruaIman.setTranslateY(310); 
         dibujar.dibujarBase(gcBase, 40, 0);
         dibujar.dibujarIman(gcIman, 75, 0);
-     
+        
         canvasGruaBase2 = new Canvas(150, 50);
         canvasGruaIman2 = new Canvas(150, 60);
         GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
         GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
-        gcIman2.setFill(Color.RED);
-        gcBase2.setFill(Color.BLUE); /////
-        gcBase2.fillRect(40, 0, 70, 50);///
-        
-        
         canvasGruaBase2.setTranslateX(900);
         canvasGruaBase2.setTranslateY(158);
         canvasGruaIman2.setTranslateX(900);
