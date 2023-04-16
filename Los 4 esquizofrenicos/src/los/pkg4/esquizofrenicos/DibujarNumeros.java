@@ -81,7 +81,7 @@ public class DibujarNumeros {
                 break;
         }
         for (int i = 0; i < coordenada.length; i = i + 4) {
-            gc.setStroke(Color.WHITE);
+            gc.setStroke(Color.BLACK);
             gc.setLineWidth(4);
             gc.strokeLine(coordenada[i], coordenada[i + 1], coordenada[i + 2], coordenada[i + 3]);
         }
