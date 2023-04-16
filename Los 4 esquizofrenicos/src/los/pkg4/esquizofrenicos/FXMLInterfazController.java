@@ -106,8 +106,13 @@ public class FXMLInterfazController implements Initializable {
         }
         canvasGruaBase = new Canvas(150, 50);
         canvasGruaIman = new Canvas(150, 60);
-        GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();        
+        GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();    
+          gcBase.setFill(Color.BLUE); /////
+        gcBase.fillRect(40, 0, 70, 50);////
+
+
         GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
+         gcIman.setFill(Color.RED);
 
         canvasGruaBase.setTranslateX(700);
         canvasGruaBase.setTranslateY(158);
@@ -120,6 +125,10 @@ public class FXMLInterfazController implements Initializable {
         canvasGruaIman2 = new Canvas(150, 60);
         GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
         GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
+         gcIman2.setFill(Color.RED);
+        gcBase2.setFill(Color.BLUE); /////
+        gcBase2.fillRect(40, 0, 70, 50);///
+        
         canvasGruaBase2.setTranslateX(900);
         canvasGruaBase2.setTranslateY(158);
         canvasGruaIman2.setTranslateX(900);
