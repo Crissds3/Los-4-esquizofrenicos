@@ -4,7 +4,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Rectangulo {
     int valor;
@@ -23,15 +22,6 @@ public class Rectangulo {
     public Rectangulo() {
         this.valor = 0;
         this.r = new Canvas();
-    }
-    
-    public void repintarRectangulo(Color color){
-        DibujarNumeros dibujar = new DibujarNumeros();
-        GraphicsContext gc = r.getGraphicsContext2D();
-        gc.setFill(color);
-        gc.fillRect(0, 0, r.getWidth(), r.getHeight());
-        dibujar.dibujar(gc,valor/10,25,60);
-        dibujar.dibujar(gc,valor%10,45,60);
     }
 
     public void setValor(int valor) {
