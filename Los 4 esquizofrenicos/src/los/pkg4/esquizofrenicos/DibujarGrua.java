@@ -15,7 +15,6 @@ public class DibujarGrua {
         cuerda.setStrokeWidth(4);        
     }
     
-    
     protected void dibujarBase(GraphicsContext dib, int x, int y){
 
         double[] coordenadaBase = {
@@ -29,8 +28,7 @@ public class DibujarGrua {
             dib.setLineWidth(4);
             dib.strokeLine(coordenadaBase[i], coordenadaBase[i + 1], coordenadaBase[i + 2], coordenadaBase[i + 3]);  
         }
-    }
-      
+    }    
       
   protected void dibujarIman(GraphicsContext dib, int x, int y){
         double[] coordenadaIman = {
