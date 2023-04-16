@@ -104,7 +104,6 @@ public class FXMLInterfazController implements Initializable {
             r[i].r.setTranslateX(125 + i * 80);
             pane.getChildren().add(r[i].r);
         }
-
         canvasGruaBase = new Canvas(150, 50);
         canvasGruaIman = new Canvas(150, 60);
         GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();
@@ -178,7 +177,7 @@ public class FXMLInterfazController implements Initializable {
                 pintaLinea(label5);
                 
                 colorChange = new ParallelTransition(label6);
-                colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #ff0000;"))));
+                colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #13bf38;"))));
                 sequentialTransition.getChildren().add(colorChange);
                 sequentialTransition2.getChildren().add(colorChange);
                 Canvas recMover = arr[j].r;
@@ -206,8 +205,8 @@ public class FXMLInterfazController implements Initializable {
                 ttImanDown.setToY(630);
                 ttImanDown2.setToY(630);
 
-                movimientoCuerda.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/2),new KeyValue(dibujar.cuerda.endYProperty(), 630))));
-                movimientoCuerda2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/2),new KeyValue(dibujar2.cuerda.endYProperty(), 630)))); 
+                movimientoCuerda.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/2),new KeyValue(dibujar.cuerda.endYProperty(),630))));
+                movimientoCuerda2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/2),new KeyValue(dibujar2.cuerda.endYProperty(),630)))); 
                 pt = new ParallelTransition(movimientoCuerda,ttImanDown);
                 pt2 = new ParallelTransition(movimientoCuerda2,ttImanDown2);
 
@@ -318,7 +317,7 @@ public class FXMLInterfazController implements Initializable {
     void pintaLinea(Label label){
         colorChange = new ParallelTransition(label);
         colorChange2 = new ParallelTransition(label);
-        colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.styleProperty(), "-fx-background-color: #ff0000;"))));
+        colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.styleProperty(), "-fx-background-color: #13bf38;"))));
         colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.styleProperty(), "-fx-background-color: #ffffff;"))));
         sequentialTransition.getChildren().add(colorChange);
         sequentialTransition.getChildren().add(colorChange2);
