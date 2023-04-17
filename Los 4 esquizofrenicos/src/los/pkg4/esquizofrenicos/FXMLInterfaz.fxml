@@ -8,27 +8,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="myAnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="los.pkg4.esquizofrenicos.FXMLInterfazController">
+<AnchorPane id="AnchorPane" fx:id="myAnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="los.pkg4.esquizofrenicos.FXMLInterfazController">
    <children>
       <ImageView fitHeight="1020.0" fitWidth="1980.0" layoutX="-16.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@img/fondoprueba.png" />
+            <Image url="@img/fondoprueba1.png" />
          </image>
       </ImageView>
       <Button fx:id="pausa" layoutX="160.0" layoutY="884.0" mnemonicParsing="false" onAction="#pausar" prefHeight="41.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Pausa" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="20.0" />
          </font></Button>
-      <Button fx:id="res" layoutX="319.0" layoutY="851.0" mnemonicParsing="false" onAction="#resumir" prefHeight="41.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Resume" textFill="WHITE">
+      <Button fx:id="res" layoutX="314.0" layoutY="851.0" mnemonicParsing="false" onAction="#resumir" prefHeight="41.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Resume" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="20.0" />
          </font></Button>
-      <Slider fx:id="velocidad" layoutX="417.0" layoutY="76.0" prefHeight="37.0" prefWidth="711.0" style="-fx-background-color: #2d86dc;" />
+      <Slider fx:id="velocidad" layoutX="416.0" layoutY="77.0" prefHeight="43.0" prefWidth="711.0" style="-fx-background-color: #2d86dc;" />
       <Button fx:id="resetear" layoutX="452.0" layoutY="884.0" mnemonicParsing="false" onAction="#resetea" prefHeight="41.0" prefWidth="127.0" style="-fx-background-color: transparent;" text="Resetear" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="20.0" />
          </font></Button>
-      <Button fx:id="anterior" layoutX="599.0" layoutY="851.0" mnemonicParsing="false" onAction="#pasoAnterior" prefHeight="51.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Anterior" textFill="WHITE">
+      <Button fx:id="anterior" layoutX="595.0" layoutY="847.0" mnemonicParsing="false" onAction="#pasoAnterior" prefHeight="51.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Anterior" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="20.0" />
          </font></Button>
@@ -69,35 +69,35 @@
          <font>
             <Font name="Garamond" size="19.0" />
          </font></Label>
-      <Label layoutX="1604.0" layoutY="628.0" prefHeight="27.0" prefWidth="73.0" text="n">
+      <Label layoutX="1621.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="n">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label layoutX="1678.0" layoutY="628.0" prefHeight="27.0" prefWidth="73.0" text="i">
+      <Label layoutX="1704.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="i">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label fx:id="valorN" layoutX="1604.0" layoutY="663.0" prefHeight="27.0" prefWidth="73.0">
+      <Label fx:id="valorN" layoutX="1615.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label fx:id="valorI" layoutX="1677.0" layoutY="663.0" prefHeight="27.0" prefWidth="73.0">
+      <Label fx:id="valorI" layoutX="1704.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label layoutX="1751.0" layoutY="628.0" prefHeight="27.0" prefWidth="73.0" text="key">
+      <Label layoutX="1777.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="key">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label fx:id="valorKey" layoutX="1750.0" layoutY="663.0" prefHeight="27.0" prefWidth="73.0">
+      <Label fx:id="valorKey" layoutX="1777.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label layoutX="1833.0" layoutY="628.0" prefHeight="27.0" prefWidth="73.0" text="j">
+      <Label layoutX="1868.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="j">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label fx:id="valorJ" layoutX="1833.0" layoutY="663.0" prefHeight="27.0" prefWidth="73.0">
+      <Label fx:id="valorJ" layoutX="1868.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
