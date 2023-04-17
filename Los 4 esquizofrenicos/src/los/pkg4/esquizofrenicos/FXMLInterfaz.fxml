@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="1020.0" fitWidth="1980.0" layoutX="-16.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@img/fondoprueba1.png" />
+            <Image url="@img/fondoprueba.png" />
          </image>
       </ImageView>
       <Button fx:id="pausa" layoutX="160.0" layoutY="884.0" mnemonicParsing="false" onAction="#pausar" prefHeight="41.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Pausa" textFill="WHITE">
