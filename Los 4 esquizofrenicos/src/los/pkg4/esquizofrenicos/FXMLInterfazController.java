@@ -1,5 +1,6 @@
 package los.pkg4.esquizofrenicos;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -10,8 +11,11 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -20,6 +24,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class FXMLInterfazController implements Initializable {
@@ -35,7 +40,7 @@ public class FXMLInterfazController implements Initializable {
     @FXML
     private Button resetear;
     @FXML
-    private Button anterior;
+    private Button nuevoArreglo;
     
     float vel;
     private Canvas canvasGruaBase;
@@ -47,10 +52,10 @@ public class FXMLInterfazController implements Initializable {
     ParallelTransition pt;
     ParallelTransition pt2;  
     DibujarGrua dibujar;
-    DibujarGrua dibujar2;
-    
+    DibujarGrua dibujar2;   
     ParallelTransition colorChange;
     ParallelTransition colorChange2;
+    
     @FXML
     private Label label1;
     @FXML
@@ -75,6 +80,9 @@ public class FXMLInterfazController implements Initializable {
     private Label valorKey;
     @FXML
     private Label valorJ;
+    @FXML
+    private Label finalizado;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         velocidad.setMin(0.01);
@@ -107,9 +115,8 @@ public class FXMLInterfazController implements Initializable {
         dibujar.dibujarCuerda();
         dibujar2.dibujarCuerda();
         GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();    
-        gcBase.setFill(Color.web("#acb2b0")); /////
-        gcBase.fillRect(40, 0, 70, 50);////
-
+        gcBase.setFill(Color.web("#acb2b0")); 
+        gcBase.fillRect(40, 0, 70, 50);
 
         GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
         gcIman.setFill(Color.web("#fb273b"));
@@ -117,7 +124,7 @@ public class FXMLInterfazController implements Initializable {
         dibujar.cuerda.setTranslateX(650);
         dibujar.cuerda.setTranslateY(-110);
         canvasGruaBase.setTranslateX(650);
-        canvasGruaBase.setTranslateY(145); //158
+        canvasGruaBase.setTranslateY(145);
         canvasGruaIman.setTranslateX(650);
         canvasGruaIman.setTranslateY(310); 
         dibujar.dibujarBase(gcBase, 40, 0);
@@ -128,8 +135,8 @@ public class FXMLInterfazController implements Initializable {
         GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
         GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
         gcIman2.setFill(Color.web("#fb273b"));
-        gcBase2.setFill(Color.web("#acb2b0")); /////#acb2b0
-        gcBase2.fillRect(40, 0, 70, 50);///
+        gcBase2.setFill(Color.web("#acb2b0")); 
+        gcBase2.fillRect(40, 0, 70, 50);
         
         dibujar2.cuerda.setTranslateX(850);
         dibujar2.cuerda.setTranslateY(-110);
@@ -157,6 +164,7 @@ public class FXMLInterfazController implements Initializable {
         myAnchorPane.getChildren().add(root2);
         
         insertSort(r);
+        sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
         sequentialTransition.play();
         sequentialTransition2.play();
     }
@@ -223,7 +231,6 @@ public class FXMLInterfazController implements Initializable {
 
                 pt = new ParallelTransition(cuerdaDown,ttImanDown);
                 pt2 = new ParallelTransition(cuerdaDown2,ttImanDown2);
-
                 sequentialTransition.getChildren().add(pt);
                 sequentialTransition2.getChildren().add(pt2);
 
@@ -365,6 +372,13 @@ public class FXMLInterfazController implements Initializable {
     }
 
     @FXML
-    private void pasoAnterior(ActionEvent event) {
+    private void nuevoArreglo(ActionEvent event) throws IOException {
+        Stage stage = (Stage) nuevoArreglo.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
+
 }
