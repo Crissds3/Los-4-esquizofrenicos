@@ -168,7 +168,8 @@ public class FXMLInterfazController implements Initializable {
         sequentialTransition.play();
         sequentialTransition2.play();
     }
-
+    
+    
     void insertSort(Rectangulo arr[]) {
         colorChange = new ParallelTransition();
         colorChange2 = new ParallelTransition();
