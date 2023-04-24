@@ -11,9 +11,9 @@ public class Los4Esquizofrenicos extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLInterfaz.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLInterfazMenu.fxml"));
         
-        Scene scene = new Scene(root, 1980, 1020);
+        Scene scene = new Scene(root, 1100, 1020);
         
         primaryStage.setScene(scene);
         primaryStage.show();
