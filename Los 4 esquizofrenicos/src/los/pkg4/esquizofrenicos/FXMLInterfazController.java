@@ -43,6 +43,7 @@ public class FXMLInterfazController implements Initializable {
     private Button nuevoArreglo;
     
     float vel;
+    int sel;
     private Canvas canvasGruaBase;
     private Canvas canvasGruaBase2;
     private Canvas canvasGruaIman;
@@ -85,6 +86,7 @@ public class FXMLInterfazController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("s: "+sel);
         velocidad.setMin(0.01);
         velocidad.setMax(3.0);
         velocidad.setValue(1);
@@ -168,7 +170,8 @@ public class FXMLInterfazController implements Initializable {
         sequentialTransition.play();
         sequentialTransition2.play();
     }
-
+    
+    
     void insertSort(Rectangulo arr[]) {
         colorChange = new ParallelTransition();
         colorChange2 = new ParallelTransition();
@@ -273,6 +276,21 @@ public class FXMLInterfazController implements Initializable {
 
     }
 
+    
+     void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n; i++) {
+       
+        for (int j = 0; j < n-i-1; j++) {
+
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
     void moverCajaIzquierda(Canvas recMover) {
         TranslateTransition ttUp = new TranslateTransition(Duration.seconds(vel), recMover);
         TranslateTransition ttDown = new TranslateTransition(Duration.seconds(vel), recMover);
@@ -351,6 +369,10 @@ public class FXMLInterfazController implements Initializable {
         ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
         sequentialTransition.getChildren().add(ptValor);
         sequentialTransition2.getChildren().add(ptValor);
+    }
+
+    public void setSel(int sel) {
+        this.sel = sel;
     }
         
     @FXML
