@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="1020.0" fitWidth="1980.0" layoutX="-16.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../fondoInterfazMenu.png" />
+            <Image url="@img/fondoInterfazMenu.png" />
          </image>
       </ImageView>
       <Button fx:id="pausa" layoutX="460.0" layoutY="385.0" mnemonicParsing="false" onAction="#pausar" prefHeight="69.0" prefWidth="171.0" style="-fx-background-color: #245e78;" text="Inserción" textFill="WHITE">
