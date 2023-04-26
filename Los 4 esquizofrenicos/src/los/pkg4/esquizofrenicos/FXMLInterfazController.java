@@ -43,6 +43,7 @@ public class FXMLInterfazController implements Initializable {
     private Button nuevoArreglo;
     
     float vel;
+    int sel;
     private Canvas canvasGruaBase;
     private Canvas canvasGruaBase2;
     private Canvas canvasGruaIman;
@@ -85,6 +86,7 @@ public class FXMLInterfazController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("s: "+sel);
         velocidad.setMin(0.01);
         velocidad.setMax(3.0);
         velocidad.setValue(1);
@@ -367,6 +369,10 @@ public class FXMLInterfazController implements Initializable {
         ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
         sequentialTransition.getChildren().add(ptValor);
         sequentialTransition2.getChildren().add(ptValor);
+    }
+
+    public void setSel(int sel) {
+        this.sel = sel;
     }
         
     @FXML
