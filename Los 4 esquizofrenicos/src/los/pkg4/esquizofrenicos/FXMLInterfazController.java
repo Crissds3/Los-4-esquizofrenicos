@@ -43,7 +43,7 @@ public class FXMLInterfazController implements Initializable {
     private Button nuevoArreglo;
     
     float vel;
-    int sel;
+    public static int sel;
     private Canvas canvasRepisa;
     private Canvas canvasGruaBase;
     private Canvas canvasGruaBase2;
@@ -117,10 +117,10 @@ public class FXMLInterfazController implements Initializable {
         }
         canvasGruaBase = new Canvas(150, 50);
         canvasGruaIman = new Canvas(150, 60);
-        canvasRepisa= new Canvas(300, 300); 
+      
         dibujar.dibujarCuerda();
-        dibujar2.dibujarCuerda();
-        GraphicsContext gcRepisa = canvasRepisa.getGraphicsContext2D(); 
+       
+       
         GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();    
         gcBase.setFill(Color.web("#acb2b0")); 
         gcBase.fillRect(40, 0, 70, 50);
@@ -128,8 +128,7 @@ public class FXMLInterfazController implements Initializable {
 
         GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
         gcIman.setFill(Color.web("#fb273b"));
-        canvasRepisa.setTranslateY(200);
-        canvasRepisa.setTranslateX(140);
+     
         dibujar.cuerda.setTranslateX(650);
         dibujar.cuerda.setTranslateY(-110);
         canvasGruaBase.setTranslateX(650);
@@ -138,36 +137,48 @@ public class FXMLInterfazController implements Initializable {
         canvasGruaIman.setTranslateY(310); 
         dibujar.dibujarBase(gcBase, 40, 0);
         dibujar.dibujarIman(gcIman, 75, 0);
-        dibujar3.dibujarRepisa(gcRepisa, 0, 100);
         
-        canvasGruaBase2 = new Canvas(150, 50);
-        canvasGruaIman2 = new Canvas(150, 60);
-        GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
-        GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
-        gcIman2.setFill(Color.web("#fb273b"));
-        gcBase2.setFill(Color.web("#acb2b0")); 
-        gcBase2.fillRect(40, 0, 70, 50);
         
-        dibujar2.cuerda.setTranslateX(850);
-        dibujar2.cuerda.setTranslateY(-110);
-        canvasGruaBase2.setTranslateX(850);
-        canvasGruaBase2.setTranslateY(145);
-        canvasGruaIman2.setTranslateX(850);
-        canvasGruaIman2.setTranslateY(310);
-        dibujar2.dibujarBase(gcBase2, 40, 0);
-        dibujar2.dibujarIman(gcIman2, 75, 0);
+  
 
         pane.getChildren().add(canvasGruaBase);
-        pane.getChildren().add(canvasGruaBase2);
         pane.getChildren().add(canvasGruaIman);
-        pane.getChildren().add(canvasGruaIman2); 
       //  pane.getChildren().add(canvasRepisa);
 
         Group root = new Group(pane);
-   
+        if(sel==1){
+            dibujar2.dibujarCuerda();
+            canvasGruaBase2 = new Canvas(150, 50);
+            canvasGruaIman2 = new Canvas(150, 60);
+            GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
+            GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
+            gcIman2.setFill(Color.web("#fb273b"));
+            gcBase2.setFill(Color.web("#acb2b0")); 
+            gcBase2.fillRect(40, 0, 70, 50);
+
+            dibujar2.cuerda.setTranslateX(850);
+            dibujar2.cuerda.setTranslateY(-110);
+            canvasGruaBase2.setTranslateX(850);
+            canvasGruaBase2.setTranslateY(145);
+            canvasGruaIman2.setTranslateX(850);
+            canvasGruaIman2.setTranslateY(310);
+            dibujar2.dibujarBase(gcBase2, 40, 0);
+            dibujar2.dibujarIman(gcIman2, 75, 0);
+             pane.getChildren().add(canvasGruaBase2);
+             pane.getChildren().add(canvasGruaIman2); 
+             root.getChildren().add(dibujar2.cuerda);
+        }else{
+             canvasRepisa= new Canvas(300, 300); 
+             GraphicsContext gcRepisa = canvasRepisa.getGraphicsContext2D(); 
+             canvasRepisa.setTranslateY(200);
+             canvasRepisa.setTranslateX(140);
+             dibujar3.dibujarRepisa(gcRepisa, 0, 100);
+             root.getChildren().add(canvasRepisa);
+             
+        }
+        
         root.getChildren().add(dibujar.cuerda);
-        root.getChildren().add(dibujar2.cuerda);
-        root.getChildren().add(canvasRepisa);
+        
         myAnchorPane.getChildren().add(root);
         root.toBack();
         pane.toFront();
@@ -175,10 +186,17 @@ public class FXMLInterfazController implements Initializable {
         root2.getChildren().add(velocidad);
         myAnchorPane.getChildren().add(root2);
         
+        if(sel==1){
         insertSort(r);
+        }else if(sel==2){
+            bubbleSort(r);
+        }
         sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
         sequentialTransition.play();
-        sequentialTransition2.play();
+       
+        if(sel==1){
+             sequentialTransition2.play();
+        }
     }
     
     
