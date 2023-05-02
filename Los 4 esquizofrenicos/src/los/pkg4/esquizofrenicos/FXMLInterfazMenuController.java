@@ -5,6 +5,7 @@
  */
 package los.pkg4.esquizofrenicos;
 
+import static java.awt.Toolkit.getDefaultToolkit;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,15 +44,10 @@ public class FXMLInterfazMenuController implements Initializable {
 
     @FXML
     private void cambiarInsertSort(ActionEvent event) throws IOException {
-        //Node nodo = (Node) event.getSource();
-        //Stage stage = (Stage) nodo.getScene().getWindow();  
+        FXMLInterfazController.sel=1;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml")); 
         Parent root = loader.load();
-        FXMLInterfazController controlador = loader.getController();
-        controlador.setSel(1);
-        
-        Scene scene = new Scene(root);  
-        
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
         Stage stage = new Stage();
         stage.setX(0);
         stage.setY(0);
@@ -60,7 +56,29 @@ public class FXMLInterfazMenuController implements Initializable {
     }
     
     @FXML
-    private void cambiarBubbleSort(ActionEvent event) {
+    private void cambiarBubbleSort(ActionEvent event) throws IOException {
+         FXMLInterfazController.sel=2;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml")); 
+        Parent root = loader.load();
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
+        Stage stage = new Stage();
+        stage.setX(0);
+        stage.setY(0);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+     @FXML
+    private void cambiarCockTailSort(ActionEvent event) throws IOException {
+         FXMLInterfazController.sel=3;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml")); 
+        Parent root = loader.load();
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
+        Stage stage = new Stage();
+        stage.setX(0);
+        stage.setY(0);
+        stage.setScene(scene);
+        stage.show();
     }
     
 }
