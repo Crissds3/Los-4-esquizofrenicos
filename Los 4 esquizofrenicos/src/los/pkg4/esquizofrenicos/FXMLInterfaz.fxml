@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="myAnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="los.pkg4.esquizofrenicos.FXMLInterfazController">
+<AnchorPane id="AnchorPane" fx:id="myAnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="los.pkg4.esquizofrenicos.FXMLInterfazController">
    <children>
-      <ImageView fitHeight="1020.0" fitWidth="1980.0" layoutX="-16.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="contenedorImagen" fitHeight="1020.0" fitWidth="1980.0" layoutX="-16.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/fondoprueba.png" />
          </image>
@@ -85,19 +85,19 @@
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label layoutX="1777.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="key">
+      <Label layoutX="1777.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="j">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label fx:id="valorKey" layoutX="1777.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
+      <Label fx:id="valorJ" layoutX="1777.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label layoutX="1868.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="j">
+      <Label fx:id="labelKey" layoutX="1868.0" layoutY="647.0" prefHeight="27.0" prefWidth="73.0" text="key">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label fx:id="valorJ" layoutX="1868.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
+      <Label fx:id="valorKey" layoutX="1868.0" layoutY="682.0" prefHeight="27.0" prefWidth="73.0">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>

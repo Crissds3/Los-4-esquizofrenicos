@@ -21,6 +21,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -85,6 +87,10 @@ public class FXMLInterfazController implements Initializable {
     private Label valorJ;
     @FXML
     private Label finalizado;
+    @FXML
+    private ImageView contenedorImagen;
+    @FXML
+    private Label labelKey;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -189,7 +195,14 @@ public class FXMLInterfazController implements Initializable {
         if(sel==1){
         insertSort(r);
         }else if(sel==2){
+            Image image = new Image(getClass().getResourceAsStream("img/fondopruebaBubble.png"));
+            contenedorImagen.setImage(image);
             bubbleSort(r);
+        }
+        else if (sel == 3) {
+            Image image = new Image(getClass().getResourceAsStream("img/fondopruebaBubble.png"));
+            contenedorImagen.setImage(image);
+            cocktailSort(r);
         }
         sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
         sequentialTransition.play();
@@ -301,23 +314,79 @@ public class FXMLInterfazController implements Initializable {
             arr[j + 1].setValor(key);
             pintaLinea(label8);
         }
-
     }
 
-    
      void bubbleSort(Rectangulo[] arr) {
+        //Mostrar codigo
+        labelKey.setText("");
+        label3.setText("        Para j = 1 hasta n-i-1");
+        label4.setText("            Si arreglo[j] > arreglo[j+1]");
+        label5.setText("                swap(arreglo[j+1],arreglo[j])");
+        label6.setText("");
+        label7.setText("");
+        label8.setText("");
+        sequentialTransition = new SequentialTransition();
         int n = arr.length;
         for (int i = 0; i < n-1; i++) {
 
             for (int j = 0; j < n-i-1; j++) {
 
                 if (arr[j].valor > arr[j+1].valor) {
+                    TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel/2), canvasGruaBase);
+                    TranslateTransition posicionIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);
+                    TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda); 
+                    
+                    posicionBase.setToX(100+j*80);
+                    posicionIman.setToX(100+j*80);
+                    posicionCuerda.setToX(100+j*80);
+                    pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
+                    sequentialTransition.getChildren().add(pt);
+                    
+                    TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);   
+                    TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
+                    cuerdaDown.setToY(195);
+                    ttImanDown.setToY(615);
+                    
+                    pt = new ParallelTransition(cuerdaDown,ttImanDown);
+                    sequentialTransition.getChildren().add(pt);
+                    
                     Rectangulo temp = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
                 }
             }
         }
+    }
+    void cocktailSort(Rectangulo arr[]){
+        boolean swapped = true;
+        int inicio = 0;
+        int fin = arr.length;
+        sequentialTransition = new SequentialTransition();
+        while (swapped == true){
+            swapped = false;
+            for (int i = inicio; i < fin - 1; ++i){
+                if (arr[i].valor > arr[i + 1].valor) {
+                    Rectangulo aux = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = aux;
+                    swapped = true;
+                }
+            }
+
+            if (swapped == false) break;
+            swapped = false;
+            fin--;
+
+            for (int i = fin - 1; i >= inicio; i--){
+                if (arr[i].valor > arr[i + 1].valor){  
+                    Rectangulo aux = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = aux;
+                    swapped = true;
+                }
+            }
+            inicio++;
+        }    
     }
     void moverCajaIzquierda(Canvas recMover) {
         TranslateTransition ttUp = new TranslateTransition(Duration.seconds(vel), recMover);
