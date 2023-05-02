@@ -43,6 +43,8 @@ public class FXMLInterfazController implements Initializable {
     private Button nuevoArreglo;
     
     float vel;
+    int sel;
+    private Canvas canvasRepisa;
     private Canvas canvasGruaBase;
     private Canvas canvasGruaBase2;
     private Canvas canvasGruaIman;
@@ -52,7 +54,8 @@ public class FXMLInterfazController implements Initializable {
     ParallelTransition pt;
     ParallelTransition pt2;  
     DibujarGrua dibujar;
-    DibujarGrua dibujar2;   
+    DibujarGrua dibujar2; 
+    DibujarGrua dibujar3;
     ParallelTransition colorChange;
     ParallelTransition colorChange2;
     
@@ -85,6 +88,7 @@ public class FXMLInterfazController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("s: "+sel);
         velocidad.setMin(0.01);
         velocidad.setMax(3.0);
         velocidad.setValue(1);
@@ -98,6 +102,7 @@ public class FXMLInterfazController implements Initializable {
 
         dibujar = new DibujarGrua();
         dibujar2 = new DibujarGrua();
+        dibujar3= new DibujarGrua();
 
         Rectangulo[] r = new Rectangulo[16];
 
@@ -112,15 +117,19 @@ public class FXMLInterfazController implements Initializable {
         }
         canvasGruaBase = new Canvas(150, 50);
         canvasGruaIman = new Canvas(150, 60);
+        canvasRepisa= new Canvas(300, 300); 
         dibujar.dibujarCuerda();
         dibujar2.dibujarCuerda();
+        GraphicsContext gcRepisa = canvasRepisa.getGraphicsContext2D(); 
         GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();    
         gcBase.setFill(Color.web("#acb2b0")); 
         gcBase.fillRect(40, 0, 70, 50);
+     
 
         GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
         gcIman.setFill(Color.web("#fb273b"));
-
+        canvasRepisa.setTranslateY(200);
+        canvasRepisa.setTranslateX(140);
         dibujar.cuerda.setTranslateX(650);
         dibujar.cuerda.setTranslateY(-110);
         canvasGruaBase.setTranslateX(650);
@@ -129,6 +138,7 @@ public class FXMLInterfazController implements Initializable {
         canvasGruaIman.setTranslateY(310); 
         dibujar.dibujarBase(gcBase, 40, 0);
         dibujar.dibujarIman(gcIman, 75, 0);
+        dibujar3.dibujarRepisa(gcRepisa, 0, 100);
         
         canvasGruaBase2 = new Canvas(150, 50);
         canvasGruaIman2 = new Canvas(150, 60);
@@ -150,12 +160,14 @@ public class FXMLInterfazController implements Initializable {
         pane.getChildren().add(canvasGruaBase);
         pane.getChildren().add(canvasGruaBase2);
         pane.getChildren().add(canvasGruaIman);
-        pane.getChildren().add(canvasGruaIman2);
+        pane.getChildren().add(canvasGruaIman2); 
+      //  pane.getChildren().add(canvasRepisa);
 
         Group root = new Group(pane);
    
         root.getChildren().add(dibujar.cuerda);
         root.getChildren().add(dibujar2.cuerda);
+        root.getChildren().add(canvasRepisa);
         myAnchorPane.getChildren().add(root);
         root.toBack();
         pane.toFront();
@@ -275,20 +287,20 @@ public class FXMLInterfazController implements Initializable {
     }
 
     
-     void bubbleSort(int[] arr) {
-    int n = arr.length;
-    for (int i = 0; i < n; i++) {
-       
-        for (int j = 0; j < n-i-1; j++) {
+     void bubbleSort(Rectangulo[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n-1; i++) {
 
-            if (arr[j] > arr[j+1]) {
-                int temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
+            for (int j = 0; j < n-i-1; j++) {
+
+                if (arr[j].valor > arr[j+1].valor) {
+                    Rectangulo temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
             }
         }
     }
-}
     void moverCajaIzquierda(Canvas recMover) {
         TranslateTransition ttUp = new TranslateTransition(Duration.seconds(vel), recMover);
         TranslateTransition ttDown = new TranslateTransition(Duration.seconds(vel), recMover);
@@ -367,6 +379,10 @@ public class FXMLInterfazController implements Initializable {
         ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
         sequentialTransition.getChildren().add(ptValor);
         sequentialTransition2.getChildren().add(ptValor);
+    }
+
+    public void setSel(int sel) {
+        this.sel = sel;
     }
         
     @FXML
