@@ -57,7 +57,6 @@ public class FXMLInterfazController implements Initializable {
     ParallelTransition pt2;  
     DibujarGrua dibujar;
     DibujarGrua dibujar2; 
-    DibujarGrua dibujar3;
     ParallelTransition colorChange;
     ParallelTransition colorChange2;
     
@@ -108,7 +107,6 @@ public class FXMLInterfazController implements Initializable {
 
         dibujar = new DibujarGrua();
         dibujar2 = new DibujarGrua();
-        dibujar3= new DibujarGrua();
 
         Rectangulo[] r = new Rectangulo[16];
 
@@ -169,7 +167,7 @@ public class FXMLInterfazController implements Initializable {
             GraphicsContext gcRepisa = canvasRepisa.getGraphicsContext2D(); 
             canvasRepisa.setTranslateY(243);
             canvasRepisa.setTranslateX(140);
-            dibujar3.dibujarRepisa(gcRepisa, 0, 100);
+            dibujar.dibujarRepisa(gcRepisa, 0, 100);
             root.getChildren().add(canvasRepisa);
         }
         
