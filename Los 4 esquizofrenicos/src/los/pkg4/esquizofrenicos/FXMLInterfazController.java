@@ -426,6 +426,8 @@ public class FXMLInterfazController implements Initializable {
             fin--;
 
             for (int i = fin - 1; i >= inicio; i--){
+                Canvas recMover = arr[i].r;
+                Canvas recMover2 = arr[i + 1].r;
                 if (arr[i].valor > arr[i + 1].valor){  
                     TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel/2), canvasGruaBase);
                     TranslateTransition posicionIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);
@@ -446,7 +448,7 @@ public class FXMLInterfazController implements Initializable {
                     sequentialTransition.getChildren().add(pt);
                     
                     //Movimiento cajas
-                    //moverCajas(recMover,recMover2,i);
+                    moverCajasReverso(recMover,recMover2,i);
 
                     TranslateTransition subirIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);     
                     TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
@@ -511,7 +513,7 @@ public class FXMLInterfazController implements Initializable {
         ttBaseLeft.setByX(-80);
         ttCuerdaLeft.setByX(-80);
          
-        pt = new ParallelTransition(ttUp,ttImanUp,cuerdaUp); //Sube Iiman con la caja
+        pt = new ParallelTransition(ttUp,ttImanUp,cuerdaUp); //Sube iman con la caja
         sequentialTransition.getChildren().add(pt);
         pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni,ttLeftIni); //lleva el iman con la caja a la repisa
         sequentialTransition.getChildren().add(pt); 
@@ -528,6 +530,73 @@ public class FXMLInterfazController implements Initializable {
         pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight,ttRight); //el iman con la caja de la repisa se ubican sobre la posicion a dejar la caja
         sequentialTransition.getChildren().add(pt);
         pt = new ParallelTransition(ttImanDown,cuerdaDown, ttDown); //baja el iman con la caja
+        sequentialTransition.getChildren().add(pt);
+    }
+    
+    void moverCajasReverso(Canvas recMover,Canvas recMover2,int j) {
+        TranslateTransition tt2Up = new TranslateTransition(Duration.seconds(vel), recMover2);
+        TranslateTransition tt2Down = new TranslateTransition(Duration.seconds(vel), recMover2);
+        TranslateTransition tt2Right = new TranslateTransition(Duration.seconds(vel), recMover2);
+        
+        TranslateTransition ttImanUp = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
+        TranslateTransition ttImanRight = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
+        TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
+        TranslateTransition ttBaseRight = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
+        TranslateTransition ttCuerdaRight = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
+        TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
+        TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
+        
+         
+        TranslateTransition ttImanRight2 = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
+        TranslateTransition ttBaseRight2 = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
+        TranslateTransition ttCuerdaRight2 = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
+        
+        TranslateTransition ttImanIni = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
+        TranslateTransition ttBaseIni = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
+        TranslateTransition ttCuerdaIni = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);       
+        TranslateTransition ttRight2 = new TranslateTransition(Duration.seconds(vel), recMover);
+        TranslateTransition ttLeftIni = new TranslateTransition(Duration.seconds(vel), recMover2);
+
+        tt2Up.setByY(-400);
+        tt2Right.setByX(80*j);
+
+        tt2Down.setByY(400);
+        ttImanUp.setByY(-400);
+        ttImanDown.setByY(400);
+
+        ttImanRight.setByX(80*j);
+        ttBaseRight.setByX(80*j);
+        ttCuerdaRight.setByX(80*j);
+        cuerdaDown.setByY(400);
+        cuerdaUp.setByY(-400);
+        ttRight2.setByX(80);
+        
+        ttImanIni.setToX(100);
+        ttBaseIni.setToX(100);
+        ttCuerdaIni.setToX(100);
+        ttLeftIni.setToX(100);
+       
+        ttImanRight2.setByX(80);
+        ttBaseRight2.setByX(80);
+        ttCuerdaRight2.setByX(80);
+        
+        pt = new ParallelTransition(tt2Up,ttImanUp,cuerdaUp); //Sube iman con la caja
+        sequentialTransition.getChildren().add(pt);
+        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni,ttLeftIni); //lleva el iman con la caja a la repisa
+        sequentialTransition.getChildren().add(pt);
+        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight); //la grua se posiciona en la caja izquierda a mover
+        sequentialTransition.getChildren().add(pt);   
+        pt = new ParallelTransition(ttImanDown,cuerdaDown); //el iman baja
+        sequentialTransition.getChildren().add(pt);     
+        pt = new ParallelTransition(ttImanRight2,ttBaseRight2,ttCuerdaRight2,ttRight2); //el iman con la caja de la izquierda se desplazan a la derecha
+        sequentialTransition.getChildren().add(pt);  
+        pt = new ParallelTransition(ttImanUp,cuerdaUp); //sube el iman
+        sequentialTransition.getChildren().add(pt);   
+        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni); //el iman se ubica en la caja que esta en la repisa
+        sequentialTransition.getChildren().add(pt);  
+        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight,tt2Right); //el iman con la caja de la repisa se ubican sobre la posicion a dejar la caja
+        sequentialTransition.getChildren().add(pt);   
+        pt = new ParallelTransition(ttImanDown,cuerdaDown, tt2Down); //baja el iman con la caja
         sequentialTransition.getChildren().add(pt);
     }
         
