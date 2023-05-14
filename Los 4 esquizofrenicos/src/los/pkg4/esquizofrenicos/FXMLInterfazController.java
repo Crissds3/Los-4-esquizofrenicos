@@ -81,6 +81,26 @@ public class FXMLInterfazController implements Initializable {
     private ImageView contenedorImagen;
     @FXML
     private Label labelKey;
+    @FXML
+    private Label label9;
+    @FXML
+    private Label label10;
+    @FXML
+    private Label label11;
+    @FXML
+    private Label label12;
+    @FXML
+    private Label label13;
+    @FXML
+    private Label label131;
+    @FXML
+    private Label label14;
+    @FXML
+    private Label labelN;
+    @FXML
+    private Label labelI;
+    @FXML
+    private Label labelJ;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -180,7 +200,7 @@ public class FXMLInterfazController implements Initializable {
             bubbleSort(r);
         }
         else if (sel == 3) {
-            Image image = new Image(getClass().getResourceAsStream("img/fondopruebaBubble.png"));
+            Image image = new Image(getClass().getResourceAsStream("img/fondopruebaCocktail.png"));
             contenedorImagen.setImage(image);
             cocktailSort(r);
         }
@@ -320,28 +340,64 @@ public class FXMLInterfazController implements Initializable {
     }
      
     void cocktailSort(Rectangulo arr[]){
-        boolean swapped = true;
-        int inicio = 0;
-        int fin = arr.length;
         animacion.sequentialTransition = new SequentialTransition();
+        //Mostrar codigo
+        labelN.setText("swapped");
+        labelJ.setText("inicio");
+        labelKey.setText("fin");
+        label1.setText("swapped=true, inicio=0, fin=lenght(arreglo)");
+        label2.setText("    Mientras swapped == true");
+        label3.setText("        swapped = false");
+        label4.setText("        Para i = inicio hasta fin-1");
+        label5.setText("            Si arreglo[j] > arreglo[j+1]");
+        label6.setText("                swap(arreglo[j+1],arreglo[j])");
+        label7.setText("                swapped = true");
+        label8.setText("        Si swapped == false break");
+        label9.setText("        swapped = false, fin--");
+        label10.setText("        Para i = fin - 1 hasta inicio");
+        label11.setText("            Si arreglo[j] > arreglo[j+1]");
+        label12.setText("                swap(arreglo[j+1],arreglo[j])");
+        label13.setText("                swapped = true");
+        label14.setText("        inicio++");
+        boolean swapped = true;
+        animacion.actualizaContador(valorN, swapped);
+        int inicio = 0;
+        animacion.actualizaContador(valorJ, inicio);
+        int fin = arr.length;
+        animacion.actualizaContador(valorKey, fin);
+        animacion.pintaLinea(label1);
+        
         while (swapped == true){
+            animacion.pintaLinea(label2);
             swapped = false;
+            animacion.actualizaContador(valorN, swapped);
             boolean cambio = false;
+            animacion.pintaLinea(label3);
             for (int i = inicio; i < fin - 1; ++i){
+                animacion.actualizaContador(valorI, i);
+                animacion.pintaLinea(label4);
                 Canvas recMover = arr[i].r;
                 Canvas recMover2 = arr[i + 1].r;
                 if (arr[i].valor > arr[i+1].valor) {
+                    animacion.pintaLinea(label5);
+                    animacion.colorChange = new ParallelTransition(label6);
+                    animacion.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #13bf38;"))));
+                    animacion.sequentialTransition.getChildren().add(animacion.colorChange);
                     animacion.posicionInicial(i,cambio);
                         
                     animacion.bajarGrua();
                     
                     //Movimiento cajas
                     animacion.moverCajas(recMover,recMover2,i,cambio);
-
+                    animacion.colorChange2 = new ParallelTransition(label6);
+                    animacion.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #ffffff;"))));
+                    animacion.sequentialTransition.getChildren().add(animacion.colorChange2);
                     Rectangulo temp = arr[i];
                     arr[i] = arr[i+1];
                     arr[i+1] = temp;
                     swapped = true;
+                    animacion.actualizaContador(valorN, swapped);
+                    animacion.pintaLinea(label7);
                     cambio = true;
                     if(i == fin-2){
                         animacion.mueveDesdeRepisa(recMover,recMover2,i+1);
@@ -355,28 +411,44 @@ public class FXMLInterfazController implements Initializable {
                     }
                     cambio = false;       
                 }
+                
             }
         
             if (swapped == false) break;
+            animacion.pintaLinea(label8);
             swapped = false;
+            animacion.actualizaContador(valorN, swapped);
             cambio=false;
             fin--;
+            animacion.actualizaContador(valorKey, fin);
+            animacion.pintaLinea(label9);
 
             for (int i = fin - 1; i >= inicio; i--){
+                animacion.actualizaContador(valorI, i);
+                animacion.pintaLinea(label10);
                 Canvas recMover = arr[i].r;
                 Canvas recMover2 = arr[i + 1].r;
-                if (arr[i].valor > arr[i + 1].valor){  
+                if (arr[i].valor > arr[i + 1].valor){ 
+                    animacion.pintaLinea(label11);
+                    animacion.colorChange = new ParallelTransition(label12);
+                    animacion.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label12.styleProperty(), "-fx-background-color: #13bf38;"))));
+                    animacion.sequentialTransition.getChildren().add(animacion.colorChange);
                     animacion.posicionInicial(i,!cambio);
                         
                     animacion.bajarGrua();
                     
                     //Movimiento cajas
                     animacion.moverCajasReverso(recMover,recMover2,i,cambio);
-
+                    
+                    animacion.colorChange2 = new ParallelTransition(label12);
+                    animacion.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label12.styleProperty(), "-fx-background-color: #ffffff;"))));
+                    animacion.sequentialTransition.getChildren().add(animacion.colorChange2);
                     Rectangulo temp = arr[i];
                     arr[i] = arr[i+1];
                     arr[i+1] = temp;
                     swapped = true;
+                    animacion.actualizaContador(valorN, swapped);
+                    animacion.pintaLinea(label13);
                     cambio = true;
                     if(i == inicio){
                         animacion.mueveDesdeRepisa(recMover2,recMover,i);
@@ -393,6 +465,8 @@ public class FXMLInterfazController implements Initializable {
                 }
             }
             inicio++;
+            animacion.actualizaContador(valorJ, inicio);
+            animacion.pintaLinea(label14);
         }    
     }
     

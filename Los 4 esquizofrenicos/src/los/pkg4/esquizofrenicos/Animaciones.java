@@ -420,4 +420,12 @@ public class Animaciones {
         if(sel==1)
         sequentialTransition2.getChildren().add(ptValor);
     }
+    
+    public void actualizaContador(Label label, boolean valor){
+        ParallelTransition ptValor = new ParallelTransition(label);
+        ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
+        sequentialTransition.getChildren().add(ptValor);
+        if(sel==1)
+        sequentialTransition2.getChildren().add(ptValor);
+    }
 }
