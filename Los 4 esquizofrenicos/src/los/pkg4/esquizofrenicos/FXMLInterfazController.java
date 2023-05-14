@@ -46,20 +46,10 @@ public class FXMLInterfazController implements Initializable {
     
     float vel;
     public static int sel;
-    private Canvas canvasRepisa;
-    private Canvas canvasGruaBase;
-    private Canvas canvasGruaBase2;
-    private Canvas canvasGruaIman;
-    private Canvas canvasGruaIman2;
-    SequentialTransition sequentialTransition;
-    SequentialTransition sequentialTransition2;
-    ParallelTransition pt;
-    ParallelTransition pt2;  
-    DibujarGrua dibujar;
-    DibujarGrua dibujar2; 
-    DibujarGrua dibujar3;
-    ParallelTransition colorChange;
-    ParallelTransition colorChange2;
+
+    Animaciones animacion = new Animaciones();
+
+
     
     @FXML
     private Label label1;
@@ -94,21 +84,20 @@ public class FXMLInterfazController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("s: "+sel);
+
         velocidad.setMin(0.01);
         velocidad.setMax(10.0);
         velocidad.setValue(1);
         vel = (float) velocidad.getValue();
-
+        animacion.vel = vel;
         velocidad.setOnMouseDragged(event -> {
             float value = (float) velocidad.getValue();
-            sequentialTransition.setRate(value);
-            if(sel==1) sequentialTransition2.setRate(value);
+            animacion.sequentialTransition.setRate(value);
+            if(sel==1) animacion.sequentialTransition2.setRate(value);
         });
 
-        dibujar = new DibujarGrua();
-        dibujar2 = new DibujarGrua();
-        dibujar3= new DibujarGrua();
+        animacion.dibujar = new DibujarGrua();
+        animacion.dibujar2 = new DibujarGrua();
 
         Rectangulo[] r = new Rectangulo[16];
 
@@ -121,61 +110,61 @@ public class FXMLInterfazController implements Initializable {
             r[i].r.setTranslateX(100 + i * 80);
             pane.getChildren().add(r[i].r);
         }
-        canvasGruaBase = new Canvas(150, 50);
-        canvasGruaIman = new Canvas(150, 60);
+        animacion.canvasGruaBase = new Canvas(150, 50);
+        animacion.canvasGruaIman = new Canvas(150, 60);
       
-        dibujar.dibujarCuerda();
+        animacion.dibujar.dibujarCuerda();
 
-        GraphicsContext gcBase = canvasGruaBase.getGraphicsContext2D();    
+        GraphicsContext gcBase = animacion.canvasGruaBase.getGraphicsContext2D();    
         gcBase.setFill(Color.web("#acb2b0")); 
         gcBase.fillRect(40, 0, 70, 50);
 
-        GraphicsContext gcIman = canvasGruaIman.getGraphicsContext2D();
+        GraphicsContext gcIman = animacion.canvasGruaIman.getGraphicsContext2D();
         gcIman.setFill(Color.web("#fb273b"));
      
-        dibujar.cuerda.setTranslateX(650);
-        dibujar.cuerda.setTranslateY(-110);
-        canvasGruaBase.setTranslateX(650);
-        canvasGruaBase.setTranslateY(145);
-        canvasGruaIman.setTranslateX(650);
-        canvasGruaIman.setTranslateY(310); 
-        dibujar.dibujarBase(gcBase, 40, 0);
-        dibujar.dibujarIman(gcIman, 75, 0);
+        animacion.dibujar.cuerda.setTranslateX(650);
+        animacion.dibujar.cuerda.setTranslateY(-110);
+        animacion.canvasGruaBase.setTranslateX(650);
+        animacion.canvasGruaBase.setTranslateY(145);
+        animacion.canvasGruaIman.setTranslateX(650);
+        animacion.canvasGruaIman.setTranslateY(310); 
+        animacion.dibujar.dibujarBase(gcBase, 40, 0);
+        animacion.dibujar.dibujarIman(gcIman, 75, 0);
 
         Group root = new Group(pane);
         if(sel==1){
-            dibujar2.dibujarCuerda();
-            canvasGruaBase2 = new Canvas(150, 50);
-            canvasGruaIman2 = new Canvas(150, 60);
-            GraphicsContext gcBase2 = canvasGruaBase2.getGraphicsContext2D();
-            GraphicsContext gcIman2 = canvasGruaIman2.getGraphicsContext2D();
+            animacion.dibujar2.dibujarCuerda();
+            animacion.canvasGruaBase2 = new Canvas(150, 50);
+            animacion.canvasGruaIman2 = new Canvas(150, 60);
+            GraphicsContext gcBase2 = animacion.canvasGruaBase2.getGraphicsContext2D();
+            GraphicsContext gcIman2 = animacion.canvasGruaIman2.getGraphicsContext2D();
             gcIman2.setFill(Color.web("#fb273b"));
             gcBase2.setFill(Color.web("#acb2b0")); 
             gcBase2.fillRect(40, 0, 70, 50);
 
-            dibujar2.cuerda.setTranslateX(850);
-            dibujar2.cuerda.setTranslateY(-110);
-            canvasGruaBase2.setTranslateX(850);
-            canvasGruaBase2.setTranslateY(145);
-            canvasGruaIman2.setTranslateX(850);
-            canvasGruaIman2.setTranslateY(310);
-            dibujar2.dibujarBase(gcBase2, 40, 0);
-            dibujar2.dibujarIman(gcIman2, 75, 0);
-            pane.getChildren().add(canvasGruaBase2);
-            pane.getChildren().add(canvasGruaIman2); 
-            root.getChildren().add(dibujar2.cuerda);
+            animacion.dibujar2.cuerda.setTranslateX(850);
+            animacion.dibujar2.cuerda.setTranslateY(-110);
+            animacion.canvasGruaBase2.setTranslateX(850);
+            animacion.canvasGruaBase2.setTranslateY(145);
+            animacion.canvasGruaIman2.setTranslateX(850);
+            animacion.canvasGruaIman2.setTranslateY(310);
+            animacion.dibujar2.dibujarBase(gcBase2, 40, 0);
+            animacion.dibujar2.dibujarIman(gcIman2, 75, 0);
+            pane.getChildren().add(animacion.canvasGruaBase2);
+            pane.getChildren().add(animacion.canvasGruaIman2); 
+            root.getChildren().add(animacion.dibujar2.cuerda);
         }else{
-            canvasRepisa= new Canvas(300, 300); 
-            GraphicsContext gcRepisa = canvasRepisa.getGraphicsContext2D(); 
-            canvasRepisa.setTranslateY(243);
-            canvasRepisa.setTranslateX(140);
-            dibujar3.dibujarRepisa(gcRepisa, 0, 100);
-            root.getChildren().add(canvasRepisa);
+            animacion.canvasRepisa= new Canvas(300, 300); 
+            GraphicsContext gcRepisa = animacion.canvasRepisa.getGraphicsContext2D(); 
+            animacion.canvasRepisa.setTranslateY(243);
+            animacion.canvasRepisa.setTranslateX(140);
+            animacion.dibujar.dibujarRepisa(gcRepisa, 0, 100);
+            root.getChildren().add(animacion.canvasRepisa);
         }
         
-        pane.getChildren().add(canvasGruaBase);
-        root.getChildren().add(canvasGruaIman);
-        root.getChildren().add(dibujar.cuerda);
+        pane.getChildren().add(animacion.canvasGruaBase);
+        root.getChildren().add(animacion.canvasGruaIman);
+        root.getChildren().add(animacion.dibujar.cuerda);
         
         myAnchorPane.getChildren().add(root);
         root.toBack();
@@ -195,101 +184,63 @@ public class FXMLInterfazController implements Initializable {
             contenedorImagen.setImage(image);
             cocktailSort(r);
         }
-        sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
-        sequentialTransition.play();
+        animacion.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
+        animacion.sequentialTransition.play();
        
-        if(sel==1) sequentialTransition2.play();
+        if(sel==1) animacion.sequentialTransition2.play();
         
     }
     
     
     void insertSort(Rectangulo arr[]) {
-        colorChange = new ParallelTransition();
-        colorChange2 = new ParallelTransition();
-        sequentialTransition = new SequentialTransition();
-        sequentialTransition2 = new SequentialTransition();
+        animacion.colorChange = new ParallelTransition();
+        animacion.colorChange2 = new ParallelTransition();
+        animacion.sequentialTransition = new SequentialTransition();
         int n = arr.length;
-        pintaLinea(label1);
+        animacion.pintaLinea(label1);
         valorN.setText(n+"");
 
         Rectangulo aux = new Rectangulo();
 
         //Insert Sort
         for (int i = 1; i < n; i++) {
-            pintaLinea(label2);
-            actualizaContador(valorI,i);
+            animacion.pintaLinea(label2);
+            animacion.actualizaContador(valorI,i);
             
             int key = arr[i].valor;
-            pintaLinea(label3);
-            actualizaContador(valorKey,key);
+            animacion.pintaLinea(label3);
+            animacion.actualizaContador(valorKey,key);
             
             int j = i - 1;
-            pintaLinea(label4);
-            actualizaContador(valorJ,j);
+            animacion.pintaLinea(label4);
+            animacion.actualizaContador(valorJ,j);
             
             while (j >= 0 && arr[j].valor > key) {
-                pintaLinea(label5);
+                animacion.pintaLinea(label5);
                 
-                colorChange = new ParallelTransition(label6);
-                colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #13bf38;"))));
-                sequentialTransition.getChildren().add(colorChange);
-                sequentialTransition2.getChildren().add(colorChange);
+                animacion.colorChange = new ParallelTransition(label6);
+                animacion.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #13bf38;"))));
+                animacion.sequentialTransition.getChildren().add(animacion.colorChange);
+                animacion.sequentialTransition2.getChildren().add(animacion.colorChange);
                 Canvas recMover = arr[j].r;
                 Canvas recMover2 = arr[j + 1].r;
-                TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel/2), canvasGruaBase);
-                TranslateTransition posicionIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);
-                TranslateTransition posicionBase2 = new TranslateTransition(Duration.seconds(vel/2), canvasGruaBase2);
-                TranslateTransition posicionIman2 = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman2);
-                TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);   
-                TranslateTransition posicionCuerda2 = new TranslateTransition(Duration.seconds(vel/2), dibujar2.cuerda);   
-
-                posicionBase.setToX(100+j*80);
-                posicionIman.setToX(100+j*80);
-                posicionCuerda.setToX(100+j*80);
-                posicionBase2.setToX(100+(j+1)*80);
-                posicionIman2.setToX(100+(j+1)*80);
-                posicionCuerda2.setToX(100+(j+1)*80);
-                pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
-                pt2 = new ParallelTransition(posicionBase2,posicionIman2,posicionCuerda2);
-                sequentialTransition.getChildren().add(pt);
-                sequentialTransition2.getChildren().add(pt2);
-
-                TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);   
-                TranslateTransition ttImanDown2 = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman2); 
-                TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-                TranslateTransition cuerdaDown2 = new TranslateTransition(Duration.seconds(vel/2), dibujar2.cuerda);
-                cuerdaDown.setToY(195);
-                cuerdaDown2.setToY(195);
-                ttImanDown.setToY(615);
-                ttImanDown2.setToY(615);
-
-                pt = new ParallelTransition(cuerdaDown,ttImanDown);
-                pt2 = new ParallelTransition(cuerdaDown2,ttImanDown2);
-                sequentialTransition.getChildren().add(pt);
-                sequentialTransition2.getChildren().add(pt2);
+                animacion.posicionInicial(j);
+                animacion.posicionInicial2(j+1);
+                
+                animacion.bajarGrua();
+                animacion.bajarGrua2();
 
                 //Movimiento cajas
-                moverCajaIzquierda(recMover);
-                moverCajaDerecha(recMover2);
+                animacion.moverCajaIzquierda(recMover);
+                animacion.moverCajaDerecha(recMover2);
 
-                TranslateTransition subirIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);     
-                TranslateTransition subirIman2 = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman2);
-                TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-                TranslateTransition cuerdaUp2 = new TranslateTransition(Duration.seconds(vel/2), dibujar2.cuerda);
-                
-                subirIman.setToY(310);
-                subirIman2.setToY(310);
-                cuerdaUp.setToY(-110);
-                cuerdaUp2.setToY(-110);
+                animacion.subirGrua();
+                animacion.subirGrua2();
 
-                pt = new ParallelTransition(subirIman,cuerdaUp);
-                pt2 = new ParallelTransition(subirIman2,cuerdaUp2);
-                sequentialTransition.getChildren().add(pt);
-                sequentialTransition2.getChildren().add(pt2);
-                colorChange2 = new ParallelTransition(label6);
-                colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #ffffff;"))));
-                sequentialTransition.getChildren().add(colorChange2);
-                sequentialTransition2.getChildren().add(colorChange2);
+                animacion.colorChange2 = new ParallelTransition(label6);
+                animacion.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label6.styleProperty(), "-fx-background-color: #ffffff;"))));
+                animacion.sequentialTransition.getChildren().add(animacion.colorChange2);
+                animacion.sequentialTransition2.getChildren().add(animacion.colorChange2);
                 
                 //swap cajas
                 aux.setR(arr[j + 1].getR());
@@ -297,16 +248,16 @@ public class FXMLInterfazController implements Initializable {
                 arr[j + 1].setR(arr[j].getR());
                 arr[j].setR(aux.getR());
                 j--;
-                pintaLinea(label7);
-                actualizaContador(valorJ,j);
+                animacion.pintaLinea(label7);
+                animacion.actualizaContador(valorJ,j);
             }
             
             arr[j + 1].setValor(key);
-            pintaLinea(label8);
+            animacion.pintaLinea(label8);
         }
     }
 
-     void bubbleSort(Rectangulo[] arr) {
+     void bubbleSort(Rectangulo[] arr) {  
         //Mostrar codigo
         labelKey.setText("");
         label3.setText("        Para j = 1 hasta n-i-1");
@@ -316,61 +267,54 @@ public class FXMLInterfazController implements Initializable {
         label7.setText("");
         label8.setText("");
        
-        colorChange = new ParallelTransition();
-        colorChange2 = new ParallelTransition();
-        sequentialTransition = new SequentialTransition();
+        animacion.colorChange = new ParallelTransition();
+        animacion.colorChange2 = new ParallelTransition();
+        animacion.sequentialTransition = new SequentialTransition();
         int n = arr.length;
         valorN.setText(n+"");
-        pintaLinea(label1);
+        animacion.pintaLinea(label1);
         
         for (int i = 0; i < n-1; i++) {
-            pintaLinea(label2);
-            actualizaContador(valorI,i);
+            boolean cambio = false;
+            animacion.pintaLinea(label2);
+            animacion.actualizaContador(valorI,i);
             for (int j = 0; j < n-i-1; j++) {
-                pintaLinea(label3);
-                actualizaContador(valorJ,j);
+                animacion.pintaLinea(label3);
+                animacion.actualizaContador(valorJ,j);
                 Canvas recMover = arr[j].r;
                 Canvas recMover2 = arr[j + 1].r;
+     
                 if (arr[j].valor > arr[j+1].valor) {
-                     pintaLinea(label4);
-                    colorChange = new ParallelTransition(label5);
-                    colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label5.styleProperty(), "-fx-background-color: #13bf38;"))));
-                    sequentialTransition.getChildren().add(colorChange);
-                    TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel/2), canvasGruaBase);
-                    TranslateTransition posicionIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);
-                    TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda); 
-                    
-                    posicionBase.setToX(100+j*80);
-                    posicionIman.setToX(100+j*80);
-                    posicionCuerda.setToX(100+j*80);
-                    pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
-                    sequentialTransition.getChildren().add(pt);
+                    animacion.posicionInicial(j,cambio);
+                    animacion.pintaLinea(label4);
+                    animacion.colorChange = new ParallelTransition(label5);
+                    animacion.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label5.styleProperty(), "-fx-background-color: #13bf38;"))));
+                    animacion.sequentialTransition.getChildren().add(animacion.colorChange);
                         
-                    TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);   
-                    TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-                    cuerdaDown.setToY(195);
-                    ttImanDown.setToY(615);
-                    
-                    pt = new ParallelTransition(cuerdaDown,ttImanDown);
-                    sequentialTransition.getChildren().add(pt);
+                    animacion.bajarGrua();
                     
                     //Movimiento cajas
-                    moverCajas(recMover,recMover2,j);
-
-                    TranslateTransition subirIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);     
-                    TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-
-                    subirIman.setToY(310);
-                    cuerdaUp.setToY(-110);
-                    pt = new ParallelTransition(subirIman,cuerdaUp);
-                    sequentialTransition.getChildren().add(pt);
-                    colorChange2 = new ParallelTransition(label5);
-                    colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label5.styleProperty(), "-fx-background-color: #ffffff;"))));
-                    sequentialTransition.getChildren().add(colorChange2);
+                    animacion.moverCajas(recMover,recMover2,j,cambio);
+                    
+                    animacion.colorChange2 = new ParallelTransition(label5);
+                    animacion.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label5.styleProperty(), "-fx-background-color: #ffffff;"))));
+                    animacion.sequentialTransition.getChildren().add(animacion.colorChange2);
                     Rectangulo temp = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
+                    cambio = true;      
+                    if(j == n-i-2){
+                        animacion.mueveDesdeRepisa(recMover,recMover2,j+1);
+                    }
                 }
+                else{
+                    if(cambio){
+                        animacion.mueveDesdeRepisa(recMover,recMover2,j);
+                        cambio = false;      
+                    }
+                    cambio = false; 
+                }
+                     
             }
         }
     }
@@ -379,310 +323,80 @@ public class FXMLInterfazController implements Initializable {
         boolean swapped = true;
         int inicio = 0;
         int fin = arr.length;
-        sequentialTransition = new SequentialTransition();
+        animacion.sequentialTransition = new SequentialTransition();
         while (swapped == true){
             swapped = false;
+            boolean cambio = false;
             for (int i = inicio; i < fin - 1; ++i){
                 Canvas recMover = arr[i].r;
                 Canvas recMover2 = arr[i + 1].r;
                 if (arr[i].valor > arr[i+1].valor) {
-                    TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel/2), canvasGruaBase);
-                    TranslateTransition posicionIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);
-                    TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda); 
-                    
-                    posicionBase.setToX(100+i*80);
-                    posicionIman.setToX(100+i*80);
-                    posicionCuerda.setToX(100+i*80);
-                    pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
-                    sequentialTransition.getChildren().add(pt);
+                    animacion.posicionInicial(i,cambio);
                         
-                    TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);   
-                    TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-                    cuerdaDown.setToY(195);
-                    ttImanDown.setToY(615);
-                    
-                    pt = new ParallelTransition(cuerdaDown,ttImanDown);
-                    sequentialTransition.getChildren().add(pt);
+                    animacion.bajarGrua();
                     
                     //Movimiento cajas
-                    moverCajas(recMover,recMover2,i);
+                    animacion.moverCajas(recMover,recMover2,i,cambio);
 
-                    TranslateTransition subirIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);     
-                    TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-
-                    subirIman.setToY(310);
-                    cuerdaUp.setToY(-110);
-                    pt = new ParallelTransition(subirIman,cuerdaUp);
-                    sequentialTransition.getChildren().add(pt);
                     Rectangulo temp = arr[i];
                     arr[i] = arr[i+1];
                     arr[i+1] = temp;
                     swapped = true;
+                    cambio = true;
+                    if(i == fin-2){
+                        animacion.mueveDesdeRepisa(recMover,recMover2,i+1);
+                    }
+                }
+                else{
+                    if(cambio){
+                        animacion.mueveDesdeRepisa(recMover,recMover2,i);
+                        cambio = false;
+                        
+                    }
+                    cambio = false;       
                 }
             }
         
             if (swapped == false) break;
             swapped = false;
+            cambio=false;
             fin--;
 
             for (int i = fin - 1; i >= inicio; i--){
                 Canvas recMover = arr[i].r;
                 Canvas recMover2 = arr[i + 1].r;
                 if (arr[i].valor > arr[i + 1].valor){  
-                    TranslateTransition posicionBase = new TranslateTransition(Duration.seconds(vel/2), canvasGruaBase);
-                    TranslateTransition posicionIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);
-                    TranslateTransition posicionCuerda = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda); 
-                    
-                    posicionBase.setToX(100+(i+1)*80);
-                    posicionIman.setToX(100+(i+1)*80);
-                    posicionCuerda.setToX(100+(i+1)*80);
-                    pt = new ParallelTransition(posicionBase,posicionIman,posicionCuerda);
-                    sequentialTransition.getChildren().add(pt);
+                    animacion.posicionInicial(i,!cambio);
                         
-                    TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);   
-                    TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-                    cuerdaDown.setToY(195);
-                    ttImanDown.setToY(615);
-                    
-                    pt = new ParallelTransition(cuerdaDown,ttImanDown);
-                    sequentialTransition.getChildren().add(pt);
+                    animacion.bajarGrua();
                     
                     //Movimiento cajas
-                    moverCajasReverso(recMover,recMover2,i);
+                    animacion.moverCajasReverso(recMover,recMover2,i,cambio);
 
-                    TranslateTransition subirIman = new TranslateTransition(Duration.seconds(vel/2), canvasGruaIman);     
-                    TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel/2), dibujar.cuerda);
-
-                    subirIman.setToY(310);
-                    cuerdaUp.setToY(-110);
-                    pt = new ParallelTransition(subirIman,cuerdaUp);
-                    sequentialTransition.getChildren().add(pt);
                     Rectangulo temp = arr[i];
                     arr[i] = arr[i+1];
                     arr[i+1] = temp;
                     swapped = true;
+                    cambio = true;
+                    if(i == inicio){
+                        animacion.mueveDesdeRepisa(recMover2,recMover,i);
+                    }
+                }
+                else{
+                    if(cambio){
+                        animacion.mueveDesdeRepisa(recMover2,recMover,i+1);
+                        cambio = false;
+                        
+                    }
+                    cambio = false;
+                    
                 }
             }
             inicio++;
         }    
     }
     
-    void moverCajas(Canvas recMover,Canvas recMover2,int j) {
-        TranslateTransition ttUp = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttDown = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttRight = new TranslateTransition(Duration.seconds(vel), recMover);
-        
-        TranslateTransition ttImanUp = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttImanRight = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttBaseRight = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
-        TranslateTransition ttCuerdaRight = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        
-        TranslateTransition ttImanLeft = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttBaseLeft = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
-        TranslateTransition ttCuerdaLeft = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        
-        TranslateTransition ttImanIni = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttBaseIni = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
-        TranslateTransition ttCuerdaIni = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        TranslateTransition tt2Left = new TranslateTransition(Duration.seconds(vel), recMover2);
-        TranslateTransition ttLeftIni = new TranslateTransition(Duration.seconds(vel), recMover);
 
-        ttUp.setByY(-400);
-        ttRight.setByX(80+80*j);
-        
-        ttDown.setByY(400);
-        ttImanUp.setByY(-400);
-        ttImanDown.setByY(400);
-
-        ttImanRight.setByX(80+80*j);
-        ttBaseRight.setByX(80+80*j);
-        ttCuerdaRight.setByX(80+80*j);
-        cuerdaDown.setByY(400);
-        cuerdaUp.setByY(-400);
-        tt2Left.setByX(-80);
-        
-        ttImanIni.setToX(100);
-        ttBaseIni.setToX(100);
-        ttCuerdaIni.setToX(100);
-        ttLeftIni.setToX(100);
-        
-        ttImanLeft.setByX(-80);
-        ttBaseLeft.setByX(-80);
-        ttCuerdaLeft.setByX(-80);
-         
-        pt = new ParallelTransition(ttUp,ttImanUp,cuerdaUp); //Sube iman con la caja
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni,ttLeftIni); //lleva el iman con la caja a la repisa
-        sequentialTransition.getChildren().add(pt); 
-        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight); //la grua se posiciona en la segunda caja a mover
-        sequentialTransition.getChildren().add(pt);  
-        pt = new ParallelTransition(ttImanDown,cuerdaDown); //el iman baja
-        sequentialTransition.getChildren().add(pt);   
-        pt = new ParallelTransition(ttImanLeft,ttBaseLeft,ttCuerdaLeft,tt2Left); //el iman con la segunda caja se desplazan a la izquierda
-        sequentialTransition.getChildren().add(pt);   
-        pt = new ParallelTransition(ttImanUp,cuerdaUp); //sube el iman
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni); //el iman se ubica en la caja que esta en la repisa
-        sequentialTransition.getChildren().add(pt);  
-        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight,ttRight); //el iman con la caja de la repisa se ubican sobre la posicion a dejar la caja
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttImanDown,cuerdaDown, ttDown); //baja el iman con la caja
-        sequentialTransition.getChildren().add(pt);
-    }
-    
-    void moverCajasReverso(Canvas recMover,Canvas recMover2,int j) {
-        TranslateTransition tt2Up = new TranslateTransition(Duration.seconds(vel), recMover2);
-        TranslateTransition tt2Down = new TranslateTransition(Duration.seconds(vel), recMover2);
-        TranslateTransition tt2Right = new TranslateTransition(Duration.seconds(vel), recMover2);
-        
-        TranslateTransition ttImanUp = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttImanRight = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttBaseRight = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
-        TranslateTransition ttCuerdaRight = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        
-         
-        TranslateTransition ttImanRight2 = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttBaseRight2 = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
-        TranslateTransition ttCuerdaRight2 = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        
-        TranslateTransition ttImanIni = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttBaseIni = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
-        TranslateTransition ttCuerdaIni = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);       
-        TranslateTransition ttRight2 = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttLeftIni = new TranslateTransition(Duration.seconds(vel), recMover2);
-
-        tt2Up.setByY(-400);
-        tt2Right.setByX(80*j);
-
-        tt2Down.setByY(400);
-        ttImanUp.setByY(-400);
-        ttImanDown.setByY(400);
-
-        ttImanRight.setByX(80*j);
-        ttBaseRight.setByX(80*j);
-        ttCuerdaRight.setByX(80*j);
-        cuerdaDown.setByY(400);
-        cuerdaUp.setByY(-400);
-        ttRight2.setByX(80);
-        
-        ttImanIni.setToX(100);
-        ttBaseIni.setToX(100);
-        ttCuerdaIni.setToX(100);
-        ttLeftIni.setToX(100);
-       
-        ttImanRight2.setByX(80);
-        ttBaseRight2.setByX(80);
-        ttCuerdaRight2.setByX(80);
-        
-        pt = new ParallelTransition(tt2Up,ttImanUp,cuerdaUp); //Sube iman con la caja
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni,ttLeftIni); //lleva el iman con la caja a la repisa
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight); //la grua se posiciona en la caja izquierda a mover
-        sequentialTransition.getChildren().add(pt);   
-        pt = new ParallelTransition(ttImanDown,cuerdaDown); //el iman baja
-        sequentialTransition.getChildren().add(pt);     
-        pt = new ParallelTransition(ttImanRight2,ttBaseRight2,ttCuerdaRight2,ttRight2); //el iman con la caja de la izquierda se desplazan a la derecha
-        sequentialTransition.getChildren().add(pt);  
-        pt = new ParallelTransition(ttImanUp,cuerdaUp); //sube el iman
-        sequentialTransition.getChildren().add(pt);   
-        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni); //el iman se ubica en la caja que esta en la repisa
-        sequentialTransition.getChildren().add(pt);  
-        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight,tt2Right); //el iman con la caja de la repisa se ubican sobre la posicion a dejar la caja
-        sequentialTransition.getChildren().add(pt);   
-        pt = new ParallelTransition(ttImanDown,cuerdaDown, tt2Down); //baja el iman con la caja
-        sequentialTransition.getChildren().add(pt);
-    }
-        
-    void moverCajaIzquierda(Canvas recMover) {
-        TranslateTransition ttUp = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttDown = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttRight = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttImanUp = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttImanRight = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel), canvasGruaIman);
-        TranslateTransition ttBaseRight = new TranslateTransition(Duration.seconds(vel), canvasGruaBase);
-        TranslateTransition ttCuerdaRight = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel), dibujar.cuerda);
-        
-        ttUp.setByY(-400);
-        ttRight.setByX(80);
-        ttDown.setByY(400);
-        ttImanUp.setByY(-400);
-        ttImanRight.setByX(80);
-        ttImanDown.setByY(400);
-        ttBaseRight.setByX(80);
-        ttCuerdaRight.setByX(80);
-        cuerdaDown.setByY(400);
-        cuerdaUp.setByY(-400);
-         
-        pt = new ParallelTransition(ttUp,ttImanUp,cuerdaUp);
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttRight,ttImanRight,ttBaseRight,ttCuerdaRight);
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttDown,ttImanDown,cuerdaDown);
-        sequentialTransition.getChildren().add(pt);
-    }
-
-    void moverCajaDerecha(Canvas recMover) {
-        TranslateTransition ttUp = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttDown = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttLeft = new TranslateTransition(Duration.seconds(vel), recMover);
-        TranslateTransition ttImanUp = new TranslateTransition(Duration.seconds(vel), canvasGruaIman2);
-        TranslateTransition ttImanLeft = new TranslateTransition(Duration.seconds(vel), canvasGruaIman2);
-        TranslateTransition ttImanDown = new TranslateTransition(Duration.seconds(vel), canvasGruaIman2);
-        TranslateTransition ttBaseLeft = new TranslateTransition(Duration.seconds(vel), canvasGruaBase2);
-        TranslateTransition ttCuerdaLeft = new TranslateTransition(Duration.seconds(vel), dibujar2.cuerda);
-        TranslateTransition cuerdaUp = new TranslateTransition(Duration.seconds(vel), dibujar2.cuerda);
-        TranslateTransition cuerdaDown = new TranslateTransition(Duration.seconds(vel), dibujar2.cuerda);
-        
-        ttUp.setByY(-320);
-        ttLeft.setByX(-80);
-        ttDown.setByY(320);
-        ttImanUp.setByY(-320);
-        ttImanLeft.setByX(-80);
-        ttImanDown.setByY(320);
-        ttBaseLeft.setByX(-80);
-        ttCuerdaLeft.setByX(-80);
-        cuerdaDown.setByY(320);
-        cuerdaUp.setByY(-320);
-
-        pt2 = new ParallelTransition(ttUp,ttImanUp,cuerdaUp);
-        sequentialTransition2.getChildren().add(pt2);
-        pt2 = new ParallelTransition(ttLeft,ttImanLeft,ttBaseLeft,ttCuerdaLeft);
-        sequentialTransition2.getChildren().add(pt2);
-        pt2 = new ParallelTransition(ttDown,ttImanDown,cuerdaDown);
-        sequentialTransition2.getChildren().add(pt2);
-    }
-    
-    void pintaLinea(Label label){
-        colorChange = new ParallelTransition(label);
-        colorChange2 = new ParallelTransition(label);
-        colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.styleProperty(), "-fx-background-color: #13bf38;"))));
-        colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.styleProperty(), "-fx-background-color: #ffffff;"))));
-        sequentialTransition.getChildren().add(colorChange);
-        sequentialTransition.getChildren().add(colorChange2);
-        if(sel==1){
-        sequentialTransition2.getChildren().add(colorChange);
-        sequentialTransition2.getChildren().add(colorChange2);
-        }
-        
-    }
-        
-    void actualizaContador(Label label, int valor){
-        ParallelTransition ptValor = new ParallelTransition(label);
-        ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
-        sequentialTransition.getChildren().add(ptValor);
-        if(sel==1)
-        sequentialTransition2.getChildren().add(ptValor);
-    }
 
     public void setSel(int sel) {
         this.sel = sel;
@@ -690,20 +404,20 @@ public class FXMLInterfazController implements Initializable {
         
     @FXML
     private void pausar(ActionEvent event) {
-        sequentialTransition.pause();
-        sequentialTransition2.pause();
+        animacion.sequentialTransition.pause();
+        animacion.sequentialTransition2.pause();
     }
 
     @FXML
     private void resumir(ActionEvent event) {
-        sequentialTransition.play();
-        sequentialTransition2.play();
+        animacion.sequentialTransition.play();
+        animacion.sequentialTransition2.play();
     }
 
     @FXML
     private void resetea(ActionEvent event) {
-        sequentialTransition.jumpTo(Duration.ZERO);
-        sequentialTransition2.jumpTo(Duration.ZERO);
+        animacion.sequentialTransition.jumpTo(Duration.ZERO);
+        animacion.sequentialTransition2.jumpTo(Duration.ZERO);
     }
 
     @FXML
