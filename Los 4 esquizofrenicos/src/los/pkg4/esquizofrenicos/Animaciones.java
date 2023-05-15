@@ -32,8 +32,8 @@ public class Animaciones {
     Canvas canvasGruaBase2;
     Canvas canvasGruaIman;
     Canvas canvasGruaIman2;
-    DibujarGrua dibujar;
-    DibujarGrua dibujar2; 
+    DibujarElemento dibujar;
+    DibujarElemento dibujar2; 
     float vel;
     
     

@@ -116,8 +116,8 @@ public class FXMLInterfazController implements Initializable {
             if(sel==1) animacion.sequentialTransition2.setRate(value);
         });
 
-        animacion.dibujar = new DibujarGrua();
-        animacion.dibujar2 = new DibujarGrua();
+        animacion.dibujar = new DibujarElemento();
+        animacion.dibujar2 = new DibujarElemento();
 
         Rectangulo[] r = new Rectangulo[16];
 
