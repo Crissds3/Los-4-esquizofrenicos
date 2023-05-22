@@ -39,7 +39,17 @@ public class FXMLInterfazMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        float escalaX = getDefaultToolkit().getScreenSize().width/1920f;
+        float escalaY = getDefaultToolkit().getScreenSize().height/1080f;
+        myAnchorPane.setScaleX(escalaX);
+        myAnchorPane.setScaleY(escalaY);
+
+        if(getDefaultToolkit().getScreenSize().width != 1920){
+            if(getDefaultToolkit().getScreenSize().width <=1400 && getDefaultToolkit().getScreenSize().width >1300) myAnchorPane.setLayoutX(-130);
+            else if(getDefaultToolkit().getScreenSize().width <=1300) myAnchorPane.setLayoutX(-140);
+            else myAnchorPane.setLayoutX(-240);
+            myAnchorPane.setLayoutY(-130);
+        }
     }    
 
     @FXML

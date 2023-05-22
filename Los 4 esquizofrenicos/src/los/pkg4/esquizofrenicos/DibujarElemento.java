@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class DibujarGrua {
+public class DibujarElemento {
     Canvas cuerda = new Canvas(150, 420);
     
     public void dibujarCuerda(){    
