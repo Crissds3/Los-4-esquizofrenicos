@@ -1,5 +1,6 @@
 package los.pkg4.esquizofrenicos;
 
+import static java.awt.Toolkit.getDefaultToolkit;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -104,7 +105,9 @@ public class FXMLInterfazController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        float escalaX = getDefaultToolkit().getScreenSize().width/1920f;
+        float escalaY = getDefaultToolkit().getScreenSize().height/1080f;
+        
         velocidad.setMin(0.01);
         velocidad.setMax(10.0);
         velocidad.setValue(1);
@@ -192,6 +195,16 @@ public class FXMLInterfazController implements Initializable {
         Group root2 = new Group();
         root2.getChildren().add(velocidad);
         myAnchorPane.getChildren().add(root2);
+        myAnchorPane.setScaleX(escalaX);
+        myAnchorPane.setScaleY(escalaY);
+        if(getDefaultToolkit().getScreenSize().width != 1920){
+            if(getDefaultToolkit().getScreenSize().width <=1400 && getDefaultToolkit().getScreenSize().width >1300)  myAnchorPane.setLayoutX(-200);
+            else if(getDefaultToolkit().getScreenSize().width <=1300) myAnchorPane.setLayoutX(-210);
+            else myAnchorPane.setLayoutX(-240);
+            if(getDefaultToolkit().getScreenSize().height >=800)
+                myAnchorPane.setLayoutY(-130);
+            else myAnchorPane.setLayoutY(-140);
+        }
         
         if(sel==1) insertSort(r);
         else if(sel==2){
