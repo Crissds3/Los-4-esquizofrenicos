@@ -9,7 +9,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,8 +92,6 @@ public class FXMLInterfazController implements Initializable {
     @FXML
     private Label label13;
     @FXML
-    private Label label131;
-    @FXML
     private Label label14;
     @FXML
     private Label labelN;
@@ -102,6 +99,8 @@ public class FXMLInterfazController implements Initializable {
     private Label labelI;
     @FXML
     private Label labelJ;
+    @FXML
+    private Button volver;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -206,16 +205,24 @@ public class FXMLInterfazController implements Initializable {
             else myAnchorPane.setLayoutY(-140);
         }
         
-        if(sel==1) insertSort(r);
-        else if(sel==2){
-            Image image = new Image(getClass().getResourceAsStream("img/fondopruebaBubble.png"));
-            contenedorImagen.setImage(image);
-            bubbleSort(r);
-        }
-        else if (sel == 3) {
-            Image image = new Image(getClass().getResourceAsStream("img/fondopruebaCocktail.png"));
-            contenedorImagen.setImage(image);
-            cocktailSort(r);
+        switch (sel){
+            case 1:
+                insertSort(r);
+                break;
+            case 2:{
+                Image image = new Image(getClass().getResourceAsStream("img/fondopruebaBubble.png"));
+                contenedorImagen.setImage(image);
+                bubbleSort(r);
+                break;
+            }
+            case 3:{
+                Image image = new Image(getClass().getResourceAsStream("img/fondopruebaCocktail.png"));
+                contenedorImagen.setImage(image);
+                cocktailSort(r);
+                break;
+            }
+            default:
+                break;
         }
         animacion.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
         animacion.sequentialTransition.play();
@@ -223,8 +230,7 @@ public class FXMLInterfazController implements Initializable {
         if(sel==1) animacion.sequentialTransition2.play();
         
     }
-    
-    
+   
     void insertSort(Rectangulo arr[]) {
         animacion.colorChange = new ParallelTransition();
         animacion.colorChange2 = new ParallelTransition();
@@ -343,7 +349,6 @@ public class FXMLInterfazController implements Initializable {
                 else{
                     if(cambio){
                         animacion.mueveDesdeRepisa(recMover,recMover2,j);
-                        cambio = false;      
                     }
                     cambio = false; 
                 }
@@ -419,8 +424,6 @@ public class FXMLInterfazController implements Initializable {
                 else{
                     if(cambio){
                         animacion.mueveDesdeRepisa(recMover,recMover2,i);
-                        cambio = false;
-                        
                     }
                     cambio = false;       
                 }
@@ -470,8 +473,6 @@ public class FXMLInterfazController implements Initializable {
                 else{
                     if(cambio){
                         animacion.mueveDesdeRepisa(recMover2,recMover,i+1);
-                        cambio = false;
-                        
                     }
                     cambio = false;
                     
@@ -482,13 +483,11 @@ public class FXMLInterfazController implements Initializable {
             animacion.pintaLinea(label14);
         }    
     }
-    
 
-
-    public void setSel(int sel) {
-        this.sel = sel;
+    public static void setSel(int sel) {
+        FXMLInterfazController.sel = sel;
     }
-        
+
     @FXML
     private void pausar(ActionEvent event) {
         animacion.sequentialTransition.pause();
@@ -505,6 +504,17 @@ public class FXMLInterfazController implements Initializable {
     private void resetea(ActionEvent event) {
         animacion.sequentialTransition.jumpTo(Duration.ZERO);
         animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+    }
+    
+    @FXML
+    private void volverMenu(ActionEvent event) throws IOException {
+        Stage stage = (Stage) nuevoArreglo.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfazMenu.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();    
     }
 
     @FXML

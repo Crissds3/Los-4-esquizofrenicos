@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package los.pkg4.esquizofrenicos;
 
 import javafx.animation.KeyFrame;
@@ -16,10 +11,6 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 import static los.pkg4.esquizofrenicos.FXMLInterfazController.sel;
 
-/**
- *
- * @author yanko
- */
 public class Animaciones {
     SequentialTransition sequentialTransition;
     SequentialTransition sequentialTransition2;
@@ -35,7 +26,6 @@ public class Animaciones {
     DibujarElemento dibujar;
     DibujarElemento dibujar2; 
     float vel;
-    
     
     public Animaciones(){
         colorChange = new ParallelTransition();
