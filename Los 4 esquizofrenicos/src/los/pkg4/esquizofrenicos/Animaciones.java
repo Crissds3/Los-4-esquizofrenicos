@@ -177,18 +177,9 @@ public class Animaciones {
         pt = new ParallelTransition(ttImanLeft,ttBaseLeft,ttCuerdaLeft,tt2Left); //el iman con la segunda caja se desplazan a la izquierda
         sequentialTransition.getChildren().add(pt);   
         pt = new ParallelTransition(ttImanUp,cuerdaUp); //sube el iman
-        sequentialTransition.getChildren().add(pt);
-        
-        /*if(cambio){
-            pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni); //el iman se ubica en la caja que esta en la repisa
-            sequentialTransition.getChildren().add(pt);  
-            pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight,ttRight); //el iman con la caja de la repisa se ubican sobre la posicion a dejar la caja
-            sequentialTransition.getChildren().add(pt);
-            pt = new ParallelTransition(ttImanDown,cuerdaDown, ttDown); //baja el iman con la caja
-            sequentialTransition.getChildren().add(pt);
-        }*/
-            
+        sequentialTransition.getChildren().add(pt);           
     }
+    
     public void mueveDesdeRepisa(Canvas recMover,Canvas recMover2,int j) {
         TranslateTransition ttUp = new TranslateTransition(Duration.seconds(vel), recMover);
         TranslateTransition ttDown = new TranslateTransition(Duration.seconds(vel), recMover);
@@ -235,19 +226,6 @@ public class Animaciones {
         ttBaseLeft.setByX(-80);
         ttCuerdaLeft.setByX(-80);
          
-        /*pt = new ParallelTransition(ttUp,ttImanUp,cuerdaUp); //Sube iman con la caja
-        sequentialTransition.getChildren().add(pt);
-        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni,ttLeftIni); //lleva el iman con la caja a la repisa
-        sequentialTransition.getChildren().add(pt); 
-        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight); //la grua se posiciona en la segunda caja a mover
-        sequentialTransition.getChildren().add(pt);  
-        pt = new ParallelTransition(ttImanDown,cuerdaDown); //el iman baja
-        sequentialTransition.getChildren().add(pt);   
-        pt = new ParallelTransition(ttImanLeft,ttBaseLeft,ttCuerdaLeft,tt2Left); //el iman con la segunda caja se desplazan a la izquierda
-        sequentialTransition.getChildren().add(pt); */
-       
-        //pt = new ParallelTransition(ttImanUp,cuerdaUp); //sube el iman
-        //sequentialTransition.getChildren().add(pt);
         pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni); //el iman se ubica en la caja que esta en la repisa
         sequentialTransition.getChildren().add(pt);  
         pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight,ttRight); //el iman con la caja de la repisa se ubican sobre la posicion a dejar la caja
@@ -317,14 +295,6 @@ public class Animaciones {
         sequentialTransition.getChildren().add(pt);  
         pt = new ParallelTransition(ttImanUp,cuerdaUp); //sube el iman
         sequentialTransition.getChildren().add(pt);   
-        
-        /*
-        pt = new ParallelTransition(ttImanIni,ttCuerdaIni,ttBaseIni); //el iman se ubica en la caja que esta en la repisa
-        sequentialTransition.getChildren().add(pt);  
-        pt = new ParallelTransition(ttImanRight,ttBaseRight,ttCuerdaRight,tt2Right); //el iman con la caja de la repisa se ubican sobre la posicion a dejar la caja
-        sequentialTransition.getChildren().add(pt);   
-        pt = new ParallelTransition(ttImanDown,cuerdaDown, tt2Down); //baja el iman con la caja
-        sequentialTransition.getChildren().add(pt);*/
     }
         
     public void moverCajaIzquierda(Canvas recMover) {
@@ -397,8 +367,8 @@ public class Animaciones {
         sequentialTransition.getChildren().add(colorChange);
         sequentialTransition.getChildren().add(colorChange2);
         if(sel==1){
-        sequentialTransition2.getChildren().add(colorChange);
-        sequentialTransition2.getChildren().add(colorChange2);
+            sequentialTransition2.getChildren().add(colorChange);
+            sequentialTransition2.getChildren().add(colorChange2);
         }
         
     }
@@ -408,7 +378,7 @@ public class Animaciones {
         ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
         sequentialTransition.getChildren().add(ptValor);
         if(sel==1)
-        sequentialTransition2.getChildren().add(ptValor);
+            sequentialTransition2.getChildren().add(ptValor);
     }
     
     public void actualizaContador(Label label, boolean valor){
@@ -416,6 +386,6 @@ public class Animaciones {
         ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
         sequentialTransition.getChildren().add(ptValor);
         if(sel==1)
-        sequentialTransition2.getChildren().add(ptValor);
+            sequentialTransition2.getChildren().add(ptValor);
     }
 }
