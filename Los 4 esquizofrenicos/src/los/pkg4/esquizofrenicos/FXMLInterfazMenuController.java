@@ -33,31 +33,43 @@ public class FXMLInterfazMenuController implements Initializable {
     private Button insert;
     @FXML
     private Button bubble;
+    @FXML
+    private Button cocktail;
+    
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        float escalaX = getDefaultToolkit().getScreenSize().width/1920f;
+        float escalaY = getDefaultToolkit().getScreenSize().height/1080f;
+        myAnchorPane.setScaleX(escalaX);
+        myAnchorPane.setScaleY(escalaY);
+
+        if(getDefaultToolkit().getScreenSize().width != 1920){
+            if(getDefaultToolkit().getScreenSize().width <=1400 && getDefaultToolkit().getScreenSize().width >1300) myAnchorPane.setLayoutX(-130);
+            else if(getDefaultToolkit().getScreenSize().width <=1300) myAnchorPane.setLayoutX(-140);
+            else myAnchorPane.setLayoutX(-240);
+            myAnchorPane.setLayoutY(-130);
+        }
     }    
 
     @FXML
     private void cambiarInsertSort(ActionEvent event) throws IOException {
         FXMLInterfazController.sel=1;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml")); 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
         Stage stage = new Stage();
         stage.setX(0);
         stage.setY(0);
         stage.setScene(scene);
+        Stage stageActual = (Stage) insert.getScene().getWindow();
+        stageActual.close();
         stage.show();
     }
     
     @FXML
     private void cambiarBubbleSort(ActionEvent event) throws IOException {
-         FXMLInterfazController.sel=2;
+        FXMLInterfazController.sel=2;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml")); 
         Parent root = loader.load();
         Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
@@ -65,12 +77,14 @@ public class FXMLInterfazMenuController implements Initializable {
         stage.setX(0);
         stage.setY(0);
         stage.setScene(scene);
+        Stage stageActual = (Stage) bubble.getScene().getWindow();
+        stageActual.close();
         stage.show();
     }
     
      @FXML
     private void cambiarCockTailSort(ActionEvent event) throws IOException {
-         FXMLInterfazController.sel=3;
+        FXMLInterfazController.sel=3;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml")); 
         Parent root = loader.load();
         Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
@@ -78,6 +92,8 @@ public class FXMLInterfazMenuController implements Initializable {
         stage.setX(0);
         stage.setY(0);
         stage.setScene(scene);
+        Stage stageActual = (Stage) cocktail.getScene().getWindow();
+        stageActual.close();
         stage.show();
     }
     
