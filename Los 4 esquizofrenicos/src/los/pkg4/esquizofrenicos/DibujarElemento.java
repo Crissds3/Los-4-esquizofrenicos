@@ -83,10 +83,7 @@ public class DibujarElemento {
             dib.setLineWidth(15);
              dib.strokeLine(coordenadaRepisa[i], coordenadaRepisa[i + 1], coordenadaRepisa[i + 2], coordenadaRepisa[i + 3]);  
             dib.setStroke(Color.BROWN);
-            dib.setLineWidth(10);
-         
-            //dib.setFill(Color.BLACK);
-        
+            dib.setLineWidth(10);    
             dib.strokeLine(coordenadaRepisa[i], coordenadaRepisa[i + 1], coordenadaRepisa[i + 2], coordenadaRepisa[i + 3]);  
         }
     }  
