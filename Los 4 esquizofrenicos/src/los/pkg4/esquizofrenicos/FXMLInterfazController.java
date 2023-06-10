@@ -120,7 +120,7 @@ public class FXMLInterfazController implements Initializable {
 
         animacion.dibujar = new DibujarElemento();
         animacion.dibujar2 = new DibujarElemento();
-
+        
         Rectangulo[] r = new Rectangulo[16];
 
         // Crea cuadrados
