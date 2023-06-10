@@ -122,6 +122,17 @@ public class FXMLInterfazController implements Initializable {
         animacion.dibujar2 = new DibujarElemento();
         
         Rectangulo[] r = new Rectangulo[16];
+        Vagon[] v = new Vagon[16];
+        
+        //Crea vagones 
+         StackPane pane2 = new StackPane();
+         for (int i = 0; i < 16; i++) {
+             int numero = (int) (Math.random()*(99+1));         //Falta agregarle posiciones 
+             v[i]= new Vagon(numero,60,60,Color.BLACK);
+             pane2.getChildren().add(v[i].v);
+            
+        }
+         
 
         // Crea cuadrados
         StackPane pane = new StackPane();
@@ -496,6 +507,26 @@ public class FXMLInterfazController implements Initializable {
             animacion.actualizaContador(valorJ, inicio);
             animacion.pintaLinea(label14);
         }    
+    }
+    
+    public void selecSort(Vagon arr[]){
+        int n = arr.length;
+        
+         for (int i = 0; i < n - 1; i++) {
+         int minIndex = i;
+        
+        // Encuentra el índice del elemento mínimo en el subarreglo no ordenado
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j].valor< arr[minIndex].valor) {
+                minIndex = j;
+            }
+        }
+        
+        // Intercambia el elemento mínimo encontrado con el primer elemento sin ordenar
+        int temp = arr[minIndex].valor;
+        arr[minIndex] = arr[i];
+        arr[i].valor = temp;
+    }
     }
     public void selectSort(){}
     public static void setSel(int sel) {
