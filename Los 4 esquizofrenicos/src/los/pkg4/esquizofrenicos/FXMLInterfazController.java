@@ -184,18 +184,22 @@ public class FXMLInterfazController implements Initializable {
             root.getChildren().add(animacion.canvasRepisa);
         }
         
-        pane.getChildren().add(animacion.canvasGruaBase);
-        root.getChildren().add(animacion.canvasGruaIman);
-        root.getChildren().add(animacion.dibujar.cuerda);
+        if (sel != 4) {
+            pane.getChildren().add(animacion.canvasGruaBase);
+            root.getChildren().add(animacion.canvasGruaIman);
+            root.getChildren().add(animacion.dibujar.cuerda);
         
-        myAnchorPane.getChildren().add(root);
-        root.toBack();
-        pane.toFront();
-        Group root2 = new Group();
-        root2.getChildren().add(velocidad);
-        myAnchorPane.getChildren().add(root2);
+            myAnchorPane.getChildren().add(root);
+            root.toBack();
+            pane.toFront();
+            Group root2 = new Group();
+            root2.getChildren().add(velocidad);
+            myAnchorPane.getChildren().add(root2);
+        }
+        
         myAnchorPane.setScaleX(escalaX);
         myAnchorPane.setScaleY(escalaY);
+        
         if(getDefaultToolkit().getScreenSize().width != 1920){
             if(getDefaultToolkit().getScreenSize().width <=1400 && getDefaultToolkit().getScreenSize().width >1300)  myAnchorPane.setLayoutX(-200);
             else if(getDefaultToolkit().getScreenSize().width <=1300) myAnchorPane.setLayoutX(-210);
@@ -221,11 +225,21 @@ public class FXMLInterfazController implements Initializable {
                 cocktailSort(r);
                 break;
             }
+            case 4:{
+                Image image = new Image(getClass().getResourceAsStream("img/fondopruebaSelectSort.png"));
+                contenedorImagen.setImage(image);
+                selectSort();
+                break;
+            }
+            
             default:
                 break;
         }
+        if (sel != 4) {
         animacion.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
-        animacion.sequentialTransition.play();
+        animacion.sequentialTransition.play();  
+        }
+
        
         if(sel==1) animacion.sequentialTransition2.play();
         
@@ -483,7 +497,7 @@ public class FXMLInterfazController implements Initializable {
             animacion.pintaLinea(label14);
         }    
     }
-
+    public void selectSort(){}
     public static void setSel(int sel) {
         FXMLInterfazController.sel = sel;
     }
