@@ -20,11 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author yanko
- */
+
 public class FXMLInterfazMenuController implements Initializable {
 
     @FXML
@@ -35,6 +31,8 @@ public class FXMLInterfazMenuController implements Initializable {
     private Button bubble;
     @FXML
     private Button cocktail;
+    @FXML
+    private Button select;
     
 
     @Override
@@ -96,5 +94,19 @@ public class FXMLInterfazMenuController implements Initializable {
         stageActual.close();
         stage.show();
     }
+ @FXML
+    private void cambiarSelectSort(ActionEvent event) throws IOException {
+        FXMLInterfazController.sel=4;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml")); 
+        Parent root = loader.load();
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
+        Stage stage = new Stage();
+        stage.setX(0);
+        stage.setY(0);
+        stage.setScene(scene);
+        Stage stageActual = (Stage) cocktail.getScene().getWindow();
+        stageActual.close();
+        stage.show();
+    }    
     
 }
