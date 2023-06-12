@@ -15,15 +15,13 @@ class Vagon {
     Canvas v;
 
     public Vagon(int valor, int altura, int ancho, Color color ) {
-        DibujarNumeros dibujar = new DibujarNumeros();   
+        Image image = new Image(getClass().getResourceAsStream("img/vagones.png"));
+        DibujarNumeros dibujar = new DibujarNumeros();  
         this.valor=valor;
-       this.v= new Canvas(altura,ancho);
-         GraphicsContext gc = v.getGraphicsContext2D();
-        
+        this.v= new Canvas(altura,ancho);
+        GraphicsContext gc = v.getGraphicsContext2D();
+        gc.drawImage(image, 0, 0);
     }
-    
-    
-    
     
 
     public Vagon() {

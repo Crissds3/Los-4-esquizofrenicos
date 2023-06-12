@@ -20,11 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author yanko
- */
+
 public class FXMLInterfazMenuController implements Initializable {
 
     @FXML

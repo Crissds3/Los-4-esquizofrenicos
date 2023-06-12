@@ -129,10 +129,10 @@ public class FXMLInterfazController implements Initializable {
          for (int i = 0; i < 16; i++) {
              int numero = (int) (Math.random()*(99+1));         //Falta agregarle posiciones 
              v[i]= new Vagon(numero,60,60,Color.BLACK);
+             v[i].v.setTranslateY(675);
+             v[i].v.setTranslateX(100 + i * 80);
              pane2.getChildren().add(v[i].v);
-            
         }
-         
 
         // Crea cuadrados
         StackPane pane = new StackPane();
@@ -141,7 +141,7 @@ public class FXMLInterfazController implements Initializable {
             r[i] = new Rectangulo(numero, 60, 60, Color.GREEN);
             r[i].r.setTranslateY(675);
             r[i].r.setTranslateX(100 + i * 80);
-            pane.getChildren().add(r[i].r);
+            //pane.getChildren().add(r[i].r);
         }
         animacion.canvasGruaBase = new Canvas(150, 50);
         animacion.canvasGruaIman = new Canvas(150, 60);
@@ -199,10 +199,10 @@ public class FXMLInterfazController implements Initializable {
             pane.getChildren().add(animacion.canvasGruaBase);
             root.getChildren().add(animacion.canvasGruaIman);
             root.getChildren().add(animacion.dibujar.cuerda);
+            root.getChildren().add(pane2);
         
             myAnchorPane.getChildren().add(root);
-            root.toBack();
-            pane.toFront();
+            root.toFront();
             Group root2 = new Group();
             root2.getChildren().add(velocidad);
             myAnchorPane.getChildren().add(root2);
