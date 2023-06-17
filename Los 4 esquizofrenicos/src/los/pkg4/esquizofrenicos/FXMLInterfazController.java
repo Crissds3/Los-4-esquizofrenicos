@@ -591,7 +591,9 @@ public class FXMLInterfazController implements Initializable {
         Stage stage = (Stage) nuevoArreglo.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
+        stage.setX(0);
+        stage.setY(0);
         stage.setScene(scene);
         stage.show();
     }
