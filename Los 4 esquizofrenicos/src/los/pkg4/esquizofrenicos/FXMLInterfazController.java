@@ -144,8 +144,8 @@ public class FXMLInterfazController implements Initializable {
         for (int i = 0; i < 16; i++) {
             int numero = (int) (Math.random()*(99+1));         
             v[i]= new Vagon(numero,60,40,Color.BLACK);
-            v[i].v.setTranslateY(585);
-            v[i].v.setTranslateX(i * 70-130);
+            v[i].v.setTranslateY(945);
+            v[i].v.setTranslateX(260+i * 70);
             pane2.getChildren().add(v[i].v);
         }
         animacion.canvasGruaBase = new Canvas(150, 50);
@@ -202,6 +202,8 @@ public class FXMLInterfazController implements Initializable {
             root.getChildren().add(animacion.canvasRepisa);
         }
         else{
+            pane2.setScaleX(0.5);
+            pane2.setScaleY(0.5);
             root = new Group(pane2);
         }
         
@@ -212,16 +214,14 @@ public class FXMLInterfazController implements Initializable {
             //root.getChildren().add(pane2);
         
             myAnchorPane.getChildren().add(root);
-            root.toFront();
+            root.toBack();
+            pane.toFront();
             Group root2 = new Group();
             root2.getChildren().add(velocidad);
             myAnchorPane.getChildren().add(root2);
         }
         else{
-            root.setScaleX(0.5);
-            root.setScaleY(0.5);
             myAnchorPane.getChildren().add(root);
-            root.toFront();
             Group root2 = new Group();
             root2.getChildren().add(velocidad);
             myAnchorPane.getChildren().add(root2);
@@ -258,9 +258,7 @@ public class FXMLInterfazController implements Initializable {
             case 4:{
                 Image image = new Image(getClass().getResourceAsStream("img/fondopruebaSelectSort.png"));
                 contenedorImagen.setImage(image);
-                selectSort();
-                animacionVagon.sequentialTransition = new SequentialTransition(); 
-                animacionVagon.avanzar(v);
+                selectSort(v);
                 break;
             }
             
@@ -268,6 +266,7 @@ public class FXMLInterfazController implements Initializable {
                 break;
         }
         if (sel != 4) {
+            if(sel==1) animacion.sequentialTransition2.play();
             animacion.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
             animacion.sequentialTransition.play();  
         }
@@ -276,7 +275,6 @@ public class FXMLInterfazController implements Initializable {
         }
 
        
-        if(sel==1) animacion.sequentialTransition2.play();
         
     }
    
@@ -533,46 +531,70 @@ public class FXMLInterfazController implements Initializable {
         }    
     }
     
-    public void selecSort(Vagon arr[]){
+    public void selectSort(Vagon arr[]){
         int n = arr.length;
         
-         for (int i = 0; i < n - 1; i++) {
-         int minIndex = i;
-        
-        // Encuentra el índice del elemento mínimo en el subarreglo no ordenado
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j].valor< arr[minIndex].valor) {
-                minIndex = j;
+        for (int i = n - 1; i > 0; i--) {
+           int maxIndex  = i;
+
+            // Encuentra el índice del elemento maximo en el subarreglo no ordenado
+            for (int j = i - 1; j >= 0; j--) {
+                if (arr[j].valor> arr[maxIndex].valor) {
+                    maxIndex  = j;
+                }
             }
+            animacionVagon.avanzarRotandoIzq(arr,i);
+            animacionVagon.avanzar(arr,maxIndex,i);
+            animacionVagon.retrocederRotandoDer(arr,i,maxIndex);
+            animacionVagon.arrastra2Vagones(arr,i,maxIndex);
+            animacionVagon.retroceder(arr,maxIndex,i);
+            animacionVagon.retrocederRotandoDerMax(arr,i,maxIndex);
+            animacionVagon.avanzarConMax(arr,maxIndex,i);
+            animacionVagon.retrocederRotandoDer(arr,i,maxIndex-1);
+            animacionVagon.retrocederConMax(arr,maxIndex,i);
+
+            Vagon temp = arr[i];
+            arr[i] = arr[maxIndex];
+            arr[maxIndex] = temp;
         }
-        
-        // Intercambia el elemento mínimo encontrado con el primer elemento sin ordenar
-        int temp = arr[minIndex].valor;
-        arr[minIndex] = arr[i];
-        arr[i].valor = temp;
     }
-    }
-    public void selectSort(){}
+
     public static void setSel(int sel) {
         FXMLInterfazController.sel = sel;
     }
 
     @FXML
     private void pausar(ActionEvent event) {
-        animacion.sequentialTransition.pause();
-        animacion.sequentialTransition2.pause();
+        if(sel==4){
+            animacionVagon.sequentialTransition.pause();
+        }
+        else{
+            animacion.sequentialTransition.pause();
+            animacion.sequentialTransition2.pause(); 
+        }
+        
     }
 
     @FXML
     private void resumir(ActionEvent event) {
-        animacion.sequentialTransition.play();
-        animacion.sequentialTransition2.play();
+        if(sel==4){
+            animacionVagon.sequentialTransition.play();
+        }
+        else{
+            animacion.sequentialTransition.play();
+            animacion.sequentialTransition2.play();
+        }
     }
 
     @FXML
     private void resetea(ActionEvent event) {
-        animacion.sequentialTransition.jumpTo(Duration.ZERO);
-        animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+        if(sel==4){
+            animacionVagon.sequentialTransition.jumpTo(Duration.ZERO);
+        }
+        else{
+            animacion.sequentialTransition.jumpTo(Duration.ZERO);
+            animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+        }
     }
     
     @FXML
@@ -591,7 +613,9 @@ public class FXMLInterfazController implements Initializable {
         Stage stage = (Stage) nuevoArreglo.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
+        stage.setX(0);
+        stage.setY(0);
         stage.setScene(scene);
         stage.show();
     }
