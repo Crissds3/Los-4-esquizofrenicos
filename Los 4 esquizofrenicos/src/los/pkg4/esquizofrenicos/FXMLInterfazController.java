@@ -48,6 +48,7 @@ public class FXMLInterfazController implements Initializable {
     public static int sel;
 
     Animaciones animacion = new Animaciones();
+    AnimacionesVagon animacionVagon = new AnimacionesVagon();
 
 
     
@@ -112,9 +113,11 @@ public class FXMLInterfazController implements Initializable {
         velocidad.setValue(1);
         vel = (float) velocidad.getValue();
         animacion.vel = vel;
+        animacionVagon.vel = vel;
         velocidad.setOnMouseDragged(event -> {
             float value = (float) velocidad.getValue();
             animacion.sequentialTransition.setRate(value);
+            animacionVagon.sequentialTransition.setRate(value);
             if(sel==1) animacion.sequentialTransition2.setRate(value);
         });
 
@@ -124,15 +127,7 @@ public class FXMLInterfazController implements Initializable {
         Rectangulo[] r = new Rectangulo[16];
         Vagon[] v = new Vagon[16];
         
-        //Crea vagones 
-         StackPane pane2 = new StackPane();
-         for (int i = 0; i < 16; i++) {
-             int numero = (int) (Math.random()*(99+1));         //Falta agregarle posiciones 
-             v[i]= new Vagon(numero,60,60,Color.BLACK);
-             v[i].v.setTranslateY(675);
-             v[i].v.setTranslateX(100 + i * 80);
-             pane2.getChildren().add(v[i].v);
-        }
+
 
         // Crea cuadrados
         StackPane pane = new StackPane();
@@ -141,7 +136,17 @@ public class FXMLInterfazController implements Initializable {
             r[i] = new Rectangulo(numero, 60, 60, Color.GREEN);
             r[i].r.setTranslateY(675);
             r[i].r.setTranslateX(100 + i * 80);
-            //pane.getChildren().add(r[i].r);
+            pane.getChildren().add(r[i].r);
+        }
+        
+        //Crea vagones 
+        StackPane pane2 = new StackPane();
+        for (int i = 0; i < 16; i++) {
+            int numero = (int) (Math.random()*(99+1));         
+            v[i]= new Vagon(numero,60,40,Color.BLACK);
+            v[i].v.setTranslateY(880);
+            v[i].v.setTranslateX(260+i * 70);
+            pane2.getChildren().add(v[i].v);
         }
         animacion.canvasGruaBase = new Canvas(150, 50);
         animacion.canvasGruaIman = new Canvas(150, 60);
@@ -164,8 +169,9 @@ public class FXMLInterfazController implements Initializable {
         animacion.dibujar.dibujarBase(gcBase, 40, 0);
         animacion.dibujar.dibujarIman(gcIman, 75, 0);
 
-        Group root = new Group(pane);
+        Group root;
         if(sel==1){
+            root = new Group(pane);
             animacion.dibujar2.dibujarCuerda();
             animacion.canvasGruaBase2 = new Canvas(150, 50);
             animacion.canvasGruaIman2 = new Canvas(150, 60);
@@ -186,7 +192,8 @@ public class FXMLInterfazController implements Initializable {
             pane.getChildren().add(animacion.canvasGruaBase2);
             pane.getChildren().add(animacion.canvasGruaIman2); 
             root.getChildren().add(animacion.dibujar2.cuerda);
-        }else{
+        }else if(sel==2 || sel ==3){
+            root = new Group(pane);
             animacion.canvasRepisa= new Canvas(300, 300); 
             GraphicsContext gcRepisa = animacion.canvasRepisa.getGraphicsContext2D(); 
             animacion.canvasRepisa.setTranslateY(243);
@@ -194,15 +201,27 @@ public class FXMLInterfazController implements Initializable {
             animacion.dibujar.dibujarRepisa(gcRepisa, 0, 100);
             root.getChildren().add(animacion.canvasRepisa);
         }
+        else{
+            pane2.setScaleX(0.5);
+            pane2.setScaleY(0.5);
+            root = new Group(pane2);
+        }
         
         if (sel != 4) {
             pane.getChildren().add(animacion.canvasGruaBase);
             root.getChildren().add(animacion.canvasGruaIman);
             root.getChildren().add(animacion.dibujar.cuerda);
-            root.getChildren().add(pane2);
+            //root.getChildren().add(pane2);
         
             myAnchorPane.getChildren().add(root);
-            root.toFront();
+            root.toBack();
+            pane.toFront();
+            Group root2 = new Group();
+            root2.getChildren().add(velocidad);
+            myAnchorPane.getChildren().add(root2);
+        }
+        else{
+            myAnchorPane.getChildren().add(root);
             Group root2 = new Group();
             root2.getChildren().add(velocidad);
             myAnchorPane.getChildren().add(root2);
@@ -239,7 +258,7 @@ public class FXMLInterfazController implements Initializable {
             case 4:{
                 Image image = new Image(getClass().getResourceAsStream("img/fondopruebaSelectSort.png"));
                 contenedorImagen.setImage(image);
-                selectSort();
+                selectSort(v);
                 break;
             }
             
@@ -247,12 +266,15 @@ public class FXMLInterfazController implements Initializable {
                 break;
         }
         if (sel != 4) {
-        animacion.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
-        animacion.sequentialTransition.play();  
+            if(sel==1) animacion.sequentialTransition2.play();
+            animacion.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
+            animacion.sequentialTransition.play();  
+        }
+        else{
+            animacionVagon.sequentialTransition.play();
         }
 
        
-        if(sel==1) animacion.sequentialTransition2.play();
         
     }
    
@@ -509,46 +531,70 @@ public class FXMLInterfazController implements Initializable {
         }    
     }
     
-    public void selecSort(Vagon arr[]){
+    public void selectSort(Vagon arr[]){
         int n = arr.length;
         
-         for (int i = 0; i < n - 1; i++) {
-         int minIndex = i;
-        
-        // Encuentra el índice del elemento mínimo en el subarreglo no ordenado
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j].valor< arr[minIndex].valor) {
-                minIndex = j;
+        for (int i = n - 1; i > 0; i--) {
+           int maxIndex  = i;
+
+            // Encuentra el índice del elemento maximo en el subarreglo no ordenado
+            for (int j = i - 1; j >= 0; j--) {
+                if (arr[j].valor> arr[maxIndex].valor) {
+                    maxIndex  = j;
+                }
             }
+            animacionVagon.avanzarRotandoIzq(arr,i);
+            animacionVagon.avanzar(arr,maxIndex,i);
+            animacionVagon.retrocederRotandoDer(arr,i,maxIndex);
+            animacionVagon.arrastra2Vagones(arr,i,maxIndex);
+            animacionVagon.retroceder(arr,maxIndex,i);
+            animacionVagon.retrocederRotandoDerMax(arr,i,maxIndex);
+            animacionVagon.avanzarConMax(arr,maxIndex,i);
+            animacionVagon.retrocederRotandoDer(arr,i,maxIndex-1);
+            animacionVagon.retrocederConMax(arr,maxIndex,i);
+
+            Vagon temp = arr[i];
+            arr[i] = arr[maxIndex];
+            arr[maxIndex] = temp;
         }
-        
-        // Intercambia el elemento mínimo encontrado con el primer elemento sin ordenar
-        int temp = arr[minIndex].valor;
-        arr[minIndex] = arr[i];
-        arr[i].valor = temp;
     }
-    }
-    public void selectSort(){}
+
     public static void setSel(int sel) {
         FXMLInterfazController.sel = sel;
     }
 
     @FXML
     private void pausar(ActionEvent event) {
-        animacion.sequentialTransition.pause();
-        animacion.sequentialTransition2.pause();
+        if(sel==4){
+            animacionVagon.sequentialTransition.pause();
+        }
+        else{
+            animacion.sequentialTransition.pause();
+            animacion.sequentialTransition2.pause(); 
+        }
+        
     }
 
     @FXML
     private void resumir(ActionEvent event) {
-        animacion.sequentialTransition.play();
-        animacion.sequentialTransition2.play();
+        if(sel==4){
+            animacionVagon.sequentialTransition.play();
+        }
+        else{
+            animacion.sequentialTransition.play();
+            animacion.sequentialTransition2.play();
+        }
     }
 
     @FXML
     private void resetea(ActionEvent event) {
-        animacion.sequentialTransition.jumpTo(Duration.ZERO);
-        animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+        if(sel==4){
+            animacionVagon.sequentialTransition.jumpTo(Duration.ZERO);
+        }
+        else{
+            animacion.sequentialTransition.jumpTo(Duration.ZERO);
+            animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+        }
     }
     
     @FXML
@@ -567,7 +613,9 @@ public class FXMLInterfazController implements Initializable {
         Stage stage = (Stage) nuevoArreglo.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
+        stage.setX(0);
+        stage.setY(0);
         stage.setScene(scene);
         stage.show();
     }

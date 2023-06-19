@@ -21,6 +21,9 @@ class Vagon {
         this.v= new Canvas(altura,ancho);
         GraphicsContext gc = v.getGraphicsContext2D();
         gc.drawImage(image, 0, 0);
+        gc.setStroke(Color.WHITE);
+        dibujar.dibujar(gc,valor/10,25,45);
+        dibujar.dibujar(gc,valor%10,45,45);
     }
     
 
