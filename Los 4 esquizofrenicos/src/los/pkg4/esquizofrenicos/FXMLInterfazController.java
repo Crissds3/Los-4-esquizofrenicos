@@ -114,6 +114,7 @@ public class FXMLInterfazController implements Initializable {
         vel = (float) velocidad.getValue();
         animacion.vel = vel;
         animacionVagon.vel = vel;
+        animacionVagon.velVagones = vel/80;
         velocidad.setOnMouseDragged(event -> {
             float value = (float) velocidad.getValue();
             animacion.sequentialTransition.setRate(value);
@@ -543,15 +544,24 @@ public class FXMLInterfazController implements Initializable {
                     maxIndex  = j;
                 }
             }
-            animacionVagon.avanzarRotandoIzq(arr,i);
-            animacionVagon.avanzar(arr,maxIndex,i);
-            animacionVagon.retrocederRotandoDer(arr,i,maxIndex);
-            animacionVagon.arrastra2Vagones(arr,i,maxIndex);
-            animacionVagon.retroceder(arr,maxIndex,i);
-            animacionVagon.retrocederRotandoDerMax(arr,i,maxIndex);
-            animacionVagon.avanzarConMax(arr,maxIndex,i);
-            animacionVagon.retrocederRotandoDer(arr,i,maxIndex-1);
-            animacionVagon.retrocederConMax(arr,maxIndex,i);
+            
+            if(arr[i].valor<arr[maxIndex].valor){
+                animacionVagon.extraeMayoresFerrocarril1(arr,i,maxIndex);
+                animacionVagon.avanzarFerrocarril2(arr,i);
+                animacionVagon.retrocederFerrocarril1(arr,i,arr.length);
+                animacionVagon.avanzarFerrocarril1(arr,maxIndex,i);
+                //animacionVagon.retrocederUltimoFerrocarril3(arr,maxIndex,i);
+                animacionVagon.retrocederAMaxFerrocarril2(arr,i,maxIndex);
+                animacionVagon.avanzarConMaxFerrocarril2(arr,i,maxIndex);
+                animacionVagon.retrocederAOrdenadosFerrocarril3(arr,maxIndex);
+                animacionVagon.retrocederFerrocarril1(arr,maxIndex,i);
+                animacionVagon.retrocederFerrocarril3(arr,maxIndex,i);
+                animacionVagon.avanzarConMaxFerrocarril3(arr,i,maxIndex);
+                animacionVagon.retrocederMayoresOrdenadosFerrocarril1(arr,i,arr.length);
+                animacionVagon.avanzarConMaxFerrocarril1(arr,maxIndex,i);
+                animacionVagon.retrocederFerrocarril2(arr,i,maxIndex);
+                animacionVagon.retrocederConMaxFerrocarril1(arr,maxIndex,i);
+            }
 
             Vagon temp = arr[i];
             arr[i] = arr[maxIndex];
