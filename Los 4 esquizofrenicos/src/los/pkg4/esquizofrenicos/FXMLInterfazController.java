@@ -144,7 +144,7 @@ public class FXMLInterfazController implements Initializable {
         for (int i = 0; i < 16; i++) {
             int numero = (int) (Math.random()*(99+1));         
             v[i]= new Vagon(numero,60,40,Color.BLACK);
-            v[i].v.setTranslateY(880);
+            v[i].v.setTranslateY(945);
             v[i].v.setTranslateX(260+i * 70);
             pane2.getChildren().add(v[i].v);
         }
