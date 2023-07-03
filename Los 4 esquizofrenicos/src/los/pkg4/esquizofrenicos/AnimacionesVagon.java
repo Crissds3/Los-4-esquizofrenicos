@@ -1,9 +1,14 @@
 package los.pkg4.esquizofrenicos;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
+
 
 public class AnimacionesVagon {
     float vel;
@@ -12,7 +17,10 @@ public class AnimacionesVagon {
     ParallelTransition pt2;
     ParallelTransition pt3;
     SequentialTransition sequentialTransition;
-
+    ParallelTransition colorChange;
+     ParallelTransition colorChange2;
+    
+    
     public AnimacionesVagon() {
         sequentialTransition = new SequentialTransition();  
     }
@@ -483,6 +491,20 @@ public class AnimacionesVagon {
             pt.getChildren().add(movimientoVagon);   
         }
         sequentialTransition.getChildren().add(pt);    
+    }
+     public void pintaLinea(Label label){
+        colorChange = new ParallelTransition(label);
+        colorChange2 = new ParallelTransition(label);
+        colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.styleProperty(), "-fx-background-color: #13bf38;"))));
+        colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.styleProperty(), "-fx-background-color: #ffffff;"))));
+        sequentialTransition.getChildren().add(colorChange);
+        sequentialTransition.getChildren().add(colorChange2);  
+    }
+        
+    public void actualizaContador(Label label, int valor){
+        ParallelTransition ptValor = new ParallelTransition(label);
+        ptValor.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label.textProperty(), valor+""))));
+        sequentialTransition.getChildren().add(ptValor);
     }
     
 }
