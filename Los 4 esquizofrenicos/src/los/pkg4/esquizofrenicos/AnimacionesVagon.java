@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package los.pkg4.esquizofrenicos;
 
 import javafx.animation.ParallelTransition;
@@ -10,10 +5,6 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 
-/**
- *
- * @author yanko
- */
 public class AnimacionesVagon {
     float vel;
     float velVagones;
@@ -112,7 +103,7 @@ public class AnimacionesVagon {
         sequentialTransition.getChildren().add(pt);       
     }
     
-        public void retrocederHastaMayoresFerrocarril1(Vagon[] v, int inicio, int fin){
+    public void retrocederHastaMayoresFerrocarril1(Vagon[] v, int inicio, int fin){
         pt = new ParallelTransition();
         
         for (int i = inicio+1; i < fin; i++) {   
@@ -128,43 +119,55 @@ public class AnimacionesVagon {
         sequentialTransition.getChildren().add(pt); 
     }
     
+    public void extraeMayoresFerrocarril1(Vagon[] v, int fin, int maxIndex){      
+        
+        pt = new ParallelTransition();
+        
+        for (int i = fin+1; i < v.length; i++) {
+            System.out.println("sa");
+            TranslateTransition transicion = new TranslateTransition(Duration.seconds(vel), v[i].v);
+            transicion.setToX(1700+i*70);
+            pt.getChildren().add(transicion);
+            
+        }
+        sequentialTransition.getChildren().add(pt);  
+    }
+    
     public void avanzarFerrocarril2(Vagon[] v, int indice){
         pt = new ParallelTransition();
         
-            SequentialTransition movimientoVagon = new SequentialTransition();
-            int contador=1;
-            for (int j = 260+indice * 70; j < 1700+indice*70; j+=10) {
-                TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
-                TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
-                
-                if(j<1450){
-                    avanzaAdentro.setToX(j);
-                    movimientoVagon.getChildren().add(avanzaAdentro);
+        SequentialTransition movimientoVagon = new SequentialTransition();
+        int contador=1;
+        for (int j = 260+indice * 70; j < 1700+indice*70; j+=10) {
+            TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
+            TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
 
-                }
-                else if(j>=1450 && j<1700){
-                    
-                    avanzaArriba.setToX(1400+contador*10);
-                    avanzaArriba.setToY(945-contador*4.6f);
-                    
-                    movimientoVagon.getChildren().add(avanzaArriba);
-                    
-                    contador++;
-                }
-                else if(j>=1700){
-                    avanzaAdentro.setToX(j);
-                    movimientoVagon.getChildren().add(avanzaAdentro);
-                }
+            if(j<1450){
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+
             }
-            pt.getChildren().add(movimientoVagon);   
-        //}
+            else if(j>=1450 && j<1700){
+
+                avanzaArriba.setToX(1400+contador*10);
+                avanzaArriba.setToY(945-contador*4.6f);
+
+                movimientoVagon.getChildren().add(avanzaArriba);
+
+                contador++;
+            }
+            else if(j>=1700){
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+        }
+        pt.getChildren().add(movimientoVagon);   
         sequentialTransition.getChildren().add(pt);
         
     }
     
     public void avanzarConMaxFerrocarril2(Vagon[] v, int indice, int maxIndex){
         pt = new ParallelTransition();
-
 
         SequentialTransition movimientoVagon = new SequentialTransition();
         int contador=1;
@@ -257,32 +260,30 @@ public class AnimacionesVagon {
     public void retrocederAMaxFerrocarril2(Vagon[] v, int indice, int maxIndex){
         pt = new ParallelTransition();
         
-        //for (int i = v.length-1; i >= indice ; i--) {
-            SequentialTransition movimientoVagon = new SequentialTransition();
-            int contador=1;
-            for (int j = 1700+(indice)*70; j >= 260+(maxIndex+1)*70; j-=10) {
-                
-                TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
-                TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
+        SequentialTransition movimientoVagon = new SequentialTransition();
+        int contador=1;
+        for (int j = 1700+(indice)*70; j >= 260+(maxIndex+1)*70; j-=10) {
 
-                if(j>1700){
-                    avanzaAdentro.setToX(j);
-                    movimientoVagon.getChildren().add(avanzaAdentro);
-                }
-                else if(j>=1450 && j<1700){
-                    avanzaArriba.setToX(1700-contador*10);
-                    avanzaArriba.setToY(830+contador*4.6f);
- 
-                    movimientoVagon.getChildren().add(avanzaArriba);
-                    contador++;
-                }
-                else {
-                    avanzaAdentro.setToX(j);
-                    movimientoVagon.getChildren().add(avanzaAdentro);
-                }
+            TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
+            TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
+
+            if(j>1700){
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
             }
-            pt.getChildren().add(movimientoVagon);   
-        //}
+            else if(j>=1450 && j<1700){
+                avanzaArriba.setToX(1700-contador*10);
+                avanzaArriba.setToY(830+contador*4.6f);
+
+                movimientoVagon.getChildren().add(avanzaArriba);
+                contador++;
+            }
+            else {
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+        }
+        pt.getChildren().add(movimientoVagon);   
         sequentialTransition.getChildren().add(pt);
         
     }
@@ -484,17 +485,4 @@ public class AnimacionesVagon {
         sequentialTransition.getChildren().add(pt);    
     }
     
-    public void extraeMayoresFerrocarril1(Vagon[] v, int fin, int maxIndex){      
-        
-        pt = new ParallelTransition();
-        
-        for (int i = fin+1; i < v.length; i++) {
-            System.out.println("sa");
-            TranslateTransition transicion = new TranslateTransition(Duration.seconds(vel), v[i].v);
-            transicion.setToX(1700+i*70);
-            pt.getChildren().add(transicion);
-            
-        }
-        sequentialTransition.getChildren().add(pt);  
-    }
 }
