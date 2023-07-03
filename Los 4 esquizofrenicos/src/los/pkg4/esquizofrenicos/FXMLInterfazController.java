@@ -114,6 +114,7 @@ public class FXMLInterfazController implements Initializable {
         vel = (float) velocidad.getValue();
         animacion.vel = vel;
         animacionVagon.vel = vel;
+        animacionVagon.velVagones = vel/80;
         velocidad.setOnMouseDragged(event -> {
             float value = (float) velocidad.getValue();
             animacion.sequentialTransition.setRate(value);
@@ -530,34 +531,73 @@ public class FXMLInterfazController implements Initializable {
             animacion.pintaLinea(label14);
         }    
     }
-    
-    public void selectSort(Vagon arr[]){
+     public void selectSort(Vagon arr[]){
+        
+        labelKey.setText("MaxIndex");
+        label2.setText("    Para i = n-1 hasta 0");
+        label3.setText("        maxIndex = i");
+        label4.setText("        Para j = i-1 hasta 0");
+        label5.setText("            Si arreglo[i] < arreglo[maxIndex]");
+        label6.setText("                maxIndex = j");
+        label7.setText("        swap(arreglo[i],arreglo[maxIndex])");
+        label8.setText("");
+
         int n = arr.length;
+        animacionVagon.actualizaContador(valorN, n);
+        animacionVagon.pintaLinea(label1);
         
         for (int i = n - 1; i > 0; i--) {
-           int maxIndex  = i;
+            
+            animacionVagon.pintaLinea(label2);
+            animacionVagon.actualizaContador(valorI, i);
+            int maxIndex  = i;
+            
+            animacionVagon.pintaLinea(label3);
+            animacionVagon.actualizaContador(valorKey, maxIndex);
 
             // Encuentra el índice del elemento maximo en el subarreglo no ordenado
             for (int j = i - 1; j >= 0; j--) {
+                animacionVagon.pintaLinea(label4);
+                animacionVagon.actualizaContador(valorJ, j);
                 if (arr[j].valor> arr[maxIndex].valor) {
-                    maxIndex  = j;
+                    animacionVagon.pintaLinea(label5);
+                    maxIndex  = j;  
+                    animacionVagon.pintaLinea(label6);
+                    animacionVagon.actualizaContador(valorKey, maxIndex);
                 }
             }
-            animacionVagon.avanzarRotandoIzq(arr,i);
-            animacionVagon.avanzar(arr,maxIndex,i);
-            animacionVagon.retrocederRotandoDer(arr,i,maxIndex);
-            animacionVagon.arrastra2Vagones(arr,i,maxIndex);
-            animacionVagon.retroceder(arr,maxIndex,i);
-            animacionVagon.retrocederRotandoDerMax(arr,i,maxIndex);
-            animacionVagon.avanzarConMax(arr,maxIndex,i);
-            animacionVagon.retrocederRotandoDer(arr,i,maxIndex-1);
-            animacionVagon.retrocederConMax(arr,maxIndex,i);
-
+            
+            
+            if(arr[i].valor<arr[maxIndex].valor){
+                animacionVagon.colorChange = new ParallelTransition(label7);
+                animacionVagon.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #13bf38;"))));
+                animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange);
+                animacionVagon.extraeMayoresFerrocarril1(arr,i,maxIndex);
+                animacionVagon.avanzarFerrocarril2(arr,i);
+                animacionVagon.retrocederFerrocarril1(arr,i,arr.length);
+                animacionVagon.avanzarFerrocarril1(arr,maxIndex,i);
+                //animacionVagon.retrocederUltimoFerrocarril3(arr,maxIndex,i);
+                animacionVagon.retrocederAMaxFerrocarril2(arr,i,maxIndex);
+                animacionVagon.avanzarConMaxFerrocarril2(arr,i,maxIndex);
+                animacionVagon.retrocederAOrdenadosFerrocarril3(arr,maxIndex);
+                animacionVagon.retrocederFerrocarril1(arr,maxIndex,i);
+                animacionVagon.retrocederFerrocarril3(arr,maxIndex,i);
+                animacionVagon.avanzarConMaxFerrocarril3(arr,i,maxIndex);
+                animacionVagon.retrocederMayoresOrdenadosFerrocarril1(arr,i,arr.length);
+                animacionVagon.avanzarConMaxFerrocarril1(arr,maxIndex,i);
+                animacionVagon.retrocederFerrocarril2(arr,i,maxIndex);
+                animacionVagon.retrocederConMaxFerrocarril1(arr,maxIndex,i);
+                animacionVagon.colorChange2 = new ParallelTransition(label7);
+                animacionVagon.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #ffffff;"))));
+                animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange2);
+            }
+            
             Vagon temp = arr[i];
             arr[i] = arr[maxIndex];
             arr[maxIndex] = temp;
         }
-    }
+    }   
+
 
     public static void setSel(int sel) {
         FXMLInterfazController.sel = sel;
@@ -619,5 +659,5 @@ public class FXMLInterfazController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    
 }

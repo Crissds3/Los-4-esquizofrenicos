@@ -93,7 +93,7 @@
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
-      <Label fx:id="labelKey" layoutX="1858.0" layoutY="716.0" prefHeight="27.0" prefWidth="73.0" text="key">
+      <Label fx:id="labelKey" layoutX="1837.0" layoutY="716.0" prefHeight="27.0" prefWidth="73.0" text="key">
          <font>
             <Font name="Garamond" size="18.0" />
          </font></Label>
