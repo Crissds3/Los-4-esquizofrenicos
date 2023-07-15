@@ -592,9 +592,11 @@ public class FXMLInterfazController implements Initializable {
                 animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange2);
             }
             
-            Vagon temp = arr[i];
-            arr[i] = arr[maxIndex];
-            arr[maxIndex] = temp;
+           Vagon temp = arr[maxIndex];
+            for (int j = maxIndex; j < i; j++) {
+                arr[j] = arr[j+1];
+            }
+            arr[i] = temp;
         }
     }   
 
