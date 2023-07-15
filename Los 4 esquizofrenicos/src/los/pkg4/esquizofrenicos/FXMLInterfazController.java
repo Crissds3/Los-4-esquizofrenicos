@@ -532,7 +532,7 @@ public class FXMLInterfazController implements Initializable {
         }    
     }
      public void selectSort(Vagon arr[]){
-        
+        animacionVagon.inicioAnimaciones(arr);
         labelKey.setText("MaxIndex");
         label2.setText("    Para i = n-1 hasta 0");
         label3.setText("        maxIndex = i");
@@ -572,21 +572,14 @@ public class FXMLInterfazController implements Initializable {
                 animacionVagon.colorChange = new ParallelTransition(label7);
                 animacionVagon.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #13bf38;"))));
                 animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange);
-                animacionVagon.extraeMayoresFerrocarril1(arr,i,maxIndex);
-                animacionVagon.avanzarFerrocarril2(arr,i);
-                animacionVagon.retrocederFerrocarril1(arr,i,arr.length);
-                animacionVagon.avanzarFerrocarril1(arr,maxIndex,i);
-                //animacionVagon.retrocederUltimoFerrocarril3(arr,maxIndex,i);
-                animacionVagon.retrocederAMaxFerrocarril2(arr,i,maxIndex);
-                animacionVagon.avanzarConMaxFerrocarril2(arr,i,maxIndex);
-                animacionVagon.retrocederAOrdenadosFerrocarril3(arr,maxIndex);
-                animacionVagon.retrocederFerrocarril1(arr,maxIndex,i);
-                animacionVagon.retrocederFerrocarril3(arr,maxIndex,i);
-                animacionVagon.avanzarConMaxFerrocarril3(arr,i,maxIndex);
-                animacionVagon.retrocederMayoresOrdenadosFerrocarril1(arr,i,arr.length);
-                animacionVagon.avanzarConMaxFerrocarril1(arr,maxIndex,i);
-                animacionVagon.retrocederFerrocarril2(arr,i,maxIndex);
-                animacionVagon.retrocederConMaxFerrocarril1(arr,maxIndex,i);
+                animacionVagon.retrocederFerrocarril1(arr,arr.length);
+                animacionVagon.avanzarFerrocarril1(arr,maxIndex);
+                animacionVagon.retrocederFerrocarril2(arr,maxIndex);
+                animacionVagon.avanzarFerrocarril2(arr,maxIndex);
+                animacionVagon.retrocederAMaxFerrocarril1(arr,maxIndex);
+                animacionVagon.avanzarFerrocarril1(arr,i);
+                animacionVagon.retrocederConMaxFerrocarril2(arr,i,maxIndex);
+                animacionVagon.retrocederMayoresOrdenadosFerrocarril1(arr,i);
                 animacionVagon.colorChange2 = new ParallelTransition(label7);
                 animacionVagon.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #ffffff;"))));
                 animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange2);
