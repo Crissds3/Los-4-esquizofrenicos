@@ -124,7 +124,7 @@ public class FXMLInterfazController implements Initializable {
 
         animacion.dibujar = new DibujarElemento();
         animacion.dibujar2 = new DibujarElemento();
-        
+        animacionVagon.dibujar = new DibujarElementosFerrocarril();
         Rectangulo[] r = new Rectangulo[16];
         Vagon[] v = new Vagon[16];
         
@@ -141,13 +141,13 @@ public class FXMLInterfazController implements Initializable {
         }
         
         //Crea vagones 
-        StackPane pane2 = new StackPane();
+        StackPane paneVagones = new StackPane();
         for (int i = 0; i < 16; i++) {
             int numero = (int) (Math.random()*(99+1));         
             v[i]= new Vagon(numero,60,40,Color.BLACK);
             v[i].v.setTranslateY(945);
             v[i].v.setTranslateX(260+i * 70);
-            pane2.getChildren().add(v[i].v);
+            paneVagones.getChildren().add(v[i].v);
         }
         animacion.canvasGruaBase = new Canvas(150, 50);
         animacion.canvasGruaIman = new Canvas(150, 60);
@@ -203,16 +203,24 @@ public class FXMLInterfazController implements Initializable {
             root.getChildren().add(animacion.canvasRepisa);
         }
         else{
-            pane2.setScaleX(0.5);
-            pane2.setScaleY(0.5);
-            root = new Group(pane2);
+             StackPane paneFerrocarriles = new StackPane();
+            animacionVagon.dibujar.agregarLocomotora(2580, 945);
+            animacionVagon.dibujar.agregarLocomotora2(2020, 830);
+            paneFerrocarriles.getChildren().add(animacionVagon.dibujar.locomotora);
+            paneFerrocarriles.getChildren().add(animacionVagon.dibujar.locomotora2);
+            paneVagones.setScaleX(0.5);
+            paneVagones.setScaleY(0.5);
+            paneFerrocarriles.setScaleX(0.5);
+            paneFerrocarriles.setScaleY(0.5);
+            root = new Group(paneVagones);
+            root.getChildren().add(paneFerrocarriles);
         }
         
         if (sel != 4) {
             pane.getChildren().add(animacion.canvasGruaBase);
             root.getChildren().add(animacion.canvasGruaIman);
             root.getChildren().add(animacion.dibujar.cuerda);
-            //root.getChildren().add(pane2);
+            //root.getChildren().add(paneVagones);
         
             myAnchorPane.getChildren().add(root);
             root.toBack();
@@ -572,14 +580,14 @@ public class FXMLInterfazController implements Initializable {
                 animacionVagon.colorChange = new ParallelTransition(label7);
                 animacionVagon.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #13bf38;"))));
                 animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange);
-                animacionVagon.retrocederFerrocarril1(arr,arr.length);
+                animacionVagon.retrocederFerrocarril1(arr.length);
                 animacionVagon.avanzarFerrocarril1(arr,maxIndex);
                 animacionVagon.retrocederFerrocarril2(arr,maxIndex);
                 animacionVagon.avanzarFerrocarril2(arr,maxIndex);
                 animacionVagon.retrocederAMaxFerrocarril1(arr,maxIndex);
                 animacionVagon.avanzarFerrocarril1(arr,i);
                 animacionVagon.retrocederConMaxFerrocarril2(arr,i,maxIndex);
-                animacionVagon.retrocederMayoresOrdenadosFerrocarril1(arr,i);
+                animacionVagon.retrocederMayoresOrdenadosFerrocarril1(arr,i); 
                 animacionVagon.colorChange2 = new ParallelTransition(label7);
                 animacionVagon.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #ffffff;"))));
                 animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange2);
