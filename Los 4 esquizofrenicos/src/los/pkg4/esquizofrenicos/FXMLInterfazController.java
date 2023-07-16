@@ -547,7 +547,7 @@ public class FXMLInterfazController implements Initializable {
         label4.setText("        Para j = i-1 hasta 0");
         label5.setText("            Si arreglo[i] < arreglo[maxIndex]");
         label6.setText("                maxIndex = j");
-        label7.setText("        swap(arreglo[i],arreglo[maxIndex])");
+        label7.setText("        moverAPosicionI(arreglo[maxIndex])");
         label8.setText("");
 
         int n = arr.length;
