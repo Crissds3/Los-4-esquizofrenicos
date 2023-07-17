@@ -114,16 +114,17 @@ public class FXMLInterfazController implements Initializable {
         vel = (float) velocidad.getValue();
         animacion.vel = vel;
         animacionVagon.vel = vel;
+        animacionVagon.velVagones = vel/80;
         velocidad.setOnMouseDragged(event -> {
             float value = (float) velocidad.getValue();
             animacion.sequentialTransition.setRate(value);
-            animacionVagon.sequentialTransition.setRate(value);
+            if(sel==4) animacionVagon.sequentialTransition.setRate(value);
             if(sel==1) animacion.sequentialTransition2.setRate(value);
         });
 
         animacion.dibujar = new DibujarElemento();
         animacion.dibujar2 = new DibujarElemento();
-        
+        animacionVagon.dibujar = new DibujarElementosFerrocarril();
         Rectangulo[] r = new Rectangulo[16];
         Vagon[] v = new Vagon[16];
         
@@ -140,13 +141,13 @@ public class FXMLInterfazController implements Initializable {
         }
         
         //Crea vagones 
-        StackPane pane2 = new StackPane();
+        StackPane paneVagones = new StackPane();
         for (int i = 0; i < 16; i++) {
             int numero = (int) (Math.random()*(99+1));         
             v[i]= new Vagon(numero,60,40,Color.BLACK);
-            v[i].v.setTranslateY(585);
-            v[i].v.setTranslateX(i * 70-130);
-            pane2.getChildren().add(v[i].v);
+            v[i].v.setTranslateY(945);
+            v[i].v.setTranslateX(260+i * 70);
+            paneVagones.getChildren().add(v[i].v);
         }
         animacion.canvasGruaBase = new Canvas(150, 50);
         animacion.canvasGruaIman = new Canvas(150, 60);
@@ -202,31 +203,35 @@ public class FXMLInterfazController implements Initializable {
             root.getChildren().add(animacion.canvasRepisa);
         }
         else{
-            root = new Group(pane2);
+            StackPane paneFerrocarriles = new StackPane();
+            animacionVagon.dibujar.agregarLocomotora(2580, 945);
+            animacionVagon.dibujar.agregarLocomotora2(2020, 830);
+            paneFerrocarriles.getChildren().add(animacionVagon.dibujar.locomotora);
+            paneFerrocarriles.getChildren().add(animacionVagon.dibujar.locomotora2);
+            paneVagones.setScaleX(0.5);
+            paneVagones.setScaleY(0.5);
+            paneFerrocarriles.setScaleX(0.5);
+            paneFerrocarriles.setScaleY(0.5);
+            root = new Group(paneVagones);
+            root.getChildren().add(paneFerrocarriles);
         }
         
         if (sel != 4) {
             pane.getChildren().add(animacion.canvasGruaBase);
             root.getChildren().add(animacion.canvasGruaIman);
             root.getChildren().add(animacion.dibujar.cuerda);
-            //root.getChildren().add(pane2);
         
             myAnchorPane.getChildren().add(root);
-            root.toFront();
-            Group root2 = new Group();
-            root2.getChildren().add(velocidad);
-            myAnchorPane.getChildren().add(root2);
+            root.toBack();
+            pane.toFront();       
         }
         else{
-            root.setScaleX(0.5);
-            root.setScaleY(0.5);
             myAnchorPane.getChildren().add(root);
-            root.toFront();
-            Group root2 = new Group();
-            root2.getChildren().add(velocidad);
-            myAnchorPane.getChildren().add(root2);
         }
         
+        Group root2 = new Group();
+        root2.getChildren().add(velocidad);
+        myAnchorPane.getChildren().add(root2);
         myAnchorPane.setScaleX(escalaX);
         myAnchorPane.setScaleY(escalaY);
         
@@ -258,9 +263,7 @@ public class FXMLInterfazController implements Initializable {
             case 4:{
                 Image image = new Image(getClass().getResourceAsStream("img/fondopruebaSelectSort.png"));
                 contenedorImagen.setImage(image);
-                selectSort();
-                animacionVagon.sequentialTransition = new SequentialTransition(); 
-                animacionVagon.avanzar(v);
+                selectSort(v);
                 break;
             }
             
@@ -268,6 +271,7 @@ public class FXMLInterfazController implements Initializable {
                 break;
         }
         if (sel != 4) {
+            if(sel==1) animacion.sequentialTransition2.play();
             animacion.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
             animacion.sequentialTransition.play();  
         }
@@ -276,7 +280,6 @@ public class FXMLInterfazController implements Initializable {
         }
 
        
-        if(sel==1) animacion.sequentialTransition2.play();
         
     }
    
@@ -532,47 +535,108 @@ public class FXMLInterfazController implements Initializable {
             animacion.pintaLinea(label14);
         }    
     }
-    
-    public void selecSort(Vagon arr[]){
+     public void selectSort(Vagon arr[]){
+        animacionVagon.inicioAnimaciones(arr);
+        labelKey.setText("MaxIndex");
+        label2.setText("    Para i = n-1 hasta 0");
+        label3.setText("        maxIndex = i");
+        label4.setText("        Para j = i-1 hasta 0");
+        label5.setText("            Si arreglo[i] < arreglo[maxIndex]");
+        label6.setText("                maxIndex = j");
+        label7.setText("        moverAPosicionI(arreglo[maxIndex])");
+        label8.setText("");
+
         int n = arr.length;
+        animacionVagon.actualizaContador(valorN, n);
+        animacionVagon.pintaLinea(label1);
         
-         for (int i = 0; i < n - 1; i++) {
-         int minIndex = i;
-        
-        // Encuentra el índice del elemento mínimo en el subarreglo no ordenado
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j].valor< arr[minIndex].valor) {
-                minIndex = j;
+        for (int i = n - 1; i > 0; i--) {
+            
+            animacionVagon.pintaLinea(label2);
+            animacionVagon.actualizaContador(valorI, i);
+            int maxIndex  = i;
+            
+            animacionVagon.pintaLinea(label3);
+            animacionVagon.actualizaContador(valorKey, maxIndex);
+
+            // Encuentra el índice del elemento maximo en el subarreglo no ordenado
+            for (int j = i - 1; j >= 0; j--) {
+                animacionVagon.pintaLinea(label4);
+                animacionVagon.actualizaContador(valorJ, j);
+                if (arr[j].valor> arr[maxIndex].valor) {
+                    animacionVagon.pintaLinea(label5);
+                    maxIndex  = j;  
+                    animacionVagon.pintaLinea(label6);
+                    animacionVagon.actualizaContador(valorKey, maxIndex);
+                }
             }
+            
+            if(arr[i].valor<arr[maxIndex].valor){
+                animacionVagon.colorChange = new ParallelTransition(label7);
+                animacionVagon.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #13bf38;"))));
+                animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange);
+                animacionVagon.retrocederFerrocarril1(arr.length);
+                animacionVagon.avanzarFerrocarril1(arr,maxIndex);
+                animacionVagon.retrocederFerrocarril2(arr,maxIndex);
+                animacionVagon.avanzarFerrocarril2(arr,maxIndex);
+                animacionVagon.retrocederAMaxFerrocarril1(arr,maxIndex);
+                animacionVagon.avanzarFerrocarril1(arr,i);
+                animacionVagon.retrocederConMaxFerrocarril2(arr,i,maxIndex);
+                animacionVagon.retrocederMayoresOrdenadosFerrocarril1(arr,i); 
+                animacionVagon.colorChange2 = new ParallelTransition(label7);
+                animacionVagon.colorChange2.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #ffffff;"))));
+                animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange2);
+            }
+            
+            Vagon temp = arr[maxIndex];
+            for (int j = maxIndex; j < i; j++) {
+                arr[j] = arr[j+1];
+            }
+            arr[i] = temp;
         }
-        
-        // Intercambia el elemento mínimo encontrado con el primer elemento sin ordenar
-        int temp = arr[minIndex].valor;
-        arr[minIndex] = arr[i];
-        arr[i].valor = temp;
-    }
-    }
-    public void selectSort(){}
+    }   
+
+
     public static void setSel(int sel) {
         FXMLInterfazController.sel = sel;
     }
 
     @FXML
     private void pausar(ActionEvent event) {
-        animacion.sequentialTransition.pause();
-        animacion.sequentialTransition2.pause();
+        if(sel==4){
+            animacionVagon.sequentialTransition.pause();
+        }
+        else{
+            animacion.sequentialTransition.pause();
+            animacion.sequentialTransition2.pause(); 
+        }
+        
     }
 
     @FXML
     private void resumir(ActionEvent event) {
-        animacion.sequentialTransition.play();
-        animacion.sequentialTransition2.play();
+        if(sel==4){
+            animacionVagon.sequentialTransition.play();
+        }
+        else{
+            animacion.sequentialTransition.play();
+            animacion.sequentialTransition2.play();
+        }
     }
 
     @FXML
     private void resetea(ActionEvent event) {
-        animacion.sequentialTransition.jumpTo(Duration.ZERO);
-        animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+        if(sel==4){
+            animacionVagon.sequentialTransition.play();
+            animacionVagon.sequentialTransition.jumpTo(Duration.ZERO);
+        }
+        else{
+            animacion.sequentialTransition.play();
+            animacion.sequentialTransition2.play();
+            animacion.sequentialTransition.jumpTo(Duration.ZERO);
+            animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+            
+        }
     }
     
     @FXML
@@ -591,9 +655,11 @@ public class FXMLInterfazController implements Initializable {
         Stage stage = (Stage) nuevoArreglo.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLInterfaz.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,getDefaultToolkit().getScreenSize().width,getDefaultToolkit().getScreenSize().height);  
+        stage.setX(0);
+        stage.setY(0);
         stage.setScene(scene);
         stage.show();
     }
-
+    
 }
