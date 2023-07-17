@@ -18,7 +18,7 @@ public class AnimacionesVagon {
     SequentialTransition sequentialTransition;
     ParallelTransition colorChange;
     ParallelTransition colorChange2;
-    
+    DibujarElementosFerrocarril dibujar;
     
     public AnimacionesVagon() {
     }
@@ -32,10 +32,30 @@ public class AnimacionesVagon {
         
         for (int i = 0; i < v.length; i++) {
             TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), v[i].v);
+            RotateTransition rotacion =  new RotateTransition(Duration.seconds(vel), v[i].v);
             transicion.setToX(260+(i) * 70);
+            transicion.setToY(945);
+            rotacion.setToAngle(0);
+            pt.getChildren().add(rotacion);
             pt.getChildren().add(transicion);
         }
+        TranslateTransition transicionLocomotora =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
+        RotateTransition rotacionLocomotora =  new RotateTransition(Duration.seconds(vel), dibujar.locomotora);
+        transicionLocomotora.setToX(2580);
+        transicionLocomotora.setToY(945);
+        rotacionLocomotora.setToAngle(0);
+        pt.getChildren().add(rotacionLocomotora);
+        pt.getChildren().add(transicionLocomotora);
+        
+        TranslateTransition transicionLocomotora2 =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora2);
+        RotateTransition rotacionLocomotora2 =  new RotateTransition(Duration.seconds(vel), dibujar.locomotora2);
+        transicionLocomotora2.setToX(2020);
+        transicionLocomotora2.setToY(830);
+        rotacionLocomotora2.setToAngle(0);
+        pt.getChildren().add(rotacionLocomotora2);
+        pt.getChildren().add(transicionLocomotora2);        
         sequentialTransition.getChildren().add(pt); 
+        
     }
 
     public void avanzarFerrocarril1(Vagon[] v, int inicio){
@@ -46,36 +66,38 @@ public class AnimacionesVagon {
             transicion.setToX(1500+i*70);
             pt.getChildren().add(transicion);       
         }
+        TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
+        //transicion.setToX(230+(v.length) * 70);
+        transicion.setToX(2580);
+        pt.getChildren().add(transicion);
+        
         sequentialTransition.getChildren().add(pt); 
     }
     
-    public void retrocederFerrocarril1(Vagon[] v, int fin){      
+    public void retrocederFerrocarril1(int fin){      
         pt = new ParallelTransition();
-        //retroceder locomotora
-        /*
-        for (int i = 0; i < inicio; i++) {
-            TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), v[i].v);
-            transicion.setToX(260+(i) * 70);
-            pt.getChildren().add(transicion);
-        }
-        
-        for (int i = inicio+1; i < fin; i++) {
-            TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), v[i].v);
-            transicion.setToX(260+(i-1) * 70);
-            pt.getChildren().add(transicion);
-        }
-        
+        //retroceder locomotora     
+        TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
+        transicion.setToX(1340);
+        pt.getChildren().add(transicion);
+
         sequentialTransition.getChildren().add(pt); 
-        */
+        
     }
     public void retrocederAMaxFerrocarril1(Vagon[] v, int inicio){      
         pt = new ParallelTransition();
         //retroceder locomotora
+        
         for (int i = inicio+1; i < v.length; i++) {
             TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), v[i].v);
             transicion.setToX(260+(i-1) * 70);
             pt.getChildren().add(transicion);
         }
+        
+        //retroceder locomotora     
+        TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
+        transicion.setToX(1270);
+        pt.getChildren().add(transicion);
         
         sequentialTransition.getChildren().add(pt); 
         
@@ -89,24 +111,27 @@ public class AnimacionesVagon {
             transicion.setToX(260+(i) * 70);
             pt.getChildren().add(transicion);
         }
+        //retroceder locomotora     
+        TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
+        transicion.setToX(1340);
+        pt.getChildren().add(transicion);
         sequentialTransition.getChildren().add(pt);       
     }
     
     public void retrocederFerrocarril2(Vagon[] v, int maxIndex){
         pt = new ParallelTransition();
         //locomotora
-        /*
         SequentialTransition movimientoVagon = new SequentialTransition();
         int contador=1;
-        for (int j = 2000; j >= 260+(maxIndex)*70; j-=10) {
+        for (int j = 2020; j >= 290+(maxIndex)*70; j-=10) {
 
-            TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
-            TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), v[indice].v); 
+            TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
+            TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
 
-            if(j>=1700){
-                if(j==1700){
+            if(j>=1650){
+                if(j==1650){
                     for (int k = 0; k >= -20; k--) {
-                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), v[indice].v);
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
                         rotateTransition.setToAngle(k);
                         movimientoVagon.getChildren().add(rotateTransition);
                     }
@@ -114,17 +139,17 @@ public class AnimacionesVagon {
                 avanzaAdentro.setToX(j);
                 movimientoVagon.getChildren().add(avanzaAdentro);
             }
-            else if(j>=1450 && j<1700){
+            else if(j>=1300 && j<1650){
 
-                if(j==1450){
+                if(j==1300){
                     for (int k = -20; k <= 0; k++) {
-                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), v[indice].v);
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
                         rotateTransition.setToAngle(k);
                         movimientoVagon.getChildren().add(rotateTransition);
                     }
                 }
-                avanzaArriba.setToX(1700-contador*10);
-                avanzaArriba.setToY(830+contador*4.6f);
+                avanzaArriba.setToX(1650-contador*10);
+                avanzaArriba.setToY(830+contador*3.28f); //945 pos inicial y
 
                 movimientoVagon.getChildren().add(avanzaArriba);
                 contador++;
@@ -135,7 +160,7 @@ public class AnimacionesVagon {
             }
         }
         pt.getChildren().add(movimientoVagon);   
-        sequentialTransition.getChildren().add(pt);*/
+        sequentialTransition.getChildren().add(pt);
     } 
     
     public void avanzarFerrocarril2(Vagon[] v, int indice){
@@ -178,8 +203,52 @@ public class AnimacionesVagon {
                 movimientoVagon.getChildren().add(avanzaAdentro);
             }
         }
+        
         pt.getChildren().add(movimientoVagon);   
-        sequentialTransition.getChildren().add(pt);     
+        
+        //locomotora
+        movimientoVagon = new SequentialTransition();
+        contador=1;
+        for (int j = 290+(indice)*70; j <= 2020; j+=10) {
+
+            TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
+            TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
+
+            if(j<1350){
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+            else if(j>=1350 && j<1650){
+
+                if(j==1350){
+                    for (int i = 0; i >= -20; i--) {
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
+                        rotateTransition.setToAngle(i);
+                        movimientoVagon.getChildren().add(rotateTransition);
+                    }
+                }        
+                avanzaArriba.setToX(1350+contador*10);
+                avanzaArriba.setToY(945-contador*3.83f);
+                movimientoVagon.getChildren().add(avanzaArriba);
+                
+                contador++;
+            }
+            else if (j>=1650){
+                if(j==1650){
+                    for (int i = -20; i <= 0; i++) {
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
+                        rotateTransition.setToAngle(i);
+                        movimientoVagon.getChildren().add(rotateTransition);
+                    }
+                }  
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+        }
+        pt.getChildren().add(movimientoVagon);   
+        
+        sequentialTransition.getChildren().add(pt);
+        
     }
     
     public void retrocederConMaxFerrocarril2(Vagon[] v, int indice, int maxIndex){
@@ -191,7 +260,9 @@ public class AnimacionesVagon {
         //mueve el vagon maximo
         movimientoVagon = new SequentialTransition();
         contador=1;
+
         for (int j = 2000; j >= 260+(indice)*70; j-=10) {
+
             TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), v[maxIndex].v); 
             TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), v[maxIndex].v); 
 
@@ -207,6 +278,7 @@ public class AnimacionesVagon {
                 movimientoVagon.getChildren().add(avanzaAdentro);
             }
             else if(j>=1450 && j<1700){
+
                 if(j==1450){
                     for (int k = -20; k <= 0; k++) {
                         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), v[maxIndex].v);
@@ -227,9 +299,96 @@ public class AnimacionesVagon {
         }
         pt.getChildren().add(movimientoVagon);   
         
+        //locomotora
+        movimientoVagon = new SequentialTransition();
+        contador=1;
+        for (int j = 2020; j >= 290+(indice)*70; j-=10) {
+
+            TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
+            TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
+
+            if(j>=1650){
+                if(j==1650){
+                    for (int k = 0; k >= -20; k--) {
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
+                        rotateTransition.setToAngle(k);
+                        movimientoVagon.getChildren().add(rotateTransition);
+                    }
+                }
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+            else if(j>=1300 && j<1650){
+
+                if(j==1300){
+                    for (int k = -20; k <= 0; k++) {
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
+                        rotateTransition.setToAngle(k);
+                        movimientoVagon.getChildren().add(rotateTransition);
+                    }
+                }
+                avanzaArriba.setToX(1650-contador*10);
+                avanzaArriba.setToY(830+contador*3.28f); //945 pos inicial y
+
+                movimientoVagon.getChildren().add(avanzaArriba);
+                contador++;
+            }
+            else {
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+        }
+        pt.getChildren().add(movimientoVagon);   
+        
+
         sequentialTransition.getChildren().add(pt);
+        
+        
+        //locomotora avanza
+        movimientoVagon = new SequentialTransition();
+        contador=1;
+        for (int j = 290+(indice)*70; j <= 2020; j+=10) {
+
+            TranslateTransition avanzaAdentro = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
+            TranslateTransition avanzaArriba = new TranslateTransition(Duration.seconds(velVagones), dibujar.locomotora2); 
+
+            if(j<1350){
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+            else if(j>=1350 && j<1650){
+
+                if(j==1350){
+                    for (int i = 0; i >= -20; i--) {
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
+                        rotateTransition.setToAngle(i);
+                        movimientoVagon.getChildren().add(rotateTransition);
+                    }
+                }        
+                avanzaArriba.setToX(1350+contador*10);
+                avanzaArriba.setToY(945-contador*3.83f);
+                movimientoVagon.getChildren().add(avanzaArriba);
+                
+                contador++;
+            }
+            else if (j>=1650){
+                if(j==1650){
+                    for (int i = -20; i <= 0; i++) {
+                        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(velVagones/20), dibujar.locomotora2);
+                        rotateTransition.setToAngle(i);
+                        movimientoVagon.getChildren().add(rotateTransition);
+                    }
+                }  
+                avanzaAdentro.setToX(j);
+                movimientoVagon.getChildren().add(avanzaAdentro);
+            }
+        }
+        sequentialTransition.getChildren().add(movimientoVagon);   
+        
     }
-    
+ 
+
+
     public void pintaLinea(Label label){
         colorChange = new ParallelTransition(label);
         colorChange2 = new ParallelTransition(label);
