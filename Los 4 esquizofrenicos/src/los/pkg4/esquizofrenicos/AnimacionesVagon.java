@@ -66,8 +66,9 @@ public class AnimacionesVagon {
             transicion.setToX(1500+i*70);
             pt.getChildren().add(transicion);       
         }
+        
+        //avanza locomotora
         TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
-        //transicion.setToX(230+(v.length) * 70);
         transicion.setToX(2580);
         pt.getChildren().add(transicion);
         
@@ -76,6 +77,7 @@ public class AnimacionesVagon {
     
     public void retrocederFerrocarril1(int fin){      
         pt = new ParallelTransition();
+        
         //retroceder locomotora     
         TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
         transicion.setToX(1340);
@@ -86,7 +88,6 @@ public class AnimacionesVagon {
     }
     public void retrocederAMaxFerrocarril1(Vagon[] v, int inicio){      
         pt = new ParallelTransition();
-        //retroceder locomotora
         
         for (int i = inicio+1; i < v.length; i++) {
             TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), v[i].v);
@@ -111,6 +112,7 @@ public class AnimacionesVagon {
             transicion.setToX(260+(i) * 70);
             pt.getChildren().add(transicion);
         }
+        
         //retroceder locomotora     
         TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
         transicion.setToX(1340);
@@ -120,6 +122,7 @@ public class AnimacionesVagon {
     
     public void retrocederFerrocarril2(Vagon[] v, int maxIndex){
         pt = new ParallelTransition();
+        
         //locomotora
         SequentialTransition movimientoVagon = new SequentialTransition();
         int contador=1;

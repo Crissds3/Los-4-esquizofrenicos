@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package los.pkg4.esquizofrenicos;
-
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,8 +10,6 @@ public class DibujarElementosFerrocarril {
     Canvas locomotora2 = new Canvas(120, 40);
     
     public void agregarLocomotora(int x, int y){
-        System.out.println(getClass().getResourceAsStream("img/locomotora.png"));
-
         Image image = new Image(getClass().getResourceAsStream("img/locomotora.png"));
         GraphicsContext gc = locomotora.getGraphicsContext2D();
         gc.drawImage(image, 0, 0);

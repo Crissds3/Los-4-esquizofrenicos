@@ -203,7 +203,7 @@ public class FXMLInterfazController implements Initializable {
             root.getChildren().add(animacion.canvasRepisa);
         }
         else{
-             StackPane paneFerrocarriles = new StackPane();
+            StackPane paneFerrocarriles = new StackPane();
             animacionVagon.dibujar.agregarLocomotora(2580, 945);
             animacionVagon.dibujar.agregarLocomotora2(2020, 830);
             paneFerrocarriles.getChildren().add(animacionVagon.dibujar.locomotora);
@@ -220,23 +220,18 @@ public class FXMLInterfazController implements Initializable {
             pane.getChildren().add(animacion.canvasGruaBase);
             root.getChildren().add(animacion.canvasGruaIman);
             root.getChildren().add(animacion.dibujar.cuerda);
-            //root.getChildren().add(paneVagones);
         
             myAnchorPane.getChildren().add(root);
             root.toBack();
-            pane.toFront();
-            Group root2 = new Group();
-            root2.getChildren().add(velocidad);
-            myAnchorPane.getChildren().add(root2);
+            pane.toFront();       
         }
         else{
             myAnchorPane.getChildren().add(root);
-            Group root2 = new Group();
-            root2.getChildren().add(velocidad);
-            root2.getChildren().add(finalizado);
-            myAnchorPane.getChildren().add(root2);
-            root2.toFront();
         }
+        
+        Group root2 = new Group();
+        root2.getChildren().add(velocidad);
+        myAnchorPane.getChildren().add(root2);
         myAnchorPane.setScaleX(escalaX);
         myAnchorPane.setScaleY(escalaY);
         
@@ -281,7 +276,6 @@ public class FXMLInterfazController implements Initializable {
             animacion.sequentialTransition.play();  
         }
         else{
-            animacionVagon.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
             animacionVagon.sequentialTransition.play();
         }
 
@@ -577,7 +571,6 @@ public class FXMLInterfazController implements Initializable {
                 }
             }
             
-            
             if(arr[i].valor<arr[maxIndex].valor){
                 animacionVagon.colorChange = new ParallelTransition(label7);
                 animacionVagon.colorChange.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(label7.styleProperty(), "-fx-background-color: #13bf38;"))));
@@ -595,7 +588,7 @@ public class FXMLInterfazController implements Initializable {
                 animacionVagon.sequentialTransition.getChildren().add(animacionVagon.colorChange2);
             }
             
-           Vagon temp = arr[maxIndex];
+            Vagon temp = arr[maxIndex];
             for (int j = maxIndex; j < i; j++) {
                 arr[j] = arr[j+1];
             }
