@@ -32,10 +32,30 @@ public class AnimacionesVagon {
         
         for (int i = 0; i < v.length; i++) {
             TranslateTransition transicion =  new TranslateTransition(Duration.seconds(vel), v[i].v);
+            RotateTransition rotacion =  new RotateTransition(Duration.seconds(vel), v[i].v);
             transicion.setToX(260+(i) * 70);
+            transicion.setToY(945);
+            rotacion.setToAngle(0);
+            pt.getChildren().add(rotacion);
             pt.getChildren().add(transicion);
         }
+        TranslateTransition transicionLocomotora =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora);
+        RotateTransition rotacionLocomotora =  new RotateTransition(Duration.seconds(vel), dibujar.locomotora);
+        transicionLocomotora.setToX(2580);
+        transicionLocomotora.setToY(945);
+        rotacionLocomotora.setToAngle(0);
+        pt.getChildren().add(rotacionLocomotora);
+        pt.getChildren().add(transicionLocomotora);
+        
+        TranslateTransition transicionLocomotora2 =  new TranslateTransition(Duration.seconds(vel), dibujar.locomotora2);
+        RotateTransition rotacionLocomotora2 =  new RotateTransition(Duration.seconds(vel), dibujar.locomotora2);
+        transicionLocomotora2.setToX(2020);
+        transicionLocomotora2.setToY(830);
+        rotacionLocomotora2.setToAngle(0);
+        pt.getChildren().add(rotacionLocomotora2);
+        pt.getChildren().add(transicionLocomotora2);        
         sequentialTransition.getChildren().add(pt); 
+        
     }
 
     public void avanzarFerrocarril1(Vagon[] v, int inicio){

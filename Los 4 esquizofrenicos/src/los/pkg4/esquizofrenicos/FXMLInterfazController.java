@@ -118,7 +118,7 @@ public class FXMLInterfazController implements Initializable {
         velocidad.setOnMouseDragged(event -> {
             float value = (float) velocidad.getValue();
             animacion.sequentialTransition.setRate(value);
-            animacionVagon.sequentialTransition.setRate(value);
+            if(sel==4) animacionVagon.sequentialTransition.setRate(value);
             if(sel==1) animacion.sequentialTransition2.setRate(value);
         });
 
@@ -233,9 +233,10 @@ public class FXMLInterfazController implements Initializable {
             myAnchorPane.getChildren().add(root);
             Group root2 = new Group();
             root2.getChildren().add(velocidad);
+            root2.getChildren().add(finalizado);
             myAnchorPane.getChildren().add(root2);
+            root2.toFront();
         }
-        
         myAnchorPane.setScaleX(escalaX);
         myAnchorPane.setScaleY(escalaY);
         
@@ -280,6 +281,7 @@ public class FXMLInterfazController implements Initializable {
             animacion.sequentialTransition.play();  
         }
         else{
+            animacionVagon.sequentialTransition.getChildren().add(new Timeline(new KeyFrame(Duration.seconds(vel/8),new KeyValue(finalizado.textProperty(), "Arreglo Ordenado"))));
             animacionVagon.sequentialTransition.play();
         }
 
@@ -632,11 +634,15 @@ public class FXMLInterfazController implements Initializable {
     @FXML
     private void resetea(ActionEvent event) {
         if(sel==4){
+            animacionVagon.sequentialTransition.play();
             animacionVagon.sequentialTransition.jumpTo(Duration.ZERO);
         }
         else{
+            animacion.sequentialTransition.play();
+            animacion.sequentialTransition2.play();
             animacion.sequentialTransition.jumpTo(Duration.ZERO);
             animacion.sequentialTransition2.jumpTo(Duration.ZERO);
+            
         }
     }
     
